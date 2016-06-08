@@ -1,4 +1,5 @@
 const express = require('express');
+const morgan = require('morgan');
 const webpack = require('webpack');
 const webpackMiddleWare = require('webpack-dev-middleware');
 
@@ -8,10 +9,10 @@ const app = express();
 // Setup webpack configuration
 const config = webpack({
   entry: `${__dirname}/../public/components/main.jsx`,
-  output: { path: '/' },
+  output: { path: '/', filename: 'app-bundle.js' },
   module: {
          loaders: [{
-             test: /\.js$/,
+             test: /\.jsx$/,
              exclude: /node_modules/,
              loader: 'babel-loader',
          }]
@@ -19,8 +20,11 @@ const config = webpack({
 });
 
 // Setup routes
+// Attach morgan, a request logging middleware, to all routes 
+app.use(morgan(':method :url :response-time :status'));
+
 // Attach webpack's middleware to /app-bundle.js endpoint
-app.use('/app-bundle.js', webpackMiddleWare(config, {}));
+app.use(webpackMiddleWare(config, {}));
 
 // Attach static assets to /static/ endpoint
 app.use('/static/', express.static(`${__dirname}/../public/`));
