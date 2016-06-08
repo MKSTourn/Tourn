@@ -1,17 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-class MainComponent extends React.Component {
-	constructor() {
-		super();
-	}
+/* class MainComponent extends React.Component {
+  constructor() {
+    super();
+  }
 
-	render() {
-		return (<div>I am a test.</div>);
-	}
-}
+  render() {
+    return (<div>I am a test.</div>);
+  }
+} */
+
+const MainComponent = () => <div> I am a test. </div>;
 
 ReactDOM.render(
-	<MainComponent />,
-	document.getElementById('entrypoint')
+  <MainComponent />,
+  document.getElementById('entrypoint')
 );
