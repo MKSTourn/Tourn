@@ -23,6 +23,7 @@ const config = webpack({
 });
 
 // Setup routes
+
 // Attach morgan, a request logging middleware, to all routes
 app.use(morgan(':method :url :response-time :status'));
 
