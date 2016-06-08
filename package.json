@@ -2,28 +2,42 @@
   "name": "tourn",
   "version": "0.0.0",
   "description": "A tournament organization application",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
+    "start": "nodemon server/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/YourTourn/Tourn.git"
+    "url": "git+https://github.com/MKSTourn/Tourn.git"
   },
   "author": "Zak Perryman (zack@arcaderespawn)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/YourTourn/Tourn/issues"
+    "url": "https://github.com/MKSTourn/Tourn/issues"
   },
-  "homepage": "https://github.com/YourTourn/Tourn#readme",
+  "homepage": "https://github.com/MKSTourn/Tourn#readme",
   "dependencies": {
+    "babel": "^6.5.2",
+    "babel-register": "^6.9.0",
     "express": "^4.13.4",
     "react": "^15.1.0",
-    "react-dom": "^15.1.0"
+    "react-dom": "^15.1.0",
+    "webpack-dev-middleware": "^1.6.1"
   },
   "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-core": "^6.9.1",
+    "babel-loader": "^6.2.4",
+    "babel-register": "^6.9.0",
     "chai": "^3.5.0",
+    "eslint": "^2.11.1",
+    "eslint-config-airbnb": "^9.0.1",
+    "eslint-plugin-import": "^1.8.1",
+    "eslint-plugin-jsx-a11y": "^1.3.0",
+    "eslint-plugin-react": "^5.1.1",
     "mocha": "^2.5.3",
+    "nodemon": "^1.9.2",
     "webpack": "^1.13.1"
   }
 }
