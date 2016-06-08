@@ -11,16 +11,16 @@ const config = webpack({
   entry: `${__dirname}/../public/components/main.jsx`,
   output: { path: '/', filename: 'app-bundle.js' },
   module: {
-         loaders: [{
-             test: /\.jsx$/,
-             exclude: /node_modules/,
-             loader: 'babel-loader',
-         }]
+    loaders: [{
+      test: /\.jsx$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+    }],
   },
 });
 
 // Setup routes
-// Attach morgan, a request logging middleware, to all routes 
+// Attach morgan, a request logging middleware, to all routes
 app.use(morgan(':method :url :response-time :status'));
 
 // Attach webpack's middleware to /app-bundle.js endpoint
