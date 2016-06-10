@@ -45,7 +45,7 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 Authors
 
-Mark Boraski - https://github.com/orgs/MKS-teamninja/people/SpartanSOS
+Mark Boraski - https://github.com/SpartanSOS
 
 Maher Dakkak - https://github.com/Madakkak
 
