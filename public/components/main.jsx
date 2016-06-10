@@ -12,10 +12,12 @@ var Header = require('./HeaderComponent.jsx');
   }
 } */
 
-const MainComponent = () => <div> I am a test. </div>;
+const MainComponent = () => <div> 
+  <Header />
+ </div>;
 
 ReactDOM.render(
   <MainComponent />,
-  <Header />,
+  
   document.getElementById('entrypoint')
 );
