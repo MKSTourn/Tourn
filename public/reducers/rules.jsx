@@ -1,4 +1,4 @@
-const rules = (state = [], action) => {
+const rules = (state, action) => {
  let resultState = null;
  let tournamentMorph = null;
 
@@ -14,17 +14,7 @@ const rules = (state = [], action) => {
          },
        });
        return resultState;
-
-     case 'Scoring_System':
-
-
-
-     default:
-       return state;
-   }
- }
 return state;
 };
-
 
 export default rules;
