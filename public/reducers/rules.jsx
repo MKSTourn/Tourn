@@ -16,7 +16,7 @@ const rules = (state = [], action) => {
        return resultState;
 
      case 'Scoring_System':
-      
+
 
 
      default:
