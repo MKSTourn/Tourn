@@ -1,10 +1,10 @@
-const messages(state = [], action) {
+function postMessages(state = [], action){
   switch(action.type){
     case 'ADD_MESSAGE':
       // return the new state with the new comment
-      return [...state,{
-        user: action.author,
-        text: action.comment,
+      return [...state, {
+        author: action.author,
+        comment: action.comment,
       }];
     case 'REMOVE_MESSAGE':
       // return the new state without the deleted comment
@@ -18,12 +18,14 @@ const messages(state = [], action) {
   return state;
 }
 
-function comments(state = [], action) {
+function messages(state = {}, action){
   if(typeof action.postId !== 'undefined') {
     return {
       ...state,
-      [action.postId]: messages(state[action.postId], action),
+      [action.postId]: postMessages(state[action.postId], action),
     }
   }
   return state;
 }
+
+export default messages;
