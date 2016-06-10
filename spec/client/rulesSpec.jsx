@@ -7,26 +7,43 @@
 //reducer takes initial state, action
   //changes and returns state
 //export reducer to spec for testing
-var state = {
+import 'babel-polyfill';
+import chai from 'chai';
+var expect = chai.expect;
+import rules from '../../public/reducers/rules';
+import mocha from 'mocha';
+var describe = mocha.describe;
+var it = mocha.it;
+
+/*rules_reducer*/
+
+var frozenState = {
   tournament: {
-    rule: { Tournament_Type: Value }
+    rules: {
+      rule: 'Tournament_Type',
+      value: '',
+    }
   }
 }
 var stateClone = {
   tournament: {
-    rule: { Tournament_Type: 'Round Robbin' }
+    rules: {
+      rule: 'Tournament_Type',
+      value: 'Round Robbin',
+    }
   }
 }
 var action = {
-  type: CHANGE_RULE,
-  rule: Tournament_Type,
-  value: Value
+  type: 'CHANGE_RULE',
+  rule: 'Tournament_Type',
+  value: 'Round Robbin',
 }
-import rules from '../../public/reducers/rules';
 
-var assert = require('chai').assert;
-  describe('rules_reducer', function(){
-    it('should change a rule\'s value', function(){
 
-    })
+describe('rules_reducer', function(){
+  it('should change a rule\'s value', function(){
+    expect(rules(frozenState, action)).to.deep.equal(stateClone);
   })
+})
+
+/*rules_reducer end*/
