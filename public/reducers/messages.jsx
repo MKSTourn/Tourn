@@ -1,17 +1,16 @@
-function postMessages(state = [], action){
+function postMessages(state = {}, action){
   switch(action.type){
     case 'ADD_MESSAGE':
       // return the new state with the new comment
-      return [...state, {
+      return {
         author: action.author,
         comment: action.comment,
-      }];
+      };
     case 'REMOVE_MESSAGE':
       // return the new state without the deleted comment
-      return [
-        ...state.slice(0,action.i),
-        ...state.slice(action.i + 1),
-      ]
+      return {
+        // ...state.splice(action.i, 1),
+      }
     default:
       return state;
   }
@@ -20,10 +19,8 @@ function postMessages(state = [], action){
 
 function messages(state = {}, action){
   if(typeof action.postId !== 'undefined') {
-    return {
-      ...state,
-      [action.postId]: postMessages(state[action.postId], action),
-    }
+    let _id = action.postId;
+    state.tournament.messages[action.postId] = postMessages(state.tournament.messages[action.postId], action)
   }
   return state;
 }
