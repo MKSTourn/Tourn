@@ -20,41 +20,42 @@ var it = mocha.it;
 
 var frozenState = {
   tournament: {
-    messages: {
-    }
+    messages: []
+  }
+}
+var emptyState = {
+  tournament: {
+    messages: []
   }
 }
 var stateAdd = {
   tournament: {
-    messages: {
-      '1' : {
+    messages: [
+      {
         author: 'Mark',
         comment: 'I hope this works',
       }
-    }
+    ]
   }
 }
 var action = {
   type: 'ADD_MESSAGE',
-  postId: 1,
   author: 'Mark',
   comment: 'I hope this works',
 }
 var action2 = {
   type: 'REMOVE_MESSAGE',
-  postId: 1,
-  author: 'Mark',
-  comment: 'I hope this works',
+  index: 0,
 }
 
 describe('messages_reducer', function(){
 
   it('should add a message', function(){
     expect(messages(frozenState, action)).to.deep.equal(stateAdd);
-  })
-  // it('should remove a message', function(){
-  //   expect(messages(stateAdd, action2).to.deep.equal(frozenState));
-  // })
+  });
+  it('should remove a message', function(){
+    expect(messages(stateAdd, action2)).to.deep.equal(emptyState);
+  });
 })
 
 /*messages_reducer end*/
