@@ -11,4 +11,8 @@ const HeaderComponent = () =>
   <div className="facebookLogin">Facebook Login</div>
 </div>;
 
+<<<<<<< HEAD
 module.exports = HeaderComponent;
+=======
+module.exports = HeaderComponent;
+>>>>>>> b12bfe2dd25fc0414064b21819333b7956dab1d7
