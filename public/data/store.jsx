@@ -5,12 +5,14 @@ import { browserHistory } from 'react-router';
 // import the root reducer
 import rootReducer from '../reducers/index';
 
-// import all reducers for default state
-
+// import all hard coded data for default state
+import rules from './rules';
+import messages from './messages';
 
 // create an object for the default data
 const defaultState = {
-
+  rules,
+  messages,
 };
 
 const store = createStore(rootReducer, defaultState,
