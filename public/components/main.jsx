@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-var Header = require('./HeaderComponent.jsx');
+var Header = require('./Header/HeaderComponent.jsx');
 
 /* class MainComponent extends React.Component {
   constructor() {
