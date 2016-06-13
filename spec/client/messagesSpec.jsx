@@ -18,11 +18,7 @@ var it = mocha.it;
 
 /*messages_reducer*/
 
-var frozenState = {
-  tournament: {
-    messages: []
-  }
-}
+
 var emptyState = {
   tournament: {
     messages: []
@@ -51,7 +47,7 @@ var action2 = {
 describe('messages_reducer', function(){
 
   it('should add a message', function(){
-    expect(messages(frozenState, action)).to.deep.equal(stateAdd);
+    expect(messages(emptyState, action)).to.deep.equal(stateAdd);
   });
   it('should remove a message', function(){
     expect(messages(stateAdd, action2)).to.deep.equal(emptyState);
