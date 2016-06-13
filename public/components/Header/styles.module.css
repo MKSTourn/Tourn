@@ -6,7 +6,7 @@
   background: #48b5e9;
   width: 100%;
   padding: 0 25px;
-  height: 10%;
+  height: 12%;
   color: #fff;
 }
 
@@ -57,7 +57,8 @@
 
 .facebookLogin {
   float: left;
-  width: 20%;
+  color: black;
+  width: 5%;
   float: left;
   margin-top:45px;
   position: relative;

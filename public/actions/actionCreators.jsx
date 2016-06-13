@@ -25,3 +25,4 @@ export function changeRule(type, rule, value){
     value,
   }
 }
+
