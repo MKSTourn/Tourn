@@ -61,4 +61,3 @@ class HeaderComponent extends React.Component {
 
 
 module.exports = HeaderComponent;
-
