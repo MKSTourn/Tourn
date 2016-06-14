@@ -2,25 +2,12 @@ const express = require('express');
 const morgan = require('morgan');
 const webpack = require('webpack');
 const webpackMiddleWare = require('webpack-dev-middleware');
-
+const webpackConfig = require('../webpack.config')
 // Setup web server
 const app = express();
 
 // Setup webpack configuration
-const config = webpack({
-  entry: `${__dirname}/../public/components/main.jsx`,
-  output: { path: '/', filename: 'app-bundle.js' },
-  module: {
-    loaders: [{
-      test: /\.jsx$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-    },
-    { test: /\.css$/,
-      loader: "style-loader!css-loader"
-    }],
-  },
-});
+const config = webpack(webpackConfig);
 
 // Setup routes
 
@@ -31,7 +18,7 @@ app.use(morgan(':method :url :response-time :status'));
 app.use(webpackMiddleWare(config, {}));
 
 // Attach static assets to /static/ endpoint
-app.use('/static/', express.static(`${__dirname}/../public/`));
+app.use('/static/', express.static(`${__dirname}/../client/public/`));
 
 // Simple hello world message to test server configuration
 app.get('/', (req, res) => {

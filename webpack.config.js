@@ -6,18 +6,17 @@
 //   inject: 'body'
 // });
 
-// module.exports = {
-//   entry: [
-//     './app/index.js'
-//   ],
-//   output: {
-//     path: __dirname + '/dist',
-//     filename: "index_bundle.js"
-//   },
-//   module: {
-//     loaders: [
-//       {test: /\.js$/, exclude: /node_modules/, loader: "babel-loader"}
-//     ]
-//   },
-//   plugins: [HTMLWebpackPluginConfig]
-// };
+module.exports = {
+  entry: `${__dirname}/client/src/components/Main.jsx`,
+  output: { path: '/', filename: 'app-bundle.js' },
+  module: {
+    loaders: [{
+      test: /\.jsx$/,
+      exclude: /node_modules/,
+      loader: 'babel-loader',
+    },
+    { test: /\.css$/,
+      loader: 'style-loader!css-loader',
+    }],
+  },
+};

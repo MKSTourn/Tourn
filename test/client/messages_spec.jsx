@@ -11,7 +11,7 @@
 import 'babel-polyfill';
 import chai from 'chai';
 var expect = chai.expect;
-import messages from '../../public/reducers/messages';
+import messages from '../../client/src/reducers/messages';
 import mocha from 'mocha';
 var describe = mocha.describe;
 var it = mocha.it;
