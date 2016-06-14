@@ -49,6 +49,7 @@ function generateBracketPoints(playerCount, width, height) {
     uncalculatedMatches = Math.floor(uncalculatedMatches / 2);
     currentRound++;
   }
+
   for (let j = 0; j < Math.ceil(Math.log2(playerCount)); j++) {
     let matches = 0;
     for (let i = 1; i < Math.ceil(Math.log2(playerCount)); i++) {
