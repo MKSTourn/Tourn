@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HeaderComponent } from './Header/HeaderComponent.jsx';
-import { Bracket } from './bracket.jsx';
+import { HeaderComponent } from './Header.jsx';
+import { Bracket } from './Bracket.jsx';
 
 
 /* class MainComponent extends React.Component {
