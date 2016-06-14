@@ -1,4 +1,4 @@
-//user adds message
+// user adds message
 export function addMessage(postId, author, message){
   return {
     type: 'ADD_MESSAGE',
