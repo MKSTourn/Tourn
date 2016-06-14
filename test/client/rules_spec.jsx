@@ -10,7 +10,7 @@
 import 'babel-polyfill';
 import chai from 'chai';
 var expect = chai.expect;
-import rules from '../../public/reducers/rules';
+import rules from '../../client/src/reducers/rules';
 import mocha from 'mocha';
 var describe = mocha.describe;
 var it = mocha.it;

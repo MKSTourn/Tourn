@@ -1,6 +1,6 @@
 const rules = (state = [], action) => {
- let resultState = null;
- let tournamentMorph = null;
+  let resultState = null;
+  let tournamentMorph = null;
 
  if (action.type === 'CHANGE_RULE') {
    resultState = Object.assign({}, state);
