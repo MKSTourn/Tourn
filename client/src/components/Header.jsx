@@ -1,5 +1,8 @@
 import React from 'react';
 import '../styles/header_styles.css';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+
+var reactMixin = require('react-mixin');
 
 class HeaderComponent extends React.Component {
   constructor() {
@@ -56,5 +59,7 @@ class HeaderComponent extends React.Component {
     );
   }
 }
+
+reactMixin(HeaderComponent.prototype, PureRenderMixin);
 
 export { HeaderComponent };
