@@ -10,7 +10,7 @@ export function inviteNewPlayer(){}
 //**Chatbox**//
 
 //In chatbox, user adds message
-export function addMessage(postId, author, message){
+export function addMessage(postId, author, message) {
   return {
     type: 'ADD_MESSAGE',
     postId,
