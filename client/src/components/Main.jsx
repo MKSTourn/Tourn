@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HeaderComponent } from './Header.jsx';
-import { Bracket } from './Bracket.jsx';
+import { Bracket, store } from './Bracket.jsx';
 
 
 /* class MainComponent extends React.Component {
@@ -17,12 +17,12 @@ import { Bracket } from './Bracket.jsx';
 
 // console.log(Bracket);
 
-const MainComponent = () => (<div>
+const MainComponent = (props) => (<div>
   <HeaderComponent />
-  <Bracket />
+  <Bracket store={props.store} />
 </div>);
 
 ReactDOM.render(
-  <MainComponent />,
+  <MainComponent store={store} />,
   document.getElementById('entrypoint')
 );

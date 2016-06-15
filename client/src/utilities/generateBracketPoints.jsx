@@ -1,14 +1,11 @@
 // We generate the offsets nescessary for comformance to a regular power of 2 sized bracket
 // We do not currently support non-power of 2 size brackets
 
-function getMatchVerticalOffset(matchCount, currentRound) {
-  return 1 / (matchCount / currentRound);
-}
-
 function getMatchVerticalSpacing(currentRound, currentMatch, matchCount) {
-  const offset = getMatchVerticalOffset(matchCount, currentRound);
+  const endRound = Math.floor(Math.log2(matchCount) + 1);
+  const offset = 1 / Math.pow(2, endRound - currentRound);
 
-  if (currentMatch === 1 && currentRound > Math.ceil(Math.log2(matchCount))) {
+  if (endRound === currentRound) {
     return 0.5;
   }
 
@@ -42,7 +39,7 @@ function generateBracketPoints(playerCount, width, height) {
 
       result.push([
         { x: horizontalSpacing * width, y: verticalSpacing * height },
-        { x: horizontalSpacing * width + (width * 0.2), y: verticalSpacing * height },
+        { x: horizontalSpacing * width + (width * (1 / (Math.log2(matchCount) + 1))), y: verticalSpacing * height },
       ]);
     }
 
@@ -74,6 +71,5 @@ export {
   generateBracketPoints,
   getMatchHorizontalOffset,
   getMatchHorizontalSpacing,
-  getMatchVerticalOffset,
   getMatchVerticalSpacing,
 };
