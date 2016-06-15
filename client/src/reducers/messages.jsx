@@ -1,7 +1,7 @@
 function messages(state, action){
   let newState = Object.assign(state, {});
   let newTournamentState = Object.assign(state.tournament, {});
-  let newMessageArray = Object.assign(state.tournament.messages, [])
+  let newMessageArray = Object.assign(state.tournament.messages, []);
   newState.tournament = newTournamentState;
   newState.tournament.messages = newMessageArray;
   switch(action.type){

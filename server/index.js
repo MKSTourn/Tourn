@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const webpack = require('webpack');
 const webpackMiddleWare = require('webpack-dev-middleware');
-const webpackConfig = require('../webpack.config')
+const webpackConfig = require('../webpack.config');
 // Setup web server
 const app = express();
 
@@ -17,6 +17,7 @@ app.use(morgan(':method :url :response-time :status'));
 // Attach webpack's middleware to /app-bundle.js endpoint
 app.use(webpackMiddleWare(config, {}));
 
+// facebookAuthFn(app);
 // Attach static assets to /static/ endpoint
 app.use('/static/', express.static(`${__dirname}/../client/public/`));
 
