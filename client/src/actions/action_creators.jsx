@@ -26,3 +26,9 @@ export function changeRule(type, rule, value){
   }
 }
 
+export function handleNewTourn(){
+  return {
+    
+  }
+}
+
