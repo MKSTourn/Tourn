@@ -16,7 +16,7 @@ class HeaderComponent extends React.Component {
     this.handleLogin = this.handleLogin.bind(this);
   }
 
-  handleNewTourn() {
+  handleNewTourn(state, newTourns) {
     if (this.state.logged_in) {
       console.log('Creating new tournament');
     } else {
