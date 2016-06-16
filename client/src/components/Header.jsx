@@ -18,35 +18,19 @@ class HeaderComponent extends React.Component {
   }
 
   handleNewTourn() {
-    if (this.state.logged_in) {
-      console.log('Creating new tournament');
-    } else {
-      console.log('Please register or login to complete action');
-    }
+    console.log('Creating new tournament');
   }
 
   submitNewTourn() {
-    if (this.state.logged_in) {
-      console.log('New tournament submitted');
-    } else {
-      console.log('Please register or login to complete action');
-    }
+    console.log('New tournament submitted');
   }
 
   handleAllTourns() {
-    if (this.state.logged_in) {
-      console.log('Showing list of all user tournaments');
-    } else {
-      console.log('Please register or login to complete action');
-    }
+    console.log('Showing list of all user tournaments');
   }
 
   handleAlerts() {
-    if (this.state.logged_in) {
-      console.log('Showing list of all user alerts');
-    } else {
-      console.log('Please register or login to complete action');
-    }
+    console.log('Showing list of all user alerts');
   }
 
   handleLogin() {
