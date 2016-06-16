@@ -19,24 +19,17 @@ app.use(webpackMiddleWare(config, {}));
 
 // facebookAuthFn(app);
 // Attach static assets to /static/ endpoint
-app.use('/static/', express.static(`${__dirname}/../client/public/`));
+app.use('/', express.static(`${__dirname}/../client/public/`));
 
 // Simple hello world message to test server configuration
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
 
 // Start listening to a port defined by the environment or 4000
 const port = process.env.PORT || 4000;
 console.log(`Listening on port: ${port}`);
-app.listen(port);
 
 
 //***Facebook Stuff For Now***//
 
-var express = require('express');
-var app = express();
-var User = require('./models/users');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var cookieSession = require('cookie-session');
@@ -73,8 +66,8 @@ passport.deserializeUser(function(obj, done) {
 
 //***************Facebook Authentication Routing********************
 passport.use(new FacebookStrategy({
-    clientID: '986354861484992',
-    clientSecret: '7966d7fab2fd294004fd28622a1aaad8',
+    clientID: '',
+    clientSecret: '',
     callbackURL: "http://localhost:4000/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
@@ -129,3 +122,5 @@ app.get('/auth/facebook/callback',
   }
 );
 //******************************************************************
+
+app.listen(port);
