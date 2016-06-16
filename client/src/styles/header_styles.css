@@ -26,6 +26,22 @@
   padding-bottom: 5px;
 }
 
+.submitTournamentButton {
+  float: left;
+  margin-top: 30px;
+  width:40px;
+  height:40px;
+  border: 2px solid #f5f5f5;
+  border-radius: 50%;
+  color:#f5f5f5;
+  text-decoration:none;
+  background: #464646;
+  box-shadow: 0 0 3px gray;
+  font-size:25px;
+  font-weight:bold;
+  padding-bottom: 5px;
+}
+
 .symbol {
   position: relative;
 }
