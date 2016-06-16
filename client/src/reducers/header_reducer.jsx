@@ -1,5 +1,3 @@
-import { HeaderComponent } from '../components/Header';
-
 export default function headerReducer(state = Map(), action) {
   switch (action.type) {
   case 'HANDLE_NEW_TOURN':
@@ -13,5 +11,3 @@ export default function headerReducer(state = Map(), action) {
   }
   return state;
 }
-
-
