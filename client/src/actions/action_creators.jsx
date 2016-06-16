@@ -76,11 +76,26 @@ export function changeRule(type, rule, value){
   }
 }
 
+
 //**Header**//
 
 //In header, organizer clicks on the create new tournament button
-export function createNewTourn(){}
+export function createNewTourn(){
+  type: 'CREATE_NEW_TOURN'
+}
+
+//In header, organizer clicks on the view tournaments button
+export function handleAllTourns(){
+  type: 'HANDLE_ALL_TOURNS'
+}
 
 //In header, user clicks on the alert bell icon
-export function alertButtonToggle(){}
+export function alertButtonToggle(){
+  type: 'HANDLE_ALERTS'
+}
+
+//In header, organizer clicks on the login button
+export function handleLogin(){
+  type: 'HANDLE_LOGIN'
+}
 
