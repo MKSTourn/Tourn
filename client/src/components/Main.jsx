@@ -24,5 +24,5 @@ const MainComponent = () => (<div>
 
 ReactDOM.render(
   <MainComponent />,
-  document.getElementById('entrypoint')
+  document.getElementById('header')
 );
