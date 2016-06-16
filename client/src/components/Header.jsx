@@ -48,13 +48,12 @@ class HeaderComponent extends React.Component {
   render() {
     return (
       <div className="topbar">
-        <button onClick={this.handleNewTourn} className="addTournamentButton">
-          <span className="symbol">+</span>
-        </button>
-        <button onClick={this.handleAllTourns} className="dropdownBtn">All Tournaments</button>
+        { this.state.logged_in ? <button onClick={this.handleNewTourn} className="addTournamentButton">
+                                  <span className="symbol">+</span></button> : null }
+        { this.state.logged_in ? <button onClick={this.handleAllTourns} className="dropdownBtn">My Tournaments</button> : null }
         <h1 className="center">Tourn</h1>
-        <button onClick={this.handleAlerts} className="alertBtn">Alerts</button>
-        <button onClick={this.handleLogin} className="facebookLogin">Facebook Login</button>
+        { this.state.logged_in ? <button onClick={this.handleAlerts} className="alertBtn">Alerts</button> : null }
+        { !this.state.logged_in ? <button onClick={this.handleLogin} className="facebookLogin">Login</button> : null }
       </div>
     );
   }

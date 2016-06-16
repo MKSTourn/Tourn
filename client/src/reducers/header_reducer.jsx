@@ -1,6 +1,6 @@
 export default function headerReducer(state = Map(), action) {
   switch (action.type) {
-  case 'HANDLE_NEW_TOURN':
+  case 'CREATE_NEW_TOURN':
     return handleNewTourn(state, action.entries);
   case 'HANDLE_ALL_TOURNS':
     return handleAllTourns(state, action.entries);
