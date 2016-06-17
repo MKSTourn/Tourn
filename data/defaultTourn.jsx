@@ -1,13 +1,13 @@
 export default const defaultTourn = {
-  tournId: 2, // integer
+  tournId: null, // integer
   tournName: 'My Tournament', // tourn name string
   tournType: 'single', // tourn type string (single, double, roundrobin)
-  organizerId: 1, // user id of organizer
+  organizerId: 5, // user id of organizer
   chatHistory: [],
   rules: '', // organizer defined rules text string
   roster: [
     {
-      playerId: 1, // integer
+      playerId: 5, // integer
       playerStatus: 'Match 1', // text determining player's status in tournament
                         // 'Eliminated', 'Match X' where X is the player's active match
       playerName: 'Adam Smith',   // player name string

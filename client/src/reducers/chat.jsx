@@ -30,3 +30,23 @@ function messages(state, action){
 }
 
 export default messages;
+
+
+export default rules;
+
+import { fromJS } from 'immutable';
+import { defaultTourn } from '../../../data/defaultTourn';
+
+function handleMessageSubmit(state, newMode) {
+  return state.set('mode', newMode).set('tournament', fromJS(defaultTourn));
+}
+
+
+export default function tournInfo(state, action) {
+  switch (action.type) {
+    case 'SUBMIT_MESSAGE':
+      return handleMessageSubmit(action.data);
+    default:
+      return state;
+  }
+}

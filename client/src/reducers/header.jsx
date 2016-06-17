@@ -1,44 +1,43 @@
-import { fromJS } from 'immutable';
-import { defaultTourn } from '../../../data/defaultTourn';
-
-function handleCreate(state, newMode) {
-  return state.set('mode', newMode).set('tournament', fromJS(defaultTourn));
-}
+//
+// Header reducer
+//
 
 function handleSubmit(state, data) {
   // TODO: submit new tourn data to server
+  // provide tournament object
 }
 
-function handleToggleSelect(state, data) {
-  // body...
+function handleToggleSelect(state, showTournList) {
+  return state.set('showTournList', !showTournList);
 }
 
-function handleToggleAlerts(state, data) {
-  // body...
+function handleToggleAlerts(state, showAlertList) {
+  return state.set('showAlertList', !showAlertList);
 }
 
 function handleDeleteAlert(state, data) {
-  // body...
+  // TODO: submit delete request to server
+  // provide userId, alert array index to delete
 }
 
 function handleSelectTourn(state, data) {
-  // body...
+  // TODO: submit selected tourn to server
+  // provide tournId
 }
 
 function handleAcceptInvite(state, data) {
-  // body...
+  // TODO: submit accepted tourn to server
+  // provide userId, tournId, and alert array index to delete
 }
 
 export default function header(state, action) {
   switch (action.type) {
-    case 'CREATE_NEW_TOURN':
-      return handleCreate(state, action.mode);
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state, action.data); // TODO: specify action data
     case 'TOGGLE_SELECT':
-      return handleToggleSelect(state, action.data);
+      return handleToggleSelect(state.header, action.data);
     case 'TOGGLE_ALERTS':
-      return handleToggleAlerts(state, action.data);
+      return handleToggleAlerts(state.header, action.data);
     case 'SELECT_TOURN':
       return handleSelectTourn(state, action.data);
     case 'DELETE_ALERT':

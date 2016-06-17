@@ -3,6 +3,8 @@ const state = {
   mode: 'LoggedOut', // string identifying app mode
                      // modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
   header: {
+    showTournList: false,
+    showAlertList: false,
     userData: {
       userId: null, // integer
       facebookId: null, // integer
@@ -15,21 +17,24 @@ const state = {
           isInvite: false, // true if the alert is an invite
         },
       ],
-      userTourns: [], // array of tournament ids this user is apart of
+      userTourns: [{name, id}], // array of tournament ids this user is apart of
     },
   },
   tournament: {
-    tournId: null, // integer
-    tournName: '', // tourn name string
-    tournType: '', // tourn type string (single, double, roundrobin)
-    organizerId: null, // user id of organizer
+    tournInfo: {
+      tournId: null, // integer
+      tournName: '', // tourn name string
+      tournType: '', // tourn type string (single, double, roundrobin)
+      organizerId: null, // user id of organizer
+      rules: '', // organizer defined rules text string
+    },
     chatHistory: [
       {
         authorId: null, // id of user who wrote message
         comment: '', // user message string
+        timeStamp: '',
       },
     ],
-    rules: '', // organizer defined rules text string
     roster: [
       {
         playerId: null, // integer
