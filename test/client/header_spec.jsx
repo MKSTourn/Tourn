@@ -1,17 +1,17 @@
-import {List, Map, fromJS, Range} from 'immutable';
-import {expect} from 'chai';
+import { List, Map, fromJS, toJS } from 'immutable';
+import { expect } from 'chai';
+import { describe, it } from 'mocha';
+import { LoggedOut, LoggedIn, Edit } from './states/header_states';
+import rootReducer from '../../client/src/reducers/header_reducer';
+import { createNewTourn } from '../../client/src/actions/action_creators';
 
-// import reducer from '../src/reducer';
+describe('header reducer', () => {
+  it('handles CREATE_NEW_TOURN', () => {
+    const initialState = fromJS(LoggedIn);
 
-describe('single elimination tournament logic', () => {
+    const nextState = rootReducer(initialState, createNewTourn('Edit'));
+    expect(nextState.toJS()).to.deep.equal(Edit);
 
-  it('selects the right bracket size for the number of players', () => {
-    // Generate a sequence of player numbers
-    const playerCounts = Range(1, 16, 3);
-
-    // Generate a List of bracket sizes for each player number
-    const bracketSizes = playerCounts.map(playerCount => getBracketSize(playerCount))
-    expect(bracketSizes).to.equal(Seq.of(2, 4, 8, 16, 16, 16));
 //     const initialState = Map();
 //     const action = {
 //       type: 'SET_STATE',
@@ -21,7 +21,7 @@ describe('single elimination tournament logic', () => {
 //           tally: Map({Trainspotting: 1})
 //         })
 //       })
-    // };
+//     };
 //     const nextState = reducer(initialState, action);
 
 //     expect(nextState).to.equal(fromJS({
@@ -32,7 +32,7 @@ describe('single elimination tournament logic', () => {
 //     }));
   });
 
-  it('advances the winner to the next match', () => {
+//   it('handles SET_STATE with plain JS payload', () => {
 //     const initialState = Map();
 //     const action = {
 //       type: 'SET_STATE',
@@ -51,9 +51,9 @@ describe('single elimination tournament logic', () => {
 //         tally: {Trainspotting: 1}
 //       }
 //     }));
-  });
+//   });
 
-  it('declares a winner when advancing the final match', () => {
+//   it('handles SET_STATE without initial state', () => {
 //     const action = {
 //       type: 'SET_STATE',
 //       state: {
@@ -71,7 +71,7 @@ describe('single elimination tournament logic', () => {
 //         tally: {Trainspotting: 1}
 //       }
 //     }));
-  });
+//   });
 
 //   it('handles VOTE by setting hasVoted', () => {
 //     const state = fromJS({
@@ -134,5 +134,5 @@ describe('single elimination tournament logic', () => {
 //       }
 //     }));
 //   });
-// });
+});
 

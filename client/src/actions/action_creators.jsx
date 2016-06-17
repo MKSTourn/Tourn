@@ -63,39 +63,62 @@ export function editTournName(){}
 
 //**Rules**//
 
-//In rules (after new tournament creation button clicked, but before new tournament submission), 
-  //organizer clicks button
+//In rules (after new tournament creation button clicked, but before new tournament submission),
+  // organizer clicks button
 export function cancelNewTourn(){}
 
-//In rules, user edits a rule by clicking on it
-export function changeRule(type, rule, value){
+// In rules, user edits a rule by clicking on it
+export function changeRule(type, rule, value) {
   return {
     type: 'CHANGE_RULE',
     rule,
     value,
-  }
+  };
 }
 
+// **Header** //
 
-//**Header**//
-
-//In header, organizer clicks on the create new tournament button
-export function createNewTourn(){
-  type: 'CREATE_NEW_TOURN'
+// In header, organizer clicks on the create new tournament button
+export function createNewTourn(mode) {
+  return {
+    type: 'CREATE_NEW_TOURN',
+    mode,
+  };
 }
 
-//In header, organizer clicks on the view tournaments button
-export function handleAllTourns(){
-  type: 'HANDLE_ALL_TOURNS'
+// In header, organizer clicks on the view tournaments button
+export function toggleTournSelect() {
+  return {
+    type: 'TOGGLE_SELECT',
+  };
 }
 
-//In header, user clicks on the alert bell icon
-export function alertButtonToggle(){
-  type: 'HANDLE_ALERTS'
+// In header, user clicks on the alert bell icon
+export function toggleAlertView() {
+  return {
+    type: 'TOGGLE_ALERTS',
+  };
 }
 
-//In header, organizer clicks on the login button
-export function handleLogin(){
-  type: 'HANDLE_LOGIN'
+export function selectTourn(tournId) {
+  return {
+    type: 'SELECT_TOURN',
+    tournId,
+  };
 }
 
+export function deleteAlert(userId, alertId) {
+  return {
+    type: 'DELETE_ALERT',
+    userId,
+    alertId,
+  };
+}
+
+export function acceptInvite(userId, tournId) {
+  return {
+    type: 'ACCEPT_INVITE',
+    userId,
+    tournId,
+  };
+}
