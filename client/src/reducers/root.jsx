@@ -6,6 +6,10 @@ import messages from './messages';
 import header from './header_reducer';
 import bracket from './bracket';
 
-const rootReducer = combineReducers({ rules, messages, header, bracket, routing: routerReducer });
+const rootReducer = combineReducers({
+  header,
+  tournament,
+  mode,
+});
 
 export default rootReducer;
