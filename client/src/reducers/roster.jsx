@@ -1,17 +1,15 @@
-export default rules;
+//
+// Roster Reducer
+//
 
-import { fromJS } from 'immutable';
-import { defaultTourn } from '../../../data/defaultTourn';
-
-function handlTemplate(state, newMode) {
-  return state.set('mode', newMode).set('tournament', fromJS(defaultTourn));
+function toggleInviteBtn(state, showInviteBtn) {
+  return state.set('showInviteBtn', showInviteBtn);
 }
 
-
-export default function tournInfo(state, action) {
+export default function roster(state, action) {
   switch (action.type) {
     case 'TEMPLATE':
-      return handleCreate(state, action.mode);
+      return handleCreate(state.tournament, action.mode);
     default:
       return state;
   }

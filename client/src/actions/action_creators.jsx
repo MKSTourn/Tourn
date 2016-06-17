@@ -1,3 +1,17 @@
+
+//**Mode**//
+
+// string identifying app mode
+// modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
+export function changeMode(postId, author, message) {
+  return {
+    type: 'CHANGE_MODE',
+    mode,
+}
+
+
+
+
 //
 //*********** Server actions: ************//
 //
@@ -78,13 +92,6 @@ export function changeRule(type, rule, value) {
 
 // **Header** //
 
-// In header, organizer clicks on the create new tournament button
-export function createNewTourn(mode) {
-  return {
-    type: 'CREATE_NEW_TOURN',
-    mode,
-  };
-}
 
 // In header, organizer clicks on the view tournaments button
 export function toggleTournSelect() {
