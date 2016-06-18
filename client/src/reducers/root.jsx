@@ -3,12 +3,9 @@
 //
 
 import { combineReducers } from 'redux';
-import { routerReducer } from 'react-router-redux';
-
-import rules from './rules';
-import messages from './messages';
-import header from './header_reducer';
-import bracket from './bracket';
+import header from './header';
+import tournament from './tournament';
+import mode from './mode';
 
 const rootReducer = combineReducers({
   header,

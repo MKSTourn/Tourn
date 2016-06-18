@@ -1,3 +1,8 @@
+//
+// Bracket helpers
+// Single elimination tournament logic
+//
+
 // Return a bracket size equal to the player count rounded
 // up to the next power of 2
 export function getBracketSize(playerCount) {

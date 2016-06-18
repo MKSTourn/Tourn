@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux';
 
-import rules from './tournInfo';
+import info from './info';
 import chat from './chat';
 import bracket from './bracket';
 import roster from './roster';
-import rules from './rules';
 
-export default const tournamentReducer = combineReducers({
-  tournInfo,
+const tournament = combineReducers({
+  info,
   chat,
   bracket,
   roster,
-  rules
 });
+
+export default tournament;

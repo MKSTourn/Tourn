@@ -11,14 +11,14 @@ function handleUpdateBracket(state, bracket) {
   return state.set('bracket', bracket)
 }
 
-export default function bracket(state = INITIAL_STATE, newBracket) {
+export default function bracket(state, newBracket) {
   switch (action.type) {
     case 'SUBMIT_ADVANCE':
       return handleSubmitAdvance(state.tournament, action.bracket);
     case 'UNDO_ADVANCE':
       // TODO: allow user to undo advance state change
     case 'UPDATE_BRACKET':
-      return handleBracketUpdate(state.tournament, action.bracket);
+      return handleUpdateBracket(state.tournament, action.bracket);
     default:
       return state;
   }

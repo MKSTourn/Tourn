@@ -1,4 +1,6 @@
-// Initial application state
+//
+// Template state
+//
 const state = {
   mode: 'LoggedOut', // string identifying app mode
                      // modes: LoggedOut, LoggedIn, Edit, Registration
@@ -20,8 +22,8 @@ const state = {
       userTourns: [
         {
           tournName: '',
-          tournId: ''
-        }
+          tournId: '',
+        },
       ],  // array of tournaments this user is apart of
     },
   },
@@ -32,6 +34,7 @@ const state = {
       tournType: '', // tourn type string (single, double, roundrobin)
       isOrganizer: false, // true if the current user is the organizer of this tourn
       rules: '', // organizer defined rules text string
+      bracketSize: null, // bracket size integer set to closest power of 2
     },
     chatHistory: [
       {
@@ -52,7 +55,6 @@ const state = {
       },
     ],
     bracket: {
-      bracketSize: null, // bracket size integer set to closest power of 2
       matches: [
         {
           player1: {

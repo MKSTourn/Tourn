@@ -2,13 +2,13 @@
 // Mode reducer
 //
 
-function handleChangeMode(state, newMode) {
-  return state.set('mode', newMode);
+function handleChangeMode(state, mode) {
+  return state.set('mode', mode);
   // TODO: freeze future UI
   // TODO: show spinner
 }
 
-export default function tournInfo(state, action) {
+export default function mode(state, action) {
   switch (action.type) {
     case 'CHANGE_MODE':
       return handleChangeMode(state, action.mode);

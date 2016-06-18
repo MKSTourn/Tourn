@@ -2,14 +2,14 @@
 // Roster Reducer
 //
 
-function toggleInviteBtn(state, showInviteBtn) {
+function handleToggleInvite(state, showInviteBtn) {
   return state.set('showInviteBtn', showInviteBtn);
 }
 
 export default function roster(state, action) {
   switch (action.type) {
-    case 'TEMPLATE':
-      return handleCreate(state.tournament, action.mode);
+    case 'SHOW_INVITE':
+      return handleToggleInvite(state.tournament, action.showInviteBtn);
     default:
       return state;
   }

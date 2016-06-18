@@ -2,7 +2,7 @@ import { List, Map, fromJS, toJS } from 'immutable';
 import { expect } from 'chai';
 import { describe, it } from 'mocha';
 import { LoggedOut, LoggedIn, Edit } from './states/header_states';
-import rootReducer from '../../client/src/reducers/header_reducer';
+import rootReducer from '../../client/src/reducers/header';
 import { createNewTourn } from '../../client/src/actions/action_creators';
 
 describe('header reducer', () => {
@@ -11,26 +11,8 @@ describe('header reducer', () => {
 
     const nextState = rootReducer(initialState, createNewTourn('Edit'));
     expect(nextState.toJS()).to.deep.equal(Edit);
-
-//     const initialState = Map();
-//     const action = {
-//       type: 'SET_STATE',
-//       state: Map({
-//         vote: Map({
-//           pair: List.of('Trainspotting', '28 Days Later'),
-//           tally: Map({Trainspotting: 1})
-//         })
-//       })
-//     };
-//     const nextState = reducer(initialState, action);
-
-//     expect(nextState).to.equal(fromJS({
-//       vote: {
-//         pair: ['Trainspotting', '28 Days Later'],
-//         tally: {Trainspotting: 1}
-//       }
-//     }));
   });
+});
 
 //   it('handles SET_STATE with plain JS payload', () => {
 //     const initialState = Map();
@@ -134,5 +116,3 @@ describe('header reducer', () => {
 //       }
 //     }));
 //   });
-});
-

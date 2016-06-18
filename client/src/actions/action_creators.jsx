@@ -1,109 +1,26 @@
+//
+// TOURN ACTION CREATORS
+//
 
-//**Mode**//
+//
+// Mode
+//
 
-// string identifying app mode
-// modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
-export function changeMode(postId, author, message) {
+export function changeMode(mode) {
   return {
     type: 'CHANGE_MODE',
     mode,
-}
-
-
-
-
-//
-//*********** Server actions: ************//
-//
-
-//**Roster**//
-
-//In roster, user clicks invite new player button
-export function inviteNewPlayer(){}
-
-//**Chatbox**//
-
-//In chatbox, user adds message
-export function addMessage(postId, author, message) {
-  return {
-    type: 'ADD_MESSAGE',
-    postId,
-    author,
-    comment,
-  }
-}
-
-//In chatbox, user removes message
-export function removeMessage(postId, i){
-  return {
-    type: 'REMOVE_MESSAGE',
-    i,
-    postId,
-  }
-}
-
-//**Bracket**//
-
-//In bracket, organizer clicks on winner
-export function advanceWinner(){}
-
-//**Rules**//
-
-//In rules, organizer clicks to start the tournament
-export function startTourn(){}
-
-//In rules, organizer clicks to end the tournament
-export function endTourn(){}
-
-//**Header**//
-
-//In header on flipped create new tournament button, user clicks when finished designing tournament
-export function submitTournCreated(){}
-
-//In header alerts, user clicks accept
-export function acceptTournInvite(){}
-
-//In header alerts, user clicks decline
-export function declineTournInvite(){}
-
-//
-//*********** Client actions: ************//
-//
-
-//**Bracket**//
-
-//In bracket, organizer types in the tournament
-export function editTournName(){}
-
-//**Rules**//
-
-//In rules (after new tournament creation button clicked, but before new tournament submission),
-  // organizer clicks button
-export function cancelNewTourn(){}
-
-// In rules, user edits a rule by clicking on it
-export function changeRule(type, rule, value) {
-  return {
-    type: 'CHANGE_RULE',
-    rule,
-    value,
   };
 }
 
-// **Header** //
+//
+// Header
+//
 
-
-// In header, organizer clicks on the view tournaments button
-export function toggleTournSelect() {
+export function submitNewTourn(tourn) {
   return {
-    type: 'TOGGLE_SELECT',
-  };
-}
-
-// In header, user clicks on the alert bell icon
-export function toggleAlertView() {
-  return {
-    type: 'TOGGLE_ALERTS',
+    type: 'SUBMIT_NEW_TOURN',
+    tourn,
   };
 }
 
@@ -114,11 +31,11 @@ export function selectTourn(tournId) {
   };
 }
 
-export function deleteAlert(userId, alertId) {
+export function deleteAlert(userId, alert) {
   return {
     type: 'DELETE_ALERT',
     userId,
-    alertId,
+    alert,
   };
 }
 
@@ -127,5 +44,98 @@ export function acceptInvite(userId, tournId) {
     type: 'ACCEPT_INVITE',
     userId,
     tournId,
+  };
+}
+
+export function toggleTournSelect(showTournList) {
+  return {
+    type: 'TOGGLE_SELECT',
+    showTournList,
+  };
+}
+
+export function toggleAlerts(showAlertList) {
+  return {
+    type: 'TOGGLE_SELECT',
+    showAlertList,
+  };
+}
+
+//
+// Tourn Info
+//
+
+export function updateId(tournId) {
+  return {
+    type: 'UPDATE_ID',
+    tournId,
+  };
+}
+
+export function updateType(tournType) {
+  return {
+    type: 'UPDATE_TYPE',
+    tournType,
+  };
+}
+
+export function updateName(tournName) {
+  return {
+    type: 'UPDATE_NAME',
+    tournName,
+  };
+}
+
+export function updateRules(tournRules) {
+  return {
+    type: 'UPDATE_RULES',
+    tournRules,
+  };
+}
+
+export function updateSize(bracketSize) {
+  return {
+    type: 'UPDATE_BRACKET_SIZE',
+    bracketSize,
+  };
+}
+
+//
+// Chat
+//
+
+export function updateChat(chat) {
+  return {
+    type: 'UPDATE_CHAT',
+    chat,
+  };
+}
+
+//
+// Roster
+//
+
+export function toggleInviteBtn(bracket) {
+  return {
+    type: 'SHOW_INVITE',
+    bracket,
+  };
+}
+
+//
+// Bracket
+//
+
+export function submitAdvance(bracket) {
+  return {
+    type: 'SUBMIT_ADVANCE',
+    bracket,
+  };
+}
+
+export function updateBracket(bracket) {
+  return {
+    type: 'UPDATE_BRACKET',
+    bracket,
   };
 }
