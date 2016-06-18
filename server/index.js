@@ -3,6 +3,7 @@ const morgan = require('morgan');
 const webpack = require('webpack');
 const webpackMiddleWare = require('webpack-dev-middleware');
 const webpackConfig = require('../webpack.config');
+const uuid = require('uuid');
 // Setup web server
 const app = express();
 
@@ -28,26 +29,28 @@ const port = process.env.PORT || 4000;
 console.log(`Listening on port: ${port}`);
 
 
-//***Facebook Stuff For Now***//
+//* **Facebook Stuff For Now***//
 
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var cookieSession = require('cookie-session');
-var session = require('express-session');
-var uuid = require('uuid-v4');
-var passport = require('passport'),
- FacebookStrategy = require('passport-facebook').Strategy;
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const cookieSession = require('cookie-session');
+const session = require('express-session');
+
+const passport = require('passport');
+const FacebookStrategy = require('passport-facebook').Strategy;
+
+require('./database-config.js');
+const Users = require('./models/users.js');
+
 //
 // creates unique UUID for session
 //
 app.use(session({
-  genid: function(req) {
-    return uuid(); 
-  },
+  genid: () => uuid(),
   secret: 'keyboard cat',
   resave: false,
   saveUninitialized: true,
-  cookie: { maxAge: 100000 }
+  cookie: { maxAge: 365 * 24 * 60 * 60 * 1000 }, //
 }));
 app.use(cookieParser());
 app.use(passport.initialize());
@@ -56,57 +59,68 @@ app.use('/auth/', bodyParser.json());
 //
 // serialize and deserialize session token
 //
-passport.serializeUser(function(user, done) {
+passport.serializeUser((user, done) => {
   done(null, user);
 });
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser((obj, done) => {
   done(null, obj);
 });
 
 
-//***************Facebook Authentication Routing********************
+//* **************Facebook Authentication Routing********************
 passport.use(new FacebookStrategy({
-    clientID: '',
-    clientSecret: '',
-    callbackURL: "http://localhost:4000/auth/facebook/callback"
-  },
-  function(accessToken, refreshToken, profile, done) {
-    var _id = profile.id;
-    console.log("accessToken:", accessToken);
+  clientID: '986354861484992',
+  clientSecret: '7966d7fab2fd294004fd28622a1aaad8',
+  callbackURL: 'http://localhost:4000/auth/facebook/callback',
+},
+  (accessToken, refreshToken, profile, done) => {
+    const id = profile.id;
+    console.log('accessToken:', accessToken);
     // console.log("refreshToken:", refreshToken);
-    console.log("profile:", profile.displayName);
-    // console.log("done:", done);
-    console.log("id:", _id);
+    console.log('profile:', profile.displayName);
+    console.log("done:", done);
+    console.log('id:', id);
 
     //
     // Functions below are exampleS of calling server models here.
     //
 
-    // User.findById(_id)
-    // .then(function(response){
-    //   console.log("userRes:", response);
-    // })
-    // .catch(function(error){
-    //   console.error("userResErr: ", error);
-    // })
-    //
-    // User.create(_id, profile.displayName)
-    // .then(function(user){
-    //   console.log("newUserRes:", user);
-    //   return done(null, user);
-    // })
-    // .catch(function(error){
-    //   return done(error);
-    // })
-    return done(null, 'login worked');
+    Users.findByFacebookId(id)
+      .then((result) => {
+        if (!result) {
+          Users.create(profile.displayName, id)
+            .then((user) => {
+              done(null, user, 'login worked');
+            })
+            .catch((err) => {
+              console.log(err);
+            });
+        } else {
+          // Generate a session token
+          done(null, result, 'logged in');
+        }
+      })
+      .catch((err) => {
+        console.log('Users findByFacebookId error in facebook auth: ', err);
+        done(err, 'attempted to log in.');
+      });
   }
 ));
 
 // Redirect the user to Facebook for authentication.  When complete,
 // Facebook will redirect the user back to the application at
 //     /auth/facebook/callback
-app.get('/auth/facebook', passport.authenticate('facebook'), function(req, res){ 
-	// available callback function
+app.get('/auth/facebook', passport.authenticate('facebook'), (req, res) => {
+  // available callback function
+});
+
+app.get('/auth/test', (req, res) => {
+  if (req.user) {
+    console.log(req.user);
+    res.send('Hello authed user!');
+  } else {
+    res.send('Auth failed.');
+  }
 });
 
 // Facebook will redirect the user to this URL after approval.  Finish the
@@ -114,13 +128,13 @@ app.get('/auth/facebook', passport.authenticate('facebook'), function(req, res){
 // access was granted, the user will be logged in.  Otherwise,
 // authentication has failed.
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { 
-  	failureRedirect: '/login' 
+  passport.authenticate('facebook', {
+    failureRedirect: '/login',
   }),
-  function(req, res){
+  (req, res) => {
     res.redirect('/');
   }
 );
-//******************************************************************
+//* *****************************************************************
 
 app.listen(port);
