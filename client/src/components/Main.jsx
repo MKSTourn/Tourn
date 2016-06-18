@@ -4,7 +4,7 @@ import { HeaderComponent } from './Header.jsx';
 import { Bracket } from './Bracket.jsx';
 import { Chat } from './Chat.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
-import { io } from 'socket.io';
+import io from 'socket.io-client';
 /* class MainComponent extends React.Component {
   constructor() {
     super();
@@ -22,15 +22,13 @@ import { io } from 'socket.io';
 //   //TODO: submit to the server and refresh the list
 //   console.log('handleMessageSubmit ran')
 // )
+const socket = io('http://localhost');
+const handleMessageSubmit = (author, text) => {
+  const timeStamp = Date.now();
+  socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
+};
 
-const MainComponent = () => {
-  let socket = io();
-  handleMessageSubmit: function(author = 'Mark', text){
-    let timeStamp = Date.now();
-    socket.emit('chat message', {author: author, text: text, time: timeStamp});
-  }
-
-  return (
+const MainComponent = () => (
   <Grid>
     <Row className='show-grid'>
       <Col md={12}>
@@ -44,7 +42,7 @@ const MainComponent = () => {
       <Col md={6}>
         <Bracket />
       </Col>
-      <Col md={3}>  
+      <Col md={3}> 
         <Chat onMessageSubmit={this.handleMessageSubmit} />
       </Col>
     </Row>
@@ -55,12 +53,12 @@ const MainComponent = () => {
       <Col md={6}>
         <div id="rules"></div>
       </Col>
-      <Col md={3}>  
+      <Col md={3}> 
         <span></span>
       </Col>
     </Row>
-  </Grid>)
-};
+  </Grid>
+);
 
 ReactDOM.render(
   <MainComponent />,
