@@ -64,6 +64,7 @@ class HeaderComponent extends React.Component {
         { this.state.logged_in ? <button onClick={this.handleAllTourns} className="dropdownBtn">My Tournaments</button> : null }
         <h1 className="center">Tourn</h1>
         { this.state.logged_in ? <button onClick={this.handleAlerts} className="alertBtn">Alerts</button> : null }
+        <a href="auth/facebook">Login with facebook</a>
         { !this.state.logged_in ? <button onClick={this.handleLogin} className="facebookLogin">Login</button> : null }
       </div>
     );
