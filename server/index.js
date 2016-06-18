@@ -66,8 +66,8 @@ passport.deserializeUser(function(obj, done) {
 
 //***************Facebook Authentication Routing********************
 passport.use(new FacebookStrategy({
-    clientID: '986354861484992',
-    clientSecret: '7966d7fab2fd294004fd28622a1aaad8',
+    clientID: '',
+    clientSecret: '',
     callbackURL: "http://localhost:4000/auth/facebook/callback"
   },
   function(accessToken, refreshToken, profile, done) {
