@@ -30,20 +30,20 @@ const handleMessageSubmit = (author, text) => {
 
 const MainComponent = () => (
   <Grid>
-    <Row className='show-grid'>
+    <Row className={'show-grid'}>
       <Col md={12}>
         <HeaderComponent />
       </Col>
     </Row>
-    <Row className='show-grid'>
+    <Row className={'show-grid'}>
       <Col md={3}>
         <div id="roster"></div>
       </Col>
       <Col md={6}>
         <Bracket />
       </Col>
-      <Col md={3}> 
-        <Chat onMessageSubmit={this.handleMessageSubmit} />
+      <Col md={3}>
+        <Chat onMessageSubmit={handleMessageSubmit} />
       </Col>
     </Row>
     <Row>
@@ -53,7 +53,7 @@ const MainComponent = () => (
       <Col md={6}>
         <div id="rules"></div>
       </Col>
-      <Col md={3}> 
+      <Col md={3}>
         <span></span>
       </Col>
     </Row>
