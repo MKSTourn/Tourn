@@ -10,7 +10,7 @@ module.exports.socket = function socketAttachment(io) {
       socket.join(socket.request.user._id);
       socket.emit('set_state', INITIAL_STATE);
 
-      // Sends initial state data to client
+        socket.emit('received-state', INITIAL_STATE);
 
 
       // Client submits newly created tournament data,
@@ -81,6 +81,50 @@ module.exports.socket = function socketAttachment(io) {
         console.log('update_bracket', data);
         if (data.to != null) {
           console.log('sending back');
+        socket.emit('new_tourn_success');
+        socket.emit('new_tourn_fail');
+      }
+    });
+
+    socket.on('select_tourn', (data) => {
+      console.log('select_tourn', data);
+      if (socket.request.user) {
+        // console.log('authed user');
+
+        if (data.to != null) {
+          console.log('sending back');
+        }
+
+        socket.emit('select_tourn_success');
+        socket.emit('select_tourn_fail');
+      }
+    });
+
+    socket.on('delete_alert', (data) => {
+      console.log('delete_alert', data);
+      if (socket.request.user) {
+        // console.log('authed user');
+
+        if (data.to != null) {
+          console.log('sending back');
+        }
+
+        socket.emit('delete_alert_success');
+        socket.emit('delete_alert_fail');
+      }
+    });
+
+    socket.on('accept_invite', (data) => {
+      console.log('accept_invite', data);
+      if (socket.request.user) {
+        // console.log('authed user');
+
+        if (data.to != null) {
+          console.log('sending back');
+        }
+
+        socket.emit('accept_invite_success');
+        socket.emit('accept_invite_fail');
         }
 
         socket.emit('update_bracket_success');
