@@ -1,53 +1,11 @@
 import React from 'react';
 import { generateBracketPoints } from '../utilities/generateBracketPoints.jsx';
 
-import { createStore } from 'redux';
 import { connect } from 'react-redux';
 
-const reducer = (state, action) => {
-  if (!state) {
-    return {
-      players: 3,
-      size: { x: 400, y: 400 },
-    };
-  }
-
-  switch (action.type) {
-    case 'increment':
-      console.log(state.players + 1);
-      return {
-        players: state.players + 1,
-        size: state.size,
-      };
-
-    case 'decrement':
-      console.log(state.players - 1);
-      return {
-        players: state.players - 1,
-        size: state.size,
-      };
-
-    case 'increaseSize':
-      return {
-        players: state.players,
-        size: { x: state.size.x + 10, y: state.size.y + 10 },
-      };
-
-    case 'decreaseSize':
-      return {
-        players: state.players,
-        size: { x: state.size.x - 10, y: state.size.y - 10 },
-      };
-
-    default:
-      return state;
-  }
-};
-
-const store = createStore(reducer);
-
 const BracketComponent = (props) => {
-  const points = generateBracketPoints(Math.pow(2, props.players), props.size.x, props.size.y);
+  const points = generateBracketPoints(
+    Math.pow(2, props.players.length), props.size.x, props.size.y);
   return (<div
     className="svg-container"
     style={{
@@ -79,23 +37,21 @@ const BracketComponent = (props) => {
       })
     }
     </svg>
-    <button onClick={props.increment}> + </button>
-    <button onClick={props.decrement}> - </button>
-    <button onClick={props.increaseSize}> + size </button>
-    <button onClick={props.decreaseSize}> - size </button>
   </div>);
 };
 
+BracketComponent.propTypes = {
+  players: React.PropTypes.array,
+  size: React.PropTypes.object,
+};
+
 const mapStateToProps = (state) => ({
-  players: state.players,
-  size: state.size,
+  size: { x: window.innerWidth * 0.66, y: window.innerHeight * 0.66 },
+  players: state.tournament.roster,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  increment: () => { dispatch({ type: 'increment' }); console.log('+'); },
-  decrement: () => { dispatch({ type: 'decrement' }); console.log('-'); },
-  increaseSize: () => dispatch({ type: 'increaseSize' }),
-  decreaseSize: () => dispatch({ type: 'decreaseSize' }),
+const mapDispatchToProps = () => ({
+
 });
 
 const Bracket = connect(
@@ -103,4 +59,4 @@ const Bracket = connect(
   mapDispatchToProps
 )(BracketComponent);
 
-export { Bracket, store };
+export { Bracket };

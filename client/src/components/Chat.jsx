@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-const Chat = () => {
+const Chat = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // let author, text;
@@ -15,7 +15,7 @@ const Chat = () => {
         <input
           type="text"
           placeholder="New Message"
-          value={this.state.text ? this.state.text : undefined}
+          value={'Hi.'}
           className="newMessage"
         />
         <input type="submit" value="Post" />

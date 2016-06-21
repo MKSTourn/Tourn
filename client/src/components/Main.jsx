@@ -7,7 +7,7 @@ import store from '../store.jsx';
 import { Chat } from './Chat.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-import io from 'socket.io-client';
+import { socket } from '../utilities/socketContainer.jsx';
 /* class MainComponent extends React.Component {
   constructor() {
     super();
@@ -25,13 +25,14 @@ import io from 'socket.io-client';
 //   //TODO: submit to the server and refresh the list
 //   console.log('handleMessageSubmit ran')
 // )
-const socket = io('http://localhost');
+
+
 const handleMessageSubmit = (author, text) => {
   const timeStamp = Date.now();
   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
 };
 
-const MainComponent = () => (
+const Main = () => (
   <Grid>
     <Row className={'show-grid'}>
       <Col md={12}>

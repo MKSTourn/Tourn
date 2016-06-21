@@ -7,7 +7,7 @@ import { fromJS } from 'immutable';
 
 function handleChangeMode(state, mode) {
   console.log('handleChangeMode');
-  return mode;
+  return state;
 }
 
 export default function mode(state = fromJS(INITIAL_STATE).get('mode'), action) {

@@ -6,17 +6,14 @@
 // Middleware functions to handle server HTTP and socket IO requests
 //
 
-export default route => store => next => action => {
+export default socket => store => next => action => {
   // Make a request for a user with a given ID
-  console.log('HTTP middleware', action);
-  // axios.get(route)
-  // .then(response => {
-  //   // Pass server response to reducer
-  //   action.sessionId = response.sessionId;
-  //   action.state = response.state;
-  //   return next(action);
-  // })
-  // .catch(error => {
-  //   console.log("HTTP error", route, error);
-  // });
-}
+
+  const meta = action.meta;
+
+  if (meta) {
+    socket.emit(meta.event, { to: meta.to, entry: meta.entry });
+  }
+
+  return next(action);
+};
