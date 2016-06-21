@@ -9,6 +9,8 @@
 export default socket => store => next => action => {
   // Make a request for a user with a given ID
 
+  console.log('Middleware!', socket, store, next, action);
+
   const meta = action.meta;
 
   if (meta) {

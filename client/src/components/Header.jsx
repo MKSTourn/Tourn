@@ -8,7 +8,7 @@ function Header(props) {
     return (<div className="topbar">
       <h1 className="center">Tourn</h1>
       <button onClick={props.changeMode} className="facebookLogin">Login</button>
-      <a onClick={props.changeMode('LoggedIn')} href="auth/facebook">Login with facebook</a>
+      <a onClick={props.changeMode.bind(null, 'LogIn')} href="auth/facebook">Login with facebook</a>
     </div>);
   } else if (props.mode === 'Edit') {
     return (<div className="topbar">
@@ -22,7 +22,7 @@ function Header(props) {
        My Tournaments
       </button>
       <h1 className="center">Tourn</h1>
-      <button onClick={props.changeMode('LoggedOut')} className="alertBtn">
+      <button onClick={props.changeMode.bind(null, 'LoggedOut')} className="alertBtn">
        Alerts
       </button>
     </div>);
@@ -39,7 +39,7 @@ function Header(props) {
      My Tournaments
     </button>
     <h1 className="center">Tourn</h1>
-    <button onClick={props.changeMode('LoggedOut')} className="alertBtn">
+    <button onClick={props.changeMode(null, 'LoggedOut')} className="alertBtn">
      Alerts
     </button>
   </div>);
@@ -59,8 +59,9 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   changeMode: (mode) => {
+    console.log(mode);
     dispatch(actions.changeMode(mode));
-  },
+  }
 });
 
 const HeaderContainer = connect(

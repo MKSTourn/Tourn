@@ -16,11 +16,11 @@ module.exports.socket = function socketAttachment(io) {
       console.log('Logs regardless');
     });
 
-    socket.on('action', (/* data */) => {
-      // Handle data somehow
+    socket.on('new_tourn', (data) => {
+      console.log('New Tourn Data:', data);
       if (socket.request.user) {
-        console.log('Test');
-        // Do something only if authenticated
+        // Process the new tournament in some way.
+        socket.emit('new_tourn_status', { status: 'success' });
       }
     });
   });
