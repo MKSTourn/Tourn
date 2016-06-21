@@ -34,44 +34,12 @@ import App from './App.jsx';
 
 const Main = React.createClass({
   render(){
-    <Grid>
-      <Row className={'show-grid'}>
-        <Col md={12}>
-          <HeaderContainer />
-        </Col>
-      </Row>
-      <Row className={'show-grid'}>
-        <Col md={3}>
-          <div id="roster"></div>
-        </Col>
-        <Col md={6}>
-          <Bracket />
-        </Col>
-        <Col md={3}>
-          <Chat onMessageSubmit={handleMessageSubmit} />
-        </Col>
-      </Row>
-      <Row>
-        <Col md={3}>
-          <span></span>
-        </Col>
-        <Col md={6}>
-          <div id="rules"></div>
-        </Col>
-        <Col md={3}>
-          <span></span>
-        </Col>
-      </Row>
-    </Grid>
+    return (
+      <div>
+        {React.cloneElement(this.props.children, this.props)}
+      </div>
+    )
   }
 });
-
-
-render(
-  <Provider store={store}>
-    <Main />
-  </Provider>,
-  document.getElementById('app')
-);
 
 export default Main;
