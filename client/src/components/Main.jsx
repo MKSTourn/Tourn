@@ -1,13 +1,14 @@
 import React from 'react';
 import { render } from 'react-dom';
 import HeaderContainer from './Header.jsx';
-import { Bracket } from './Bracket.jsx';
+import Bracket from './Bracket.jsx';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
-import { Chat } from './Chat.jsx';
-import { Grid, Row, Col } from 'react-bootstrap';
+import Chat from './Chat.jsx';
+import Grid, Row, Col from 'react-bootstrap';
+import App from './App.jsx';
 
-import io from 'socket.io-client';
+// import io from 'socket.io-client';
 /* class MainComponent extends React.Component {
   constructor() {
     super();
@@ -31,37 +32,40 @@ import io from 'socket.io-client';
 //   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
 // };
 
-const Main = () => (
-  <Grid>
-    <Row className={'show-grid'}>
-      <Col md={12}>
-        <HeaderContainer />
-      </Col>
-    </Row>
-    <Row className={'show-grid'}>
-      <Col md={3}>
-        <div id="roster"></div>
-      </Col>
-      <Col md={6}>
-        <Bracket />
-      </Col>
-      <Col md={3}>
-        <Chat onMessageSubmit={handleMessageSubmit} />
-      </Col>
-    </Row>
-    <Row>
-      <Col md={3}>
-        <span></span>
-      </Col>
-      <Col md={6}>
-        <div id="rules"></div>
-      </Col>
-      <Col md={3}>
-        <span></span>
-      </Col>
-    </Row>
-  </Grid>
-);
+const Main = React.createClass({
+  render(){
+    <Grid>
+      <Row className={'show-grid'}>
+        <Col md={12}>
+          <HeaderContainer />
+        </Col>
+      </Row>
+      <Row className={'show-grid'}>
+        <Col md={3}>
+          <div id="roster"></div>
+        </Col>
+        <Col md={6}>
+          <Bracket />
+        </Col>
+        <Col md={3}>
+          <Chat onMessageSubmit={handleMessageSubmit} />
+        </Col>
+      </Row>
+      <Row>
+        <Col md={3}>
+          <span></span>
+        </Col>
+        <Col md={6}>
+          <div id="rules"></div>
+        </Col>
+        <Col md={3}>
+          <span></span>
+        </Col>
+      </Row>
+    </Grid>
+  }
+});
+
 
 render(
   <Provider store={store}>
@@ -69,3 +73,5 @@ render(
   </Provider>,
   document.getElementById('app')
 );
+
+export default Main;

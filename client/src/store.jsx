@@ -1,15 +1,15 @@
 import { createStore, applyMiddleware } from 'redux';
-import { fromJS } from 'immutable';
-// import { syncHistoryWithStore } from 'react-router-redux';
-// import { browserHistory } from 'react-router';
+// import { fromJS } from 'immutable';
+import { syncHistoryWithStore } from 'react-router-redux';
+//import { browserHistory } from 'react-router';
 
 // import the root reducer
 import rootReducer from './reducers/root.jsx';
 import state from '../../data/state.jsx';
-import axiosMiddleware from './actions/axios_middleware.jsx';
+// import axiosMiddleware from './actions/axios_middleware.jsx';
 
 // create an object for the default data
-const INITIAL_STATE = fromJS(state);
+const INITIAL_STATE = state;
 
 const store = createStore(
   rootReducer,
@@ -18,7 +18,7 @@ const store = createStore(
   window.devToolsExtension && window.devToolsExtension()
 );
 
-// export const history = syncHistoryWithStore(browserHistory, store);
+//export const history = syncHistoryWithStore(browserHistory, store);
 
 // if (module.hot) {
 //   module.hot.accept('./reducers/', () => {
@@ -28,5 +28,3 @@ const store = createStore(
 // }
 
 export default store;
-
-
