@@ -16,8 +16,9 @@ const webpackConfig = require('../webpack.config');
 const app = express();
 
 // Setup socket listener
-const server = require('http').Server(app);
-const socket = require('socket.io')(server);
+const http = require('http');
+const server = new http.Server(app);
+const io = require('socket.io')(server);
 
 // Setup webpack configuration
 const config = webpack(webpackConfig);
@@ -45,6 +46,6 @@ console.log(`Listening on port: ${port}`);
 // Attach our authorization module to the app.
 const auth = require('./routes/auth.js');
 auth.app(app);
-auth.socket(socket);
+auth.socket(io);
 
 server.listen(port);
