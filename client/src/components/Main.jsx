@@ -1,11 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
-import HeaderContainer from './Header.jsx';
+// import HeaderContainer from './Header.jsx';
 import Bracket from './Bracket.jsx';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
 import Chat from './Chat.jsx';
-import Grid, Row, Col from 'react-bootstrap';
+import { Grid, Row, Col } from 'react-bootstrap';
 import App from './App.jsx';
 
 // import io from 'socket.io-client';

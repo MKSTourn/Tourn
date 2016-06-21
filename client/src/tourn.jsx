@@ -1,23 +1,17 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
-import Header from './components/Header';
+import App from './components/App.jsx';
+import Header from './components/Header.jsx';
 
-import { Router, Route } from 'react-router';
+import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
-import store, from './store';
+import store from './store.jsx';
 
 const router = (
   <Provider store={store}>
     <Router>
       <Route path="/" component={App}>
-        <Grid>
-          <Row className={'show-grid'}>
-            <Col md={12}>
-              <Header />
-            </Col>
-          </Row>
-        </Grid>
+        <IndexRoute component={Header}></IndexRoute>
       </Route>
     </Router>
   </Provider>
