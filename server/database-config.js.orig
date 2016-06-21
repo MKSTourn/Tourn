@@ -1,8 +1,0 @@
-const mongoose = require('mongoose');
-
-const mongoConnectString = process.env.MONGOSTRING || 'mongodb://localhost/testdb';
-mongoose.connect(mongoConnectString);
-<<<<<<< HEAD
-mongoose.Promise = global.Promise;
-=======
->>>>>>> Database models
