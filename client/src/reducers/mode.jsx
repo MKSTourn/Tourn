@@ -2,13 +2,15 @@
 // Mode reducer
 //
 
+import INITIAL_STATE from '../../../data/state.jsx';
+import { fromJS } from 'immutable';
+
 function handleChangeMode(state, mode) {
-  return state.set('mode', mode);
-  // TODO: freeze future UI
-  // TODO: show spinner
+  console.log('handleChangeMode');
+  return mode;
 }
 
-export default function mode(state, action) {
+export default function mode(state = fromJS(INITIAL_STATE).get('mode'), action) {
   switch (action.type) {
     case 'CHANGE_MODE':
       return handleChangeMode(state, action.mode);
