@@ -96,7 +96,7 @@ router.get('/auth/test', (req, res) => {
 
 const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection });
 
-module.exports = function addAuthenticationMiddleware(app) {
+module.exports.app = function addAuthenticationMiddleware(app) {
   app.use(session({
     genid: () => uuid(),
     secret: 'keyboard cat',
