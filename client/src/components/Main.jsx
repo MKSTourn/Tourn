@@ -1,9 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { HeaderComponent } from './Header.jsx';
+import { render } from 'react-dom';
+import HeaderContainer from './Header.jsx';
 import { Bracket } from './Bracket.jsx';
+import { Provider } from 'react-redux';
+import store from '../store.jsx';
 import { Chat } from './Chat.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
+
 import io from 'socket.io-client';
 /* class MainComponent extends React.Component {
   constructor() {
@@ -32,7 +35,7 @@ const MainComponent = () => (
   <Grid>
     <Row className={'show-grid'}>
       <Col md={12}>
-        <HeaderComponent />
+        <HeaderContainer />
       </Col>
     </Row>
     <Row className={'show-grid'}>
@@ -60,7 +63,9 @@ const MainComponent = () => (
   </Grid>
 );
 
-ReactDOM.render(
-  <MainComponent />,
+render(
+  <Provider store={store}>
+    <Main />
+  </Provider>,
   document.getElementById('app')
 );

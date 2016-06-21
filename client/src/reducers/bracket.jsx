@@ -2,23 +2,24 @@
 // Bracket reducer
 //
 
+import INITIAL_STATE from '../../../data/state.jsx';
+import { fromJS } from 'immutable';
+
 function handleSubmitAdvance(state, bracket) {
   // TODO: Submit player advancement request to server
   // provide matchIndex, userId of winner
 }
 
 function handleUpdateBracket(state, bracket) {
-  return state.set('bracket', bracket)
+  return state.set('bracket', bracket);
 }
 
-export default function bracket(state, newBracket) {
+export default function bracket(state = fromJS(INITIAL_STATE).getIn(['tournament', 'bracket']), action) {
   switch (action.type) {
     case 'SUBMIT_ADVANCE':
-      return handleSubmitAdvance(state.tournament, action.bracket);
-    case 'UNDO_ADVANCE':
-      // TODO: allow user to undo advance state change
+      return handleSubmitAdvance(state, action.bracket);
     case 'UPDATE_BRACKET':
-      return handleUpdateBracket(state.tournament, action.bracket);
+      return handleUpdateBracket(state, action.bracket);
     default:
       return state;
   }

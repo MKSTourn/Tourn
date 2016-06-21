@@ -1,75 +1,71 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import '../styles/header_styles.css';
-import PureRenderMixin from 'react-addons-pure-render-mixin';
+import * as actions from '../actions/action_creators.jsx';
+import { connect } from 'react-redux';
 
-var reactMixin = require('react-mixin');
-
-class HeaderComponent extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      logged_in: false,
-    };
-    this.handleNewTourn = this.handleNewTourn.bind(this);
-    this.submitNewTourn = this.submitNewTourn.bind(this);
-    this.handleAllTourns = this.handleAllTourns.bind(this);
-    this.handleAlerts = this.handleAlerts.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
+function Header(props) {
+  if (props.mode === 'LoggedOut') {
+    return (<div className="topbar">
+      <h1 className="center">Tourn</h1>
+      <button onClick={props.changeMode} className="facebookLogin">Login</button>
+      <a onClick={props.changeMode('LoggedIn')} href="auth/facebook">Login with facebook</a>
+    </div>);
+  } else if (props.mode === 'Edit') {
+    return (<div className="topbar">
+      <button onClick={props.changeMode} className="addTournamentButton">
+        <span className="symbol">+</span>
+      </button>
+      <button onClick={props.changeMode} className="submitTournamentButton">
+        <span className="symbol">√</span>
+      </button>
+      <button onClick={props.changeMode} className="dropdownBtn">
+       My Tournaments
+      </button>
+      <h1 className="center">Tourn</h1>
+      <button onClick={props.changeMode('LoggedOut')} className="alertBtn">
+       Alerts
+      </button>
+    </div>);
   }
 
-  handleNewTourn() {
-    if (this.state.logged_in) {
-      console.log('Creating new tournament');
-    } else {
-      console.log('Please register or login to complete action');
-    }
-  }
-
-  submitNewTourn() {
-    if (this.state.logged_in) {
-      console.log('New tournament submitted');
-    } else {
-      console.log('Please register or login to complete action');
-    }
-  }
-
-  handleAllTourns() {
-    if (this.state.logged_in) {
-      console.log('Showing list of all user tournaments');
-    } else {
-      console.log('Please register or login to complete action');
-    }
-  }
-
-  handleAlerts() {
-    if (this.state.logged_in) {
-      console.log('Showing list of all user alerts');
-    } else {
-      console.log('Please register or login to complete action');
-    }
-  }
-
-  handleLogin() {
-    console.log('Logged in!  I mean, uh, logged in.');
-    this.setState({ logged_in: true });
-  }
-
-  render() {
-    return (
-      <div className="topbar">
-        { this.state.logged_in ? <button onClick={this.handleNewTourn} className="addTournamentButton">
-                                  <span className="symbol">+</span></button> : null }
-        { this.state.logged_in ? <button onClick={this.submitNewTourn} className="submitTournamentButton">
-                                  <span className="symbol">√</span></button> : null }
-        { this.state.logged_in ? <button onClick={this.handleAllTourns} className="dropdownBtn">My Tournaments</button> : null }
-        <h1 className="center">Tourn</h1>
-        { this.state.logged_in ? <button onClick={this.handleAlerts} className="alertBtn">Alerts</button> : null }
-        { !this.state.logged_in ? <button onClick={this.handleLogin} className="facebookLogin">Login</button> : null }
-      </div>
-    );
-  }
+  return (<div className="topbar">
+    <button onClick={props.changeMode} className="addTournamentButton">
+      <span className="symbol">+</span>
+    </button>
+    <button onClick={props.changeMode} className="submitTournamentButton">
+      <span className="symbol">√</span>
+    </button>
+    <button onClick={props.changeMode} className="dropdownBtn">
+     My Tournaments
+    </button>
+    <h1 className="center">Tourn</h1>
+    <button onClick={props.changeMode('LoggedOut')} className="alertBtn">
+     Alerts
+    </button>
+  </div>);
 }
 
-reactMixin(HeaderComponent.prototype, PureRenderMixin);
+Header.propTypes = {
+  mode: PropTypes.string.isRequired,
+  changeMode: PropTypes.func.isRequired,
+};
 
-export { HeaderComponent };
+const mapStateToProps = (state) => ({
+  mode: state.get('mode'),
+  // userData: state.userData,
+  // showTournList: state.showTournList,
+  // showAlertList: state.showAlertList,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeMode: (mode) => {
+    dispatch(actions.changeMode(mode));
+  },
+});
+
+const HeaderContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);
+
+export default HeaderContainer;

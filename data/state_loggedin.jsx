@@ -1,8 +1,8 @@
 //
 // Template state
 //
-const INITIAL_STATE = {
-  mode: 'LoggedOut', // string identifying app mode
+const LOGGED_IN = {
+  mode: 'LoggedIn', // string identifying app mode
                      // modes: LoggedOut, LoggedIn, Edit, Registration
   header: {
     showTournList: false,
@@ -43,8 +43,8 @@ const INITIAL_STATE = {
         timeStamp: '',
       },
     ],
-    start: false,
-    invite: false,
+    showStartBtn: false,
+    showInviteBtn: false,
     roster: [
       {
         playerId: null, // integer
