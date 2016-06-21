@@ -2,10 +2,10 @@
 // Root app reducer
 //
 
-import { combineReducers } from 'redux';
-import header from './header';
-import tournament from './tournament';
-import mode from './mode';
+import { combineReducers } from 'redux-immutable';
+import header from './header.jsx';
+import tournament from './tournament.jsx';
+import mode from './mode.jsx';
 
 const rootReducer = combineReducers({
   header,
