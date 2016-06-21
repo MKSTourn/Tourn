@@ -6,6 +6,7 @@ import bracket from './bracket.jsx';
 import roster from './roster.jsx';
 import start from './start.jsx';
 import invite from './invite.jsx';
+import network from './network.jsx';
 
 const tournament = combineReducers({
   info,
@@ -14,6 +15,7 @@ const tournament = combineReducers({
   roster,
   start,
   invite,
+  network,
 });
 
 export default tournament;

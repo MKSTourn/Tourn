@@ -27,10 +27,10 @@ import { socket } from '../utilities/socketContainer.jsx';
 // )
 
 
-const handleMessageSubmit = (author, text) => {
-  const timeStamp = Date.now();
-  socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
-};
+// const handleMessageSubmit = (author, text) => {
+//   const timeStamp = Date.now();
+//   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
+// };
 
 const Main = () => (
   <Grid>
@@ -47,7 +47,7 @@ const Main = () => (
         <Bracket />
       </Col>
       <Col md={3}>
-        <Chat onMessageSubmit={handleMessageSubmit} />
+        {/* <Chat /> */}
       </Col>
     </Row>
     <Row>
