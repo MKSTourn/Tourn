@@ -32,8 +32,6 @@ import { socket } from '../utilities/socketContainer.jsx';
 // )
 
 
-
-const Main = () => (
 // const handleMessageSubmit = (author, text) => {
 //   const timeStamp = Date.now();
 //   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });

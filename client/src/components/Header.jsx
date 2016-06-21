@@ -8,7 +8,7 @@ function Header(props) {
     return (<div className="topbar">
       <h1 className="center">Tourn</h1>
       <button onClick={props.changeMode} className="facebookLogin">Login</button>
-      <a onClick={props.changeMode('LoggedIn')} href="auth/facebook">Login with facebook</a>
+      <a onClick={props.changeLoggedIn} href="auth/facebook">Login with facebook</a>
     </div>);
   } else if (props.mode === 'Edit') {
     return (<div className="topbar">
@@ -22,7 +22,7 @@ function Header(props) {
        My Tournaments
       </button>
       <h1 className="center">Tourn</h1>
-      <button onClick={props.changeMode('LoggedOut')} className="alertBtn">
+      <button onClick={props.changeLoggedOut} className="alertBtn">
        Alerts
       </button>
     </div>);
@@ -39,7 +39,7 @@ function Header(props) {
      My Tournaments
     </button>
     <h1 className="center">Tourn</h1>
-    <button onClick={props.changeMode('LoggedOut')} className="alertBtn">
+    <button onClick={props.changeLoggedOut} className="alertBtn">
      Alerts
     </button>
   </div>);
@@ -64,13 +64,13 @@ const mapDispatchToProps = (dispatch) => ({
     console.log(mode);
     dispatch(actions.changeMode(mode));
   },
-  submitTourn: () => {
-    console.log('Submitting new tourn');
-    dispatch(actions.submitNewTourn({
-      name: 'Drinking Championship',
-      type: 'Single Elimination',
-      rules: 'All whiskey shots all the time',
-    }));
+
+  changeLoggedIn: () => {
+    dispatch(actions.changeMode('LoggedIn'));
+  },
+
+  changeLoggedOut: () => {
+    dispatch(actions.changeMode('LoggedOut'));
   },
 
   changeLoggedIn: () => {

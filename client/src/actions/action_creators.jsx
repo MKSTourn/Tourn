@@ -203,3 +203,10 @@ export function setTournState(state) {
     state,
   };
 }
+
+export function setState(state) {
+  return {
+    type: 'SET_STATE',
+    state,
+  };
+}
