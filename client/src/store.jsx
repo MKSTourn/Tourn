@@ -7,6 +7,7 @@ import { fromJS } from 'immutable';
 import rootReducer from './reducers/root.jsx';
 import state from '../../data/state.jsx';
 import axiosMiddleware from './actions/axios_middleware.jsx';
+import { socket } from './utilities/socketContainer.jsx';
 
 // create an object for the default data
 const INITIAL_STATE = fromJS(state);
@@ -14,7 +15,7 @@ const INITIAL_STATE = fromJS(state);
 const store = createStore(
   rootReducer,
   INITIAL_STATE,
-  // applyMiddleware(axiosMiddleware),
+  applyMiddleware(axiosMiddleware(socket)),
   window.devToolsExtension && window.devToolsExtension()
 );
 
@@ -28,5 +29,3 @@ const store = createStore(
 // }
 
 export default store;
-
-
