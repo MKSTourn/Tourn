@@ -20,8 +20,7 @@ const http = require('http');
 const server = new http.Server(app);
 const io = require('socket.io')(server);
 
-
-
+require('./routes/socketHandler').socket(io);
 
 require('./routes/socketHandler').socket(io);
 
@@ -52,7 +51,5 @@ console.log(`Listening on port: ${port}`);
 const auth = require('./routes/auth.js');
 auth.app(app);
 auth.socket(io);
-
->>>>>>> Setup Socket.IO on server
 
 server.listen(port);

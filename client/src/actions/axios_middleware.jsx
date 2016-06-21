@@ -1,0 +1,19 @@
+// import * as
+
+//
+// Remote action middleware
+//
+// Middleware functions to handle server HTTP and socket IO requests
+//
+
+export default socket => store => next => action => {
+  // Make a request for a user with a given ID
+
+  const meta = action.meta;
+
+  if (meta) {
+    socket.emit(meta.event, { to: meta.to, entry: meta.entry });
+  }
+
+  return next(action);
+};

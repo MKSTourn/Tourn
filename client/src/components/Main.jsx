@@ -12,6 +12,7 @@ import { socket } from '../utilities/socketContainer.jsx';
 // Kick off event listeners for server events
 startListeners(socket);
 
+import { socket } from '../utilities/socketContainer.jsx';
 /* class MainComponent extends React.Component {
   constructor() {
     super();
@@ -31,6 +32,8 @@ startListeners(socket);
 // )
 
 
+
+const Main = () => (
 // const handleMessageSubmit = (author, text) => {
 //   const timeStamp = Date.now();
 //   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });

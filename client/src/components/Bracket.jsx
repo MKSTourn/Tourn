@@ -47,7 +47,7 @@ BracketComponent.propTypes = {
 
 const mapStateToProps = (state) => ({
   size: { x: window.innerWidth * 0.66, y: window.innerHeight * 0.66 },
-  players: [],
+  players: state.tournament.roster,
 });
 
 const mapDispatchToProps = () => ({

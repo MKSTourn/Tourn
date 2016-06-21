@@ -20,7 +20,7 @@ export function changeMode(mode) {
 export function submitNewTourn(tourn) {
   return {
     type: 'SUBMIT_NEW_TOURN',
-    meta: {
+    meta: { event: 'new_tourn', to: null, entry: tourn },
       event: 'new_tourn',
       to: null,
       entry: tourn,
@@ -32,7 +32,7 @@ export function submitNewTourn(tourn) {
 export function selectTourn(tournId) {
   return {
     type: 'SELECT_TOURN',
-    meta: {
+    meta: { event: 'select_tourn', to: null, entry: tournId },
       event: 'select_tourn',
       to: null,
       entry: {
@@ -46,11 +46,11 @@ export function selectTourn(tournId) {
 export function deleteAlert(alertId) {
   return {
     type: 'DELETE_ALERT',
-    meta: {
-      event: 'delete_alert',
-      to: null,
-      entry: {
-        alertId,
+    meta: { event: 'delete_alert', to: null, entry: {
+      userId,
+      alert,
+    } },
+
       },
     },
     alertId,
@@ -65,11 +65,11 @@ export function deleteAlert(alertId) {
 export function acceptInvite(tournId, alertId) {
   return {
     type: 'ACCEPT_INVITE',
-    meta: {
-      event: 'accept_invite',
-      to: tournId,
-      entry: {
-        tournId,
+    meta: { event: 'accept_invite', to: tournId, entry: {
+      userId,
+      tournId,
+    } },
+
         alertId,
       },
     },
