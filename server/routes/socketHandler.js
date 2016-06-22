@@ -9,6 +9,11 @@ module.exports.socket = function socketAttachment(io) {
       console.log(socket.request.user);
       socket.join(socket.request.user._id);
     }
+    // No need for this event.
+    // Client automatically will receive logged state
+    // when server detects user is logged in
+    // Server will push down LoggedIn initial state when this
+    // happens
       console.log(socket.request.user);
       socket.join(socket.request.user._id);
       socket.emit('set_state', INITIAL_STATE);
@@ -89,6 +94,9 @@ module.exports.socket = function socketAttachment(io) {
       }
     });
 
+    // Client submits ID of tournament they want to view
+    // Server retrieves latest state of that tournament from db
+    // Server sends back new tournament object
     socket.on('select_tourn', (data) => {
       console.log('select_tourn', data);
       if (socket.request.user) {
@@ -105,6 +113,9 @@ module.exports.socket = function socketAttachment(io) {
       }
     });
 
+    // Client sends ID of alert they want deleted
+    // Server updates user's alert list in db with alert removed
+    // Server sends back new user data with alert list updated
     socket.on('delete_alert', (data) => {
       console.log('delete_alert', data);
       if (socket.request.user) {
@@ -119,6 +130,32 @@ module.exports.socket = function socketAttachment(io) {
       }
     });
 
+    // Client (tournament organizer) sends tourn ID, matchIndex, and winner
+    // Server does the following:
+    //   Validates that user is the organizer and calculates next match
+    //   Updates bracket for that tournament in db
+    // Server sends back new tournament state to all users
+    socket.on('update_bracket', (data) => {
+      console.log('update_bracket', data);
+      if (socket.request.user) {
+        // console.log('authed user');
+
+        if (data.to != null) {
+          console.log('sending back');
+        }
+
+        socket.emit('update_bracket_success');
+        socket.emit('update_bracket_fail');
+      }
+    });
+
+    // Client sends ID of tournament they wish to accept an invite to
+    // Server does the following:
+    //   Adds user to tournament roster
+    //   Adds tournament to front of user's tourn list
+    // Server sends the user the updated state including new tourn list and tournament
+    // Server sends all users in that tournament a chat message noting the user accepted
+    // Server sends new roster to all users in that tournament
     socket.on('accept_invite', (data) => {
       console.log('accept_invite', data);
       if (socket.request.user) {
