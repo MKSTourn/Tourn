@@ -45,6 +45,16 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
   return state.set('bracket', fromJS(newBracket));
 }
 
+export default function bracket(state = fromJS(INITIAL_STATE).getIn(['tournament', 'bracket']), 
+	action) {
+  } else {
+    // should never happen
+    console.log('handleUpdateBracket: error - match already full!');
+  }
+
+  return state.set('bracket', fromJS(newBracket));
+}
+
 export default function bracket(state = fromJS(INITIAL_STATE).getIn(['tournament', 'bracket']),
                                 action) {
   switch (action.type) {

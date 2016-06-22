@@ -75,3 +75,17 @@ describe('bracket reducer', () => {
     expect(nextState).to.deep.equal(expectedState);
   });
 });
+
+describe('bracket reducer', () => {
+  it('produces correct next state given an in progress tournament', () => {
+
+  });
+
+  it('produces correct next state given a tournament concluding final match', () => {
+
+  });
+
+  it('produces correct next state given an in progress tournament', () => {
+
+  });
+});

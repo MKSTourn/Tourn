@@ -50,7 +50,6 @@ export function deleteAlert(alertId) {
       event: 'delete_alert',
       to: null,
       entry: {
-        userId,
         alertId,
       },
     },
@@ -70,7 +69,6 @@ export function acceptInvite(tournId, alertId) {
       event: 'accept_invite',
       to: tournId,
       entry: {
-        userId,
         tournId,
         alertId, // _id
       },
