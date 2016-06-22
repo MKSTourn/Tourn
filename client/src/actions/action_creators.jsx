@@ -20,7 +20,11 @@ export function changeMode(mode) {
 export function submitNewTourn(tourn) {
   return {
     type: 'SUBMIT_NEW_TOURN',
-    meta: { event: 'new_tourn', to: null, entry: tourn },
+    meta: {
+      event: 'new_tourn',
+      to: null,
+      entry: tourn,
+    },
     tourn,
   };
 }
@@ -28,32 +32,50 @@ export function submitNewTourn(tourn) {
 export function selectTourn(tournId) {
   return {
     type: 'SELECT_TOURN',
-    meta: { event: 'select_tourn', to: null, entry: tournId },
-    tournId,
+    meta: {
+      event: 'select_tourn',
+      to: null,
+      entry: {
+        tournId,
+      },
+      tournId,
+    },
   };
 }
 
 export function deleteAlert(userId, alert) {
   return {
     type: 'DELETE_ALERT',
-    meta: { event: 'delete_alert', to: null, entry: {
-      userId,
-      alert,
-    } },
-
+    meta: {
+      event: 'delete_alert',
+      to: null,
+      entry: {
+        userId,
+        alert,
+      },
+    },
     userId,
     alert,
   };
 }
 
-export function acceptInvite(userId, tournId) {
+//
+// User accepts invite to a tournament
+// Provides server with their userId, the tournId,
+// and the alert to delete
+//
+export function acceptInvite(userId, tournId, alert) {
   return {
     type: 'ACCEPT_INVITE',
-    meta: { event: 'accept_invite', to: tournId, entry: {
-      userId,
-      tournId,
-    } },
-
+    meta: {
+      event: 'accept_invite',
+      to: tournId,
+      entry: {
+        userId,
+        tournId,
+        alert,
+      },
+    },
     userId,
     tournId,
   };
@@ -145,9 +167,20 @@ export function submitAdvance(bracket) {
   };
 }
 
-export function updateBracket(bracket) {
+// Tournament organizer requests to advance a player to next match
+// State is updated locally and OK'ed by server
+export function updateBracket(bracket, userId, tournId) {
   return {
     type: 'UPDATE_BRACKET',
+    meta: {
+      event: 'accept_invite',
+      to: tournId,
+      entry: {
+        userId,
+        tournId,
+        bracket,
+      },
+    },
     bracket,
   };
 }
@@ -156,6 +189,7 @@ export function updateBracket(bracket) {
 // Network
 //
 
+// Server sends a complete state update
 export function setState(state) {
   return {
     type: 'SET_STATE',
@@ -163,6 +197,7 @@ export function setState(state) {
   };
 }
 
+// Server sends a tournament state update
 export function setTournState(state) {
   return {
     type: 'SET_STATE',
