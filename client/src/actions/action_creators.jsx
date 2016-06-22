@@ -204,7 +204,18 @@ export function setTournState(state) {
   };
 }
 
+//
+// Network
+//
+
 export function setState(state) {
+  return {
+    type: 'SET_STATE',
+    state,
+  };
+}
+
+export function setTournState(state) {
   return {
     type: 'SET_STATE',
     state,

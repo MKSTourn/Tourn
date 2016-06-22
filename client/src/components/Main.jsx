@@ -11,8 +11,11 @@ import { socket } from '../utilities/socketContainer.jsx';
 
 // Kick off event listeners for server events
 startListeners(socket);
-
 import { socket } from '../utilities/socketContainer.jsx';
+
+// Kick off event listeners for server events
+startListeners(socket);
+
 /* class MainComponent extends React.Component {
   constructor() {
     super();
