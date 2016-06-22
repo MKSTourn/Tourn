@@ -1,22 +1,21 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App.jsx';
+import App from './components/App';
 import Header from './components/Header.jsx';
 
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store.jsx';
 
-const router = (
-  <Provider store={store}>
-    <Router>
-      <Route path="/" component={App}>
-        <p>Hello World!</p>
-      </Route>
-    </Router>
-  </Provider>
-)
 
+
+render(
+    <App store={store}>
+      <Header>
+        
+      </Header>
+    </App>, document.getElementById('app')
+);
   // <Row className={'show-grid'}>
   //   <Col md={12}>
   //     <Header />

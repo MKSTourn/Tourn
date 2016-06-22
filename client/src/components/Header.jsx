@@ -77,4 +77,4 @@ const Header = React.createClass({
 //   mapDispatchToProps
 // )(Header);
 //
-// export default HeaderContainer;
+export default Header;
