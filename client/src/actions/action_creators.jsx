@@ -70,10 +70,11 @@ export function acceptInvite(tournId, alertId) {
       to: tournId,
       entry: {
         tournId,
-        alertId, // _id
+        alertId,
       },
     },
     tournId,
+    alertId,
   };
 }
 
@@ -165,7 +166,7 @@ export function submitAdvance(bracket) {
 
 // Tournament organizer requests to advance a player to next match
 // State is updated locally and OK'ed by server
-export function updateBracket(tournId, bracket) {
+export function updateBracket(tournId, matchIndex, winner) {
   return {
     type: 'UPDATE_BRACKET',
     meta: {
@@ -173,10 +174,13 @@ export function updateBracket(tournId, bracket) {
       to: tournId,
       entry: {
         tournId,
-        bracket,
+        matchIndex,
+        winner,
       },
     },
-    bracket,
+    tournId,
+    matchIndex,
+    winner,
   };
 }
 

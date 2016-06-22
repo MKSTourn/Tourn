@@ -6,13 +6,13 @@ import INITIAL_STATE from '../../../data/state.jsx';
 import { fromJS } from 'immutable';
 import { getNextMatch } from '../utilities/bracket_helpers';
 
-function handleSubmitAdvance(state, bracket) {
-  // TODO: Submit player advancement request to server
-  // provide matchIndex, userId of winner
-  return state;
-}
+// function handleSubmitAdvance(state, bracket) {
+//   // TODO: Submit player advancement request to server
+//   // provide matchIndex, userId of winner
+//   return state;
+// }
 
-function handleUpdateBracket(state, matchIndex, winner) {
+function handleUpdateBracket(state, tournId, matchIndex, winner) {
   const newBracket = state.toJS();
   const nextMatch = getNextMatch(matchIndex, newBracket.bracketSize);
 
@@ -48,8 +48,8 @@ function handleUpdateBracket(state, matchIndex, winner) {
 export default function bracket(state = fromJS(INITIAL_STATE).getIn(['tournament', 'bracket']),
                                 action) {
   switch (action.type) {
-    case 'SUBMIT_ADVANCE':
-      return handleSubmitAdvance(state, action.bracket);
+    // case 'SUBMIT_ADVANCE':
+    //   return handleSubmitAdvance(state, action.bracket);
     case 'UPDATE_BRACKET':
       return handleUpdateBracket(state, action.bracket);
     default:

@@ -14,6 +14,7 @@ const INITIAL_STATE = {
       userPic: '', // img url string
       alerts: [
         {
+          alertId: null,
           text: '', // alert text string
           tournId: null, // associated tourn id
           isInvite: false, // true if the alert is an invite
