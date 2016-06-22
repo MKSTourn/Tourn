@@ -6,24 +6,17 @@
 //   inject: 'body'
 // });
 var path = require('path');
-var webpack = require('webpack');
 
 module.exports = {
   entry: [
-    'webpack-hot-middleware/client',
-    `./client/src/tourn.jsx`,
+    `${__dirname}/client/src/tourn.jsx`,
   ],
-  output: { path: path.join(__dirname, 'dist'), filename: 'app-bundle.js' },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
-  ],
+  output: { path: '/', filename: 'app-bundle.js' },
   module: {
     loaders: [{
       test: /\.jsx$/,
       exclude: /node_modules/,
       loader: 'babel',
-      include: path.join(__dirname, 'client'),
     },
     { test: /\.css$/,
       loader: 'style-loader!css-loader',

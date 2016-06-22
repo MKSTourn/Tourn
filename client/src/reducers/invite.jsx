@@ -11,7 +11,7 @@ function handleToggleInvite(state, invite) {
   // TODO: show spinner
 }
 
-export default function Invite(state = fromJS(INITIAL_STATE).getIn(['tournament', 'invite']), action) {
+export default function Invite(state = {}, action) {
   switch (action.type) {
     case 'TOGGLE_SHOW_INVITE':
       return handleToggleInvite(state, action.invite);

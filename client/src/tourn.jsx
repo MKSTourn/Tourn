@@ -11,7 +11,7 @@ const router = (
   <Provider store={store}>
     <Router>
       <Route path="/" component={App}>
-        <IndexRoute component={Header}></IndexRoute>
+        <p>Hello World!</p>
       </Route>
     </Router>
   </Provider>

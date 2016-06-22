@@ -37,7 +37,7 @@ function handleToggleAlerts(state, showAlertList) {
   return state.set('showAlertList', !showAlertList);
 }
 
-export default function header(state = fromJS(INITIAL_STATE).get('header'), action) {
+export default function header(state = {}, action) {
   switch (action.type) {
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state, action.tourn);

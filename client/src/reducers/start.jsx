@@ -11,7 +11,7 @@ function handleToggleStart(state, start) {
   // TODO: show spinner
 }
 
-export default function start(state = fromJS(INITIAL_STATE).getIn(['tournament', 'start']), action) {
+export default function start(state = {}, action) {
   switch (action.type) {
     case 'TOGGLE_SHOW_START':
       return handleToggleStart(state, action.start);
