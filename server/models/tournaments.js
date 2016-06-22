@@ -1,4 +1,6 @@
+require('babel-register');
 const TournamentSchema = require('../schemas/tournaments.js');
+const BracketHelper = require('../../client/src/utilities/bracket_helpers.js');
 
 const Tournaments = module.exports;
 
@@ -45,8 +47,12 @@ Tournaments.addChatMessage = (tournid, sender, message) => new Promise((resolve,
 Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
     if (err) reject(err);
-    result.roster.push({ playerId });
-    result.save((saveErr, saveResult) => {
+
+    const endResult = result;
+
+    endResult.roster.push({ playerId });
+    endResult.bracketSize = result.bracketSize ? result.bracketSize + 1 : 1;
+    endResult.save((saveErr, saveResult) => {
       if (saveErr) reject(saveErr);
       resolve(saveResult);
     });
@@ -57,18 +63,19 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
   TournamentSchema.findById(tournid, (err, result) => {
     if (err) reject(err);
 
-    const res = Math.floor(match / 2);
-    const someFurtherMatch = (result.roster.length / 2) + res;
+    const endResult = result;
 
-    result.bracket[match].winner = playerId;
-    if(!result.bracket[someFurtherMatch]) {
-      result.bracket[someFurtherMatch] = {};
-      result.bracket[someFurtherMatch].playerA = playerId;
+    const someFurtherMatch = BracketHelper.getNextMatch(match, result.bracketSize);
+
+    endResult.bracket[match].winner = playerId;
+    if (!endResult.bracket[someFurtherMatch]) {
+      endResult.bracket[someFurtherMatch] = {};
+      endResult.bracket[someFurtherMatch].playerA = playerId;
     } else {
-      result.bracket[someFurtherMatch].playerB = playerId;
+      endResult.bracket[someFurtherMatch].playerB = playerId;
     }
 
-    result.save((saveErr, saveResult) => {
+    endResult.save((saveErr, saveResult) => {
       if (saveErr) reject(saveErr);
       resolve(saveResult);
     });

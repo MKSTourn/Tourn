@@ -28,6 +28,7 @@ module.exports.socket = function socketAttachment(io) {
         )
         .then((result) => {
           socket.emit('new_tourn_success', result);
+          socket.join(result._id);
         })
         .catch((err) => {
           console.log('Tournament creation error: ', err);
@@ -42,12 +43,12 @@ module.exports.socket = function socketAttachment(io) {
         console.log('select_tourn', data);
         if (data.to != null) {
           console.log('sending back');
-          io.to(data.to).emit('user_joined', socket.request.user.name);
           socket.join(data.to);
+          io.to(data.to).emit('user_joined', socket.request.user.name);
+          socket.emit('select_tourn_success');
+        } else {
+          socket.emit('select_tourn_fail');
         }
-
-        socket.emit('select_tourn_success');
-        socket.emit('select_tourn_fail');
       });
 
       // Client sends ID of alert they want deleted
@@ -55,9 +56,6 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new user data with alert list updated
       socket.on('delete_alert', (data) => {
         console.log('delete_alert', data);
-        if (data.to != null) {
-          console.log('sending back');
-        }
 
         socket.emit('delete_alert_success');
         socket.emit('delete_alert_fail');
@@ -93,9 +91,9 @@ module.exports.socket = function socketAttachment(io) {
             { id: socket.request.user._id, name: socket.request.user.name });
           socket.emit('accept_invite_success');
           socket.emit('add_tourn', data.entry.tournId);
+        } else {
+          socket.emit('accept_invite_fail');
         }
-
-        socket.emit('accept_invite_fail');
       });
     }
   });
