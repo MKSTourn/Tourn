@@ -43,40 +43,36 @@ export function selectTourn(tournId) {
   };
 }
 
-export function deleteAlert(userId, alertId) {
+export function deleteAlert(alertId) {
   return {
     type: 'DELETE_ALERT',
     meta: {
       event: 'delete_alert',
       to: null,
       entry: {
-        userId,
         alertId,
       },
     },
-    userId,
     alertId,
   };
 }
 
 //
 // User accepts invite to a tournament
-// Provides server with their userId, the tournId,
-// and the alert to delete
+// Provides server with the tournId,
+// and the alertId to delete
 //
-export function acceptInvite(userId, tournId, alertId) {
+export function acceptInvite(tournId, alertId) {
   return {
     type: 'ACCEPT_INVITE',
     meta: {
       event: 'accept_invite',
       to: tournId,
       entry: {
-        userId,
         tournId,
         alertId, // _id
       },
     },
-    userId,
     tournId,
   };
 }
@@ -169,14 +165,13 @@ export function submitAdvance(bracket) {
 
 // Tournament organizer requests to advance a player to next match
 // State is updated locally and OK'ed by server
-export function updateBracket(bracket, userId, tournId) {
+export function updateBracket(tournId, bracket) {
   return {
     type: 'UPDATE_BRACKET',
     meta: {
       event: 'accept_invite',
       to: tournId,
       entry: {
-        userId,
         tournId,
         bracket,
       },

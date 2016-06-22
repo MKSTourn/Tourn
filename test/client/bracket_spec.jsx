@@ -36,3 +36,17 @@ describe('single elimination bracket logic', () => {
     expect(nextMatchIndex).to.equal(-1);
   });
 });
+
+describe('bracket reducer', () => {
+  it('produces correct next state given an in progress tournament', () => {
+
+  });
+
+  it('produces correct next state given a tournament concluding final match', () => {
+
+  });
+
+  it('produces correct next state given an in progress tournament', () => {
+
+  });
+});
