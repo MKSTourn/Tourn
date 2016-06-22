@@ -6,8 +6,12 @@ import { Provider } from 'react-redux';
 import store from '../store.jsx';
 import { Chat } from './Chat.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
-
+import startListeners from '../utilities/socketListeners.jsx'
 import { socket } from '../utilities/socketContainer.jsx';
+
+// Kick off event listeners for server events
+startListeners(socket);
+
 /* class MainComponent extends React.Component {
   constructor() {
     super();

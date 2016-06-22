@@ -1,9 +1,7 @@
-// import * as
-
 //
 // Remote action middleware
 //
-// Middleware functions to handle server HTTP and socket IO requests
+// Middleware functions to handle server socket IO events
 //
 
 export default socket => store => next => action => {
