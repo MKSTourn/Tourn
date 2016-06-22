@@ -40,6 +40,17 @@ Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
   });
 });
 
+Users.createAlert = (userid, tournId, isInvite, message) => new Promise((resolve, reject) => {
+  Users.findById(userid)
+    .then((result) => {
+      result.alerts.push({
+        tournId,
+        isInvite,
+        message,
+      });
+    });
+});
+
 Users.deleteAlert = (userid, alertid) => new Promise((resolve, reject) => {
   Users.findById(userid)
     .then((result) => {
@@ -68,12 +79,19 @@ Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
       const newResult = result;
       newResult.alerts = result.alerts.map((alert) => {
         if (alert._id === ObjectId.fromString(alertid)) {
-          Tournaments.findById(alert.tournament)
+          Tournaments.findById(alert.tournId)
             .then((tourn) => {
               tourn.roster.push({ playerId: result._id });
               tourn.save((err) => {
                 if (err) reject(err);
               });
+              newResult.tournaments.push({
+                tournId: tourn._id,
+                tournName: tourn.name,
+              })
+              newResult.save((err) => {
+                if (err) reject(err);
+              })
             })
             .catch((err) => {
               reject(err);

@@ -7,9 +7,14 @@ const userSchema = new Schema({
   // Facebook Identifier string
   fbid: String,
 
+  tournamentIds: [{
+    tournId: Schema.ObjectId,
+    tournName: String,
+  }],
+
   // All pending alerts for a user
   alerts: [{
-    tournament: Schema.ObjectId,
+    tournId: Schema.ObjectId,
     isInvite: Boolean,
     message: String,
   }],

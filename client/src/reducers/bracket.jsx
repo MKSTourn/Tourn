@@ -4,7 +4,7 @@
 
 import INITIAL_STATE from '../../../data/state.jsx';
 import { fromJS } from 'immutable';
-import { getNextMatch } from '../utilities/bracket_helpers';
+import { getNextMatch } from '../utilities/bracket_helpers.jsx';
 
 // function handleSubmitAdvance(state, bracket) {
 //   // TODO: Submit player advancement request to server

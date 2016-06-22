@@ -1,6 +1,6 @@
 import { List, Map, Seq, fromJS, Range } from 'immutable';
 import { expect } from 'chai';
-import { getBracketSize, getNextMatch } from '../../client/src/utilities/bracket_helpers';
+import { getBracketSize, getNextMatch } from '../../client/src/utilities/bracket_helpers.jsx';
 import rootReducer from '../../client/src/reducers/root.jsx';
 import * as actions from '../../client/src/actions/action_creators.jsx';
 import { describe, it } from 'mocha';

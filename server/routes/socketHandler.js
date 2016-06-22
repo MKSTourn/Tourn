@@ -1,6 +1,7 @@
 require('babel-register');
 const INITIAL_STATE = require('../../data/state.jsx');
 const tournaments = require('../models/tournaments.js');
+const users = require('../models/users.js');
 
 module.exports.socket = function socketAttachment(io) {
   io.on('connection', (socket) => {
@@ -22,9 +23,9 @@ module.exports.socket = function socketAttachment(io) {
         console.log('new_tourn', data);
         tournaments.create(
           socket.request.user._id,
-          data.name,
-          data.type,
-          data.rules
+          data.entry.name,
+          data.entry.type,
+          data.entry.rules
         )
         .then((result) => {
           socket.emit('new_tourn_success', result);
@@ -44,8 +45,14 @@ module.exports.socket = function socketAttachment(io) {
         if (data.to != null) {
           console.log('sending back');
           socket.join(data.to);
-          io.to(data.to).emit('user_joined', socket.request.user.name);
-          socket.emit('select_tourn_success');
+          tournaments.findById(data.entry.tournId)
+            .then((result) => {
+              if (result) {
+                socket.emit('select_tourn_success', result);
+              } else {
+                socket.emit('select_tourn_fail');
+              }
+            });
         } else {
           socket.emit('select_tourn_fail');
         }
@@ -56,9 +63,13 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new user data with alert list updated
       socket.on('delete_alert', (data) => {
         console.log('delete_alert', data);
-
-        socket.emit('delete_alert_success');
-        socket.emit('delete_alert_fail');
+        users.deleteAlert(socket.request.user._id, data.entry.alertid)
+          .then(() => {
+            socket.emit('delete_alert_success');
+          })
+          .catch(() => {
+            socket.emit('delete_alert_fail');
+          });
       });
 
       // Client (tournament organizer) sends tourn ID, matchIndex, and winner
