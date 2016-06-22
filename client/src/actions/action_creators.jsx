@@ -70,7 +70,7 @@ export function acceptInvite(tournId, alertId) {
       to: tournId,
       entry: {
         tournId,
-        alertId, // _id
+        alertId,
       },
     },
     tournId,

@@ -4,7 +4,6 @@
 
 import INITIAL_STATE from '../../../data/state.jsx';
 import { fromJS } from 'immutable';
-import { socket } from '../utilities/socketContainer.jsx';
 
 function handleSubmit(state, tourn) {
   console.log('Header reducer: handleSubmit');
