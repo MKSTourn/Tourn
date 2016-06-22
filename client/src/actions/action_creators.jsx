@@ -51,9 +51,7 @@ export function deleteAlert(alertId) {
       to: null,
       entry: {
         userId,
-        alert,
-      },
-    },
+        alertId,
       },
     },
     alertId,
@@ -74,7 +72,7 @@ export function acceptInvite(tournId, alertId) {
       entry: {
         userId,
         tournId,
-        alert,
+        alertId, // _id
       },
     },
     tournId,
