@@ -46,7 +46,7 @@ export function acceptInvite(userId, tournId) {
     tournId,
   };
 }
-
+//CHANGED!!!
 export function toggleTournSelect(showTournList) {
   return {
     type: 'TOGGLE_SELECT',

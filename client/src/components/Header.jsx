@@ -3,17 +3,11 @@ import '../styles/header_styles.css';
 import * as actions from '../actions/action_creators.jsx';
 import { connect } from 'react-redux';
 
-const Header = React.createClass({
-  render (){
-    return (
-      <div>
-        <p>Hello World!</p>
-      </div>
-    )
-  }
-});
+const Header = ({ showTournList, toggleTournSelect }) => (
+  <button onClick={toggleTournSelect}>Test Me</button>
+)
 
-
+export default Header;
 //
 // if (props.mode === 'LoggedOut') {
 //   return (<div className="topbar">
@@ -77,4 +71,3 @@ const Header = React.createClass({
 //   mapDispatchToProps
 // )(Header);
 //
-export default Header;

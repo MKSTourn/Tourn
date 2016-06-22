@@ -37,7 +37,7 @@ function handleToggleAlerts(state, showAlertList) {
   return state.set('showAlertList', !showAlertList);
 }
 
-export default function header(state = {}, action) {
+export default function header(state, action) {
   switch (action.type) {
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state, action.tourn);
@@ -48,7 +48,7 @@ export default function header(state = {}, action) {
     case 'ACCEPT_INVITE':
       return handleAcceptInvite(state, action.userId, action.tournId, alert);
     case 'TOGGLE_SELECT':
-      return handleToggleSelect(state.header, action.showTournList);
+      return handleToggleSelect(state.header, action.showTournList); //CHANGED!!!
     case 'TOGGLE_ALERTS':
       return handleToggleAlerts(state.header, action.data);
     default:

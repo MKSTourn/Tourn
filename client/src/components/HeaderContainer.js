@@ -1,24 +1,29 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/action_creators.jsx';
-import Main from './Main.jsx';
-
+import Header from './Header.jsx';
+import {toggleTournSelect} from '../actions/action_creators.jsx';
 
 function mapStateToProps(state){
   return {
-    header: state.header,
-    tournament: state.tournament,
-    mode: state.mode,
+    showTournList: state.showTournList,
   }
 }
 
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     toggleTournSelect: () => {
+//       dispatch(toggleTournSelect);
+//     }
+//   }
+// }
 function mapDispatchToProps(dispatch){
   return bindActionCreators(actionCreators, dispatch);
 }
 
-const App = connect(mapStateToProps, mapDispatchToProps)(Main);
-console.log("sup")
-export default App;
+const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
+
+export default HeaderContainer;
 
 /////////////////////////////////////////////////////////////////
 // //Pres...

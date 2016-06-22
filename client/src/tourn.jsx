@@ -1,8 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import App from './components/App';
-import Header from './components/Header.jsx';
-
+import Main from './components/Main.jsx';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store.jsx';
@@ -10,11 +8,10 @@ import store from './store.jsx';
 
 
 render(
-    <App store={store}>
-      <Header>
-        
-      </Header>
-    </App>, document.getElementById('app')
+  <Provider store={store}>
+    <Main />
+  </Provider>,
+  document.getElementById('app')
 );
   // <Row className={'show-grid'}>
   //   <Col md={12}>

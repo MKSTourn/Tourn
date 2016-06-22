@@ -20,12 +20,7 @@ const store = createStore(
   // applyMiddleware(axiosMiddleware),
   window.devToolsExtension && window.devToolsExtension(),
 );
-const childStore = createStore(
-  tournamentReducer,
-  initialState.tournament,
-  // applyMiddleware(axiosMiddleware),
-  window.devToolsExtension && window.devToolsExtension(),
-);
+
 
 //export const history = syncHistoryWithStore(browserHistory, store);
 

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
-// import HeaderContainer from './Header.jsx';
+import HeaderContainer from './HeaderContainer';
 import Bracket from './Bracket.jsx';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
@@ -32,15 +32,17 @@ import { Grid, Row, Col } from 'react-bootstrap';
 //   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
 // };
 
-const Main = React.createClass({
-  render(){
-    return (
-      <div>
-        {React.cloneElement(this.props.children, this.props)}
-      </div>
-    )
-  }
-});
+const Main = () => (
+  <div>
+    <p>Hello world</p>
+    <HeaderContainer />
+  </div>
+)
+    //TODO: <Bracket />, <Chat />, etc
+
+
+        //{React.cloneElement(this.props.children, this.props)}
+
 
 export default Main;
 /////////////////////////////////////////////////////////////////
