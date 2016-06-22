@@ -7,11 +7,6 @@ const userSchema = new Schema({
   // Facebook Identifier string
   fbid: String,
 
-  // All session tokens for a user
-  sessions: [{
-    token: String,
-  }],
-
   // All pending alerts for a user
   alerts: [{
     tournament: Schema.ObjectId,
