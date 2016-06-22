@@ -15,6 +15,7 @@ const userSchema = new Schema({
   // All pending alerts for a user
   alerts: [{
     tournament: Schema.ObjectId,
+    isInvite: Boolean,
     message: String,
   }],
 });
