@@ -43,7 +43,7 @@ export function selectTourn(tournId) {
   };
 }
 
-export function deleteAlert(userId, alert) {
+export function deleteAlert(userId, alertId) {
   return {
     type: 'DELETE_ALERT',
     meta: {
@@ -51,11 +51,11 @@ export function deleteAlert(userId, alert) {
       to: null,
       entry: {
         userId,
-        alert,
+        alertId,
       },
     },
     userId,
-    alert,
+    alertId,
   };
 }
 
@@ -64,7 +64,7 @@ export function deleteAlert(userId, alert) {
 // Provides server with their userId, the tournId,
 // and the alert to delete
 //
-export function acceptInvite(userId, tournId, alert) {
+export function acceptInvite(userId, tournId, alertId) {
   return {
     type: 'ACCEPT_INVITE',
     meta: {
@@ -73,7 +73,7 @@ export function acceptInvite(userId, tournId, alert) {
       entry: {
         userId,
         tournId,
-        alert,
+        alertId, // _id
       },
     },
     userId,
