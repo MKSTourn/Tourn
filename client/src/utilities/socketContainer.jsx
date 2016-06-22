@@ -2,7 +2,8 @@ import io from 'socket.io-client';
 
 let socket;
 
-if (process && process.env) {
+console.log('Proc', process, process.env)
+if (process.title && process.title != 'browser') {
 
   socket = {};
 

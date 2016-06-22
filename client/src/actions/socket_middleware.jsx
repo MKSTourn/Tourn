@@ -12,6 +12,7 @@ export default socket => store => next => action => {
   const meta = action.meta;
 
   if (meta) {
+    console.log('Meta detected', action);
     socket.emit(meta.event, { to: meta.to, entry: meta.entry });
   }
 
