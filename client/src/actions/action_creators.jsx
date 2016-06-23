@@ -77,8 +77,9 @@ export function acceptInvite(tournId, alertId) {
     alertId,
   };
 }
-
+//CHANGED!!!
 export function toggleTournSelect(showTournList) {
+  console.log('toggleTournSelect action creator ran');
   return {
     type: 'TOGGLE_SELECT',
     showTournList,
@@ -181,6 +182,26 @@ export function updateBracket(tournId, matchIndex, winner) {
     tournId,
     matchIndex,
     winner,
+  };
+}
+
+//
+// Network
+//
+
+// Server sends a complete state update
+export function setState(state) {
+  return {
+    type: 'SET_STATE',
+    state,
+  };
+}
+
+// Server sends a tournament state update
+export function setTournState(state) {
+  return {
+    type: 'SET_STATE',
+    state,
   };
 }
 

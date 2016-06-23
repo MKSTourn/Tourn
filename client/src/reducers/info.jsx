@@ -25,7 +25,7 @@ function handleUpdateSize(state, bracketSize) {
   return state.set('rules', bracketSize);
 }
 
-export default function info(state = fromJS(INITIAL_STATE).getIn(['tournament', 'info']), action) {
+export default function info(state = {}, action) {
   switch (action.type) {
     case 'UPDATE_ID':
       return handleUpdateId(state.tournInfo, action.tournId);

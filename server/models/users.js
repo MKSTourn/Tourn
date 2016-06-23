@@ -48,6 +48,9 @@ Users.createAlert = (userid, tournId, isInvite, message) => new Promise((resolve
         isInvite,
         message,
       });
+    })
+    .catch((err) => {
+      reject(err);
     });
 });
 
@@ -88,10 +91,10 @@ Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
               newResult.tournaments.push({
                 tournId: tourn._id,
                 tournName: tourn.name,
-              })
+              });
               newResult.save((err) => {
                 if (err) reject(err);
-              })
+              });
             })
             .catch((err) => {
               reject(err);

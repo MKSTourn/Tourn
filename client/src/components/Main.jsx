@@ -1,17 +1,20 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
-import HeaderContainer from './Header.jsx';
-import { Bracket } from './Bracket.jsx';
+import HeaderContainer from './HeaderContainer';
+import Bracket from './Bracket.jsx';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
-import { Chat } from './Chat.jsx';
+import Chat from './Chat.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
-import startListeners from '../utilities/socketListeners.jsx'
+import startListeners from '../utilities/socketListeners.jsx';
 import { socket } from '../utilities/socketContainer.jsx';
 
 // Kick off event listeners for server events
 startListeners(socket);
 
+
+
+// import io from 'socket.io-client';
 /* class MainComponent extends React.Component {
   constructor() {
     super();
@@ -29,48 +32,41 @@ startListeners(socket);
 //   //TODO: submit to the server and refresh the list
 //   console.log('handleMessageSubmit ran')
 // )
-
-
+// const socket = io('http://localhost');
 // const handleMessageSubmit = (author, text) => {
 //   const timeStamp = Date.now();
 //   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
 // };
 
 const Main = () => (
-  <Grid>
-    <Row className={'show-grid'}>
-      <Col md={12}>
-        <HeaderContainer />
-      </Col>
-    </Row>
-    <Row className={'show-grid'}>
-      <Col md={3}>
-        <div id="roster"></div>
-      </Col>
-      <Col md={6}>
-        <Bracket />
-      </Col>
-      <Col md={3}>
-        {/* <Chat /> */}
-      </Col>
-    </Row>
-    <Row>
-      <Col md={3}>
-        <span></span>
-      </Col>
-      <Col md={6}>
-        <div id="rules"></div>
-      </Col>
-      <Col md={3}>
-        <span></span>
-      </Col>
-    </Row>
-  </Grid>
-);
+  <div>
+    <HeaderContainer />
+  </div>
+)
+    //TODO: <Bracket />, <Chat />, etc
 
-render(
-  <Provider store={store}>
-    <Main />
-  </Provider>,
-  document.getElementById('app')
-);
+
+        //{React.cloneElement(this.props.children, this.props)}
+
+
+export default Main;
+/////////////////////////////////////////////////////////////////
+// var cloneWithProps = require('react-addons-clone-with-props');
+//
+// var _makeBlue = function(element) {
+//   return cloneWithProps(element, {style: {color: 'blue'}});
+// };
+//
+// var Blue = React.createClass({
+//   render: function() {
+//     var blueChildren = React.Children.map(this.props.children, _makeBlue);
+//     return <div>{blueChildren}</div>;
+//   }
+// });
+//
+// ReactDOM.render(
+//   <Blue>
+//     <p>This text is blue.</p>
+//   </Blue>,
+//   document.getElementById('container')
+// );

@@ -9,7 +9,7 @@ function handleToggleInvite(state, showInviteBtn) {
   return state.set('showInviteBtn', showInviteBtn);
 }
 
-export default function roster(state = fromJS(INITIAL_STATE).getIn(['tournament', 'roster']), action) {
+export default function roster(state = {}, action) {
   switch (action.type) {
     case 'SHOW_INVITE':
       return handleToggleInvite(state.tournament, action.showInviteBtn);

@@ -5,15 +5,18 @@
 //   filename: 'index.html',
 //   inject: 'body'
 // });
+var path = require('path');
 
 module.exports = {
-  entry: `${__dirname}/client/src/components/Main.jsx`,
+  entry: [
+    `${__dirname}/client/src/tourn.jsx`,
+  ],
   output: { path: '/', filename: 'app-bundle.js' },
   module: {
     loaders: [{
-      test: /\.jsx$/,
+      test: /\.js|x$/,
       exclude: /node_modules/,
-      loader: 'babel-loader',
+      loader: 'babel',
     },
     { test: /\.css$/,
       loader: 'style-loader!css-loader',
