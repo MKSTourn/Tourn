@@ -1,63 +1,67 @@
 const users = require('./models/users.js');
 const tournaments = require('./models/tournaments.js');
 
-const generateStateHeader = (userId) => {
-  return users.findById(userId)
-  .then((result) => {
-    if (!result) {
-      throw new Error('User not found');
-    }
+const generateUserData = (userObject) => ({
+  userId: userObject._id, // integer
+  facebookId: userObject.fbid, // integer
+  userName: userObject.name, // string
+  userPic: userObject.picture, // img url string
+  alerts: userObject.alerts,
+  userTourns: userObject.tournamentIds,  // array of tournaments this user is apart of
+});
 
-    return {
-      showTournList: false,
-      showAlertList: false,
-      userData: {
-        userId: result._id, // integer
-        facebookId: result.fbid, // integer
-        userName: result.name, // string
-        userPic: result.picture, // img url string
-        alerts: result.alerts,
-        userTourns: result.tournamentIds,  // array of tournaments this user is apart of
-      },
-    };
-  })
-  .catch((err) => {
-    console.log('Fatal error!', err);
-  });
+const generateTournamentData = (userObject, tournObject) => ({
+  info: {
+    tournId: tournObject._id,
+    tournName: tournObject.name,
+    tournType: tournObject.type,
+    isOrganizer: tournObject.organizedid === userObject._id, // Change based on requesting user
+  },
+
+  chat: tournObject.chatHistory,
+
+  start: tournObject.start,
+  invite: tournObject.invite,
+
+  roster: tournObject.roster,
+
+  bracket: {
+    bracketSize: tournObject.bracketSize,
+    tournStatus: tournObject.tournStatus,
+    tournWinner: tournObject.tournWinner,
+
+    matches: tournObject.bracket,
+  },
+});
+
+const generateUserState = (userId, tournId) => {
+  users.findById(userId)
+    .then((user) => {
+      if (!user) {
+        throw new Error('User not found');
+      }
+
+      return tournaments.findById(tournId)
+      .then((tourn) => {
+        const resultObject = {
+          mode: 'LoggedIn',
+        };
+
+        resultObject.header = {
+          showTournList: false,
+          showAlertList: false,
+          userData: generateUserData(user),
+        };
+
+        if (!tourn) {
+          resultObject.tournament = generateTournamentData(user, tourn);
+          }
+        return resultObject;
+      })
+      .catch((err) => {
+        console.log('Fatal error!', err);
+      });
+    });
 };
 
-const generateStateTournament = (tournId) => {
-  return tournaments.findById(tournId)
-  .then((result) => {
-    if (!result) {
-      throw new Error('Tournament not found');
-    }
-
-    return {
-      info: {
-        tournId: result._id,
-        tournName: result.name,
-        tournType: result.type,
-        isOrganizer: false, // Change based on requesting user
-      },
-
-      chat: result.chatHistory,
-
-      start: result.start,
-      invite: result.invite,
-
-      roster: result.roster,
-
-      bracket: {
-        bracketSize: result.bracketSize,
-        tournStatus: result.tournStatus,
-        tournWinner: result.tournWinner,
-
-        matches: result.bracket,
-      },
-    };
-  })
-  .catch((err) => {
-    console.log('Fatal error!', err);
-  });
-};
+module.exports = { generateUserData, generateTournamentData, generateUserState };
