@@ -1,10 +1,10 @@
-import { List, Map, Seq, fromJS, Range } from 'immutable';
+import { fromJS } from 'immutable';
 import * as chai from 'chai';
 import chaiImmutable from 'chai-immutable';
-import { getBracketSize, getNextMatch } from '../../client/src/utilities/bracket_helpers.jsx';
-import bracket from '../../client/src/reducers/bracket.jsx';
-import * as actions from '../../client/src/actions/action_creators.jsx';
 import { describe, it } from 'mocha';
+import * as actions from '../../client/src/actions/action_creators.jsx';
+import bracket from '../../client/src/reducers/bracket.jsx';
+import { getBracketSize, getNextMatch } from '../../client/src/utilities/bracket_helpers.jsx';
 import {
          BRACKET_STATE,
          BRACKET_STATE_NEXT,
@@ -52,7 +52,7 @@ describe('single elimination bracket logic', () => {
 });
 
 describe('bracket reducer', () => {
-  it('produces correct next state given an in progress tournament', () => {
+  it('handles bracket update given an in progress tournament', () => {
     const initialState = fromJS(BRACKET_STATE);
     const expectedState = fromJS(BRACKET_STATE_NEXT);
 
@@ -66,7 +66,7 @@ describe('bracket reducer', () => {
     expect(nextState).to.equal(expectedState);
   });
 
-  it('produces correct next state given a tournament concluding final match', () => {
+  it('handles bracket update given a tournament in final match', () => {
     const initialState = fromJS(BRACKET_FINAL_STATE);
     const expectedState = fromJS(BRACKET_FINAL_STATE_NEXT);
 

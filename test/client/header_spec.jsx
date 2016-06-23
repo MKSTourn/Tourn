@@ -1,118 +1,75 @@
-// import { List, Map, fromJS, toJS } from 'immutable';
-// import { expect } from 'chai';
-// import { describe, it } from 'mocha';
-// import { LoggedOut, LoggedIn, Edit } from './states/header_states';
-// import rootReducer from '../../client/src/reducers/header';
-// import { createNewTourn } from '../../client/src/actions/action_creators';
+import { fromJS } from 'immutable';
+import * as chai from 'chai';
+import chaiImmutable from 'chai-immutable';
+import { describe, it } from 'mocha';
+import * as actions from '../../client/src/actions/action_creators.jsx';
+import header from '../../client/src/reducers/header.jsx';
+import {
 
-// describe('header reducer', () => {
-//   it('handles CREATE_NEW_TOURN', () => {
-//     const initialState = fromJS(LoggedIn);
+       } from './states/header_spec_states.jsx';
 
-//     const nextState = rootReducer(initialState, createNewTourn('Edit'));
-//     expect(nextState.toJS()).to.deep.equal(Edit);
-//   });
-// });
+chai.use(chaiImmutable);
+const expect = chai.expect;
 
-// //   it('handles SET_STATE with plain JS payload', () => {
-// //     const initialState = Map();
-// //     const action = {
-// //       type: 'SET_STATE',
-// //       state: {
-// //         vote: {
-// //           pair: ['Trainspotting', '28 Days Later'],
-// //           tally: {Trainspotting: 1}
-// //         }
-// //       }
-// //     };
-// //     const nextState = reducer(initialState, action);
+describe('header reducer', () => {
+  it('handles new tournament submit', () => {
+    const initialState = fromJS();
+    const expectedState = fromJS();
 
-// //     expect(nextState).to.equal(fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       }
-// //     }));
-// //   });
+    const action = actions.fillin();
 
-// //   it('handles SET_STATE without initial state', () => {
-// //     const action = {
-// //       type: 'SET_STATE',
-// //       state: {
-// //         vote: {
-// //           pair: ['Trainspotting', '28 Days Later'],
-// //           tally: {Trainspotting: 1}
-// //         }
-// //       }
-// //     };
-// //     const nextState = reducer(undefined, action);
+    const nextState = header(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
 
-// //     expect(nextState).to.equal(fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       }
-// //     }));
-// //   });
+  it('handles tournament select', () => {
+    const initialState = fromJS();
+    const expectedState = fromJS();
 
-// //   it('handles VOTE by setting hasVoted', () => {
-// //     const state = fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       }
-// //     });
-// //     const action = {type: 'VOTE', entry: 'Trainspotting'};
-// //     const nextState = reducer(state, action);
+    const action = actions.fillin();
 
-// //     expect(nextState).to.equal(fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       },
-// //       hasVoted: 'Trainspotting'
-// //     }));
-// //   });
+    const nextState = header(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
 
-// //   it('does not set hasVoted for VOTE on invalid entry', () => {
-// //     const state = fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       }
-// //     });
-// //     const action = {type: 'VOTE', entry: 'Sunshine'};
-// //     const nextState = reducer(state, action);
+  it('handles alert delete', () => {
+    const initialState = fromJS();
+    const expectedState = fromJS();
 
-// //     expect(nextState).to.equal(fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       }
-// //     }));
-// //   });
+    const action = actions.fillin();
 
-// //   it('removes hasVoted on SET_STATE if pair changes', () => {
-// //     const initialState = fromJS({
-// //       vote: {
-// //         pair: ['Trainspotting', '28 Days Later'],
-// //         tally: {Trainspotting: 1}
-// //       },
-// //       hasVoted: 'Trainspotting'
-// //     });
-// //     const action = {
-// //       type: 'SET_STATE',
-// //       state: {
-// //         vote: {
-// //           pair: ['Sunshine', 'Slumdog Millionaire']
-// //         }
-// //       }
-// //     };
-// //     const nextState = reducer(initialState, action);
+    const nextState = header(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
 
-// //     expect(nextState).to.equal(fromJS({
-// //       vote: {
-// //         pair: ['Sunshine', 'Slumdog Millionaire']
-// //       }
-// //     }));
-// //   });
+  it('handles invite accept', () => {
+    const initialState = fromJS();
+    const expectedState = fromJS();
+
+    const action = actions.fillin();
+
+    const nextState = header(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
+
+  it('handles toggle tourn select', () => {
+    const initialState = fromJS();
+    const expectedState = fromJS();
+
+    const action = actions.fillin();
+
+    const nextState = header(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
+
+  it('handles toggle alerts', () => {
+    const initialState = fromJS();
+    const expectedState = fromJS();
+
+    const action = actions.fillin();
+
+    const nextState = header(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
+});
+
