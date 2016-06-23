@@ -9,8 +9,18 @@ const tournamentSchema = new Schema({
   type: String,
 
   bracketSize: Number,
-  registrationOpen: Boolean,
-  tournState: String,
+
+  // Registration open
+  invite: Boolean,
+
+  // Tournament started
+  start: Boolean,
+
+  // Tournament status string
+  // Litterally all it exists to be.
+  tournStatus: String,
+
+  tournWinner: Schema.ObjectId,
 
   // All messages for a given tournament
   chatHistory: [{
@@ -27,12 +37,10 @@ const tournamentSchema = new Schema({
 
   // All current and previous rounds
   bracket: [{
-    round: [{
-      playerA: Schema.ObjectId,
-      playerB: Schema.ObjectId,
-      winner: Schema.ObjectId,
-      status: String,
-    }],
+    playerA: Number,
+    playerB: Number,
+    winner: Schema.ObjectId,
+    status: String,
   }],
 });
 

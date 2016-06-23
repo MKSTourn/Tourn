@@ -17,9 +17,6 @@ module.exports.socket = function socketAttachment(io) {
       socket.join(socket.request.user._id);
       socket.emit('set_state', INITIAL_STATE);
 
-        socket.emit('received-state', INITIAL_STATE);
-
-
       // Client submits newly created tournament data,
       // Server adds tournament to db,
       // Send that user the updated state with:
