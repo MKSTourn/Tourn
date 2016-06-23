@@ -6,10 +6,20 @@ import { connect } from 'react-redux';
 
 
 
-const Header = ({ showTournList, toggleTournSelect }) => (
-  showTournList ? <div><h2>Cheeseballs</h2>
-<button onClick={toggleTournSelect}>Test Me</button></div> :
-   <button onClick={toggleTournSelect}>Test Me</button>
+const Header = ({ showTournList, userTourns, toggleTournSelect }) => (
+  showTournList ?
+  <div>
+    <button onClick={toggleTournSelect}>Tournaments List</button>
+    <ol>
+      {userTourns.map(function(tournament){
+        return <li key={tournament.get('tournId')}>{tournament.get('tournName')}</li>
+      })}
+    </ol>
+  </div>
+  :
+  <div>
+    <button onClick={toggleTournSelect}>Tournaments List</button>
+  </div>
 )
 
 
