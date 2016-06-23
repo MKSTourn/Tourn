@@ -88,7 +88,7 @@ export function toggleTournSelect(showTournList) {
 
 export function toggleAlerts(showAlertList) {
   return {
-    type: 'TOGGLE_SELECT',
+    type: 'TOGGLE_ALERTS',
     showAlertList,
   };
 }

@@ -14,38 +14,13 @@ const INITIAL_STATE = {
       userPic: '', // img url string
       alerts: [
         {
-          alertId: '1',
-          text: 'Bob has advanced in the Ping Pong Tournament', // alert text string
-          tournId: '1', // associated tourn id
+          alertId: null,
+          text: '', // alert text string
+          tournId: null, // associated tourn id
           isInvite: false, // true if the alert is an invite
         },
-        {
-          alertId: '2',
-          text: 'You have been invited to the Death Game Tournament', // alert text string
-          tournId: '2', // associated tourn id
-          isInvite: true, // true if the alert is an invite
-        },
-        {
-          alertId: '3',
-          text: 'You have been invited to the Coding Challenge Tournament', // alert text string
-          tournId: '3', // associated tourn id
-          isInvite: true, // true if the alert is an invite
-        },
       ],
-      userTourns: [
-        {
-          tournId: '1',
-          tournName: 'Ping Pong',
-        },
-        {
-          tournId: '2',
-          tournName: 'Death Game',
-        },
-        {
-          tournId: '3',
-          tournName: 'Coding Challenge',
-        },
-      ],  // array of tournaments this user is apart of
+      userTourns: [],  // array of tournaments this user is apart of
     },
   },
   tournament: {

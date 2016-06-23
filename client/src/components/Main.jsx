@@ -33,7 +33,11 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 const Main = () => (
   <div>
-    <HeaderContainer />
+    <Grid>
+      <Row className={'show-grid'}>
+        <HeaderContainer />
+      </Row>
+    </Grid>
   </div>
 )
     //TODO: <Bracket />, <Chat />, etc
