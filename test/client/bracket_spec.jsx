@@ -1,7 +1,16 @@
 import { List, Map, Seq, fromJS, Range } from 'immutable';
 import { expect } from 'chai';
-import { getBracketSize, getNextMatch } from '../../client/src/utilities/bracket_helpers';
+import { getBracketSize, getNextMatch } from '../../client/src/utilities/bracket_helpers.jsx';
+import rootReducer from '../../client/src/reducers/root.jsx';
+import * as actions from '../../client/src/actions/action_creators.jsx';
 import { describe, it } from 'mocha';
+import {
+         BRACKET_STATE,
+         BRACKET_STATE_NEXT,
+         BRACKET_FINAL_STATE,
+         BRACKET_FINAL_STATE_NEXT,
+       } from './states/bracket_spec_states.jsx';
+
 
 describe('single elimination bracket logic', () => {
   it('selects the right bracket size for the number of players', () => {
@@ -34,5 +43,35 @@ describe('single elimination bracket logic', () => {
     const nextMatchIndex = getNextMatch(matchIndex, bracketSize);
 
     expect(nextMatchIndex).to.equal(-1);
+  });
+});
+
+describe('bracket reducer', () => {
+  it('produces correct next state given an in progress tournament', () => {
+    const initialState = fromJS(BRACKET_STATE);
+    const expectedState = fromJS(BRACKET_STATE_NEXT);
+
+    const action = actions.updateBracket(0, 1, {
+      userId: 4,
+      playerName: 'Adam',
+      playerPic: 'adamurl',
+    });
+
+    const nextState = rootReducer(initialState, action);
+    expect(nextState).to.equal(expectedState);
+  });
+
+  it('produces correct next state given a tournament concluding final match', () => {
+    const initialState = fromJS(BRACKET_FINAL_STATE);
+    const expectedState = fromJS(BRACKET_FINAL_STATE_NEXT);
+
+    const action = actions.updateBracket(0, 2, {
+      userId: 1,
+      playerName: 'Maher',
+      playerPic: 'maherurl',
+    });
+
+    const nextState = rootReducer(initialState, action);
+    expect(nextState).to.deep.equal(expectedState);
   });
 });

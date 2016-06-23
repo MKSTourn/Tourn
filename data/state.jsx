@@ -14,6 +14,7 @@ const INITIAL_STATE = {
       userPic: '', // img url string
       alerts: [
         {
+          alertId: null,
           text: '', // alert text string
           tournId: null, // associated tourn id
           isInvite: false, // true if the alert is an invite
@@ -34,7 +35,6 @@ const INITIAL_STATE = {
       tournType: '', // tourn type string (single, double, roundrobin)
       isOrganizer: false, // true if the current user is the organizer of this tourn
       rules: '', // organizer defined rules text string
-      bracketSize: null, // bracket size integer set to closest power of 2
     },
     chat: [
       {
@@ -55,6 +55,10 @@ const INITIAL_STATE = {
       },
     ],
     bracket: {
+      bracketSize: null, // bracket size integer set to closest power of 2
+      tournStatus: '', // string determining overall tourn states
+                       // 'Not Started', 'In Progress', or 'Concluded'
+      tournWinner: null, // player object of tournament champion
       matches: [
         {
           player1: {
@@ -67,8 +71,9 @@ const INITIAL_STATE = {
             playerName: '',
             playerPic: '',
           },
+          winner: null, // set to either player1 or player2 object when match is concluded
           status: '', // string denoting match status
-                     // 'In Progress' or 'Player X' where X is the winner
+                     // 'In Progress' or 'Concluded'
         },
       ],
     },

@@ -29,12 +29,13 @@ passport.use(new FacebookStrategy({
   clientID: '986354861484992',
   clientSecret: '7966d7fab2fd294004fd28622a1aaad8',
   callbackURL: 'http://localhost:4000/auth/facebook/callback',
+  profileFields: ['id', 'displayName', 'name', 'gender', 'emails', 'picture.type(large)'],
 },
   (accessToken, refreshToken, profile, done) => {
     const id = profile.id;
     console.log('accessToken:', accessToken);
     // console.log('refreshToken:', refreshToken);
-    console.log('profile:', profile.displayName);
+    console.log('profile:', profile);
     console.log('done:', done);
     console.log('id:', id);
 
@@ -72,7 +73,7 @@ passport.deserializeUser((obj, done) => {
 
 // Authentication routes
 
-router.get('/auth/facebook', passport.authenticate('facebook'));
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: 'email'}));
 
 router.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
