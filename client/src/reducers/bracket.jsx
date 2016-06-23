@@ -45,6 +45,8 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
   return state.set('bracket', fromJS(newBracket));
 }
 
+
+
 export default function bracket(state = {}, action) {
   switch (action.type) {
     // case 'SUBMIT_ADVANCE':

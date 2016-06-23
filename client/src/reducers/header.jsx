@@ -34,10 +34,8 @@ function handleAcceptInvite(state, tournId, alertId) {
 }
 
 function handleToggleSelect(state, showTournList) {
-  let toggledTournList = !state.get('showTournList');
-  console.log('handleToggleSelect reducer function ran');
-  console.log('state before update', state);
-  return state.set('showTournList', toggledTournList );
+  console.log('Header reducer: handleToggleSelect');
+  return state.set('showTournList', !showTournList);
 }
 
 function handleToggleAlerts(state, showAlertList) {
@@ -56,9 +54,9 @@ export default function header(state, action) {
     case 'ACCEPT_INVITE':
       return handleAcceptInvite(state, action.userId, action.tournId, alert);
     case 'TOGGLE_SELECT':
-      return handleToggleSelect(state, action.showTournList); //CHANGED!!!
+      return handleToggleSelect(state, action.showTournList);
     case 'TOGGLE_ALERTS':
-      return handleToggleAlerts(state.header, action.data);
+      return handleToggleAlerts(state, action.data);
     default:
       return state;
   }
