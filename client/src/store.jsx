@@ -13,10 +13,10 @@ import { socket } from './utilities/socketContainer.jsx';
 // create an object for the default data
 const INITIAL_STATE = fromJS(state);
 
-console.log('INITIAL_STATE', initialState);
+console.log('INITIAL_STATE', INITIAL_STATE);
 const store = createStore(
   rootReducer,
-  initialState,
+  INITIAL_STATE,
   applyMiddleware(socketMiddleware(socket)),
   window.devToolsExtension && window.devToolsExtension(),
 );
