@@ -19,6 +19,9 @@ module.exports.socket = function socketAttachment(io) {
       //   User's tournament list updated with new tourn ID,
       //   User's isOrganizer property set to TRUE,
       //   User's tournament object updated with new tourn ID
+
+      // *** Fully Functional ***
+
       socket.on('new_tourn', (data) => {
         console.log('new_tourn', data);
         tournaments.create(
@@ -40,6 +43,9 @@ module.exports.socket = function socketAttachment(io) {
       // Client submits ID of tournament they want to view
       // Server retrieves latest state of that tournament from db
       // Server sends back new tournament object
+
+      // *** Potentially Functional, Untested ***
+
       socket.on('select_tourn', (data) => {
         console.log('select_tourn', data);
         if (data.to != null) {
@@ -58,9 +64,38 @@ module.exports.socket = function socketAttachment(io) {
         }
       });
 
+      // Client (tournament organizer) sends tourn ID, matchIndex, and winner
+      // Server does the following:
+      //   Validates that user is the organizer and calculates next match
+      //   Updates bracket for that tournament in db
+      // Server sends back new tournament state to all users
+
+      // *** Potentially Functional, Untested ***
+
+      socket.on('update_bracket', (data) => {
+        console.log('update_bracket', data);
+        if (data.to != null) {
+          console.log('sending back');
+          tournaments.advancePlayer(data.entry.tournId, data.entry.winner, data.entry.matchIndex)
+            .then((result) => {
+              socket.emit('update_bracket_success');
+              io.to(result._id).emit('bracket_update', result);
+            })
+            .catch((err) => {
+              console.log('Error trying to update bracket', err);
+              socket.emit('update_bracket_fail');
+            });
+        }
+
+        socket.emit('update_bracket_fail');
+      });
+
       // Client sends ID of alert they want deleted
       // Server updates user's alert list in db with alert removed
       // Server sends back new user data with alert list updated
+
+      // *** Potentially Functional, Untested ***
+
       socket.on('delete_alert', (data) => {
         console.log('delete_alert', data);
         users.deleteAlert(socket.request.user._id, data.entry.alertid)
@@ -72,21 +107,6 @@ module.exports.socket = function socketAttachment(io) {
           });
       });
 
-      // Client (tournament organizer) sends tourn ID, matchIndex, and winner
-      // Server does the following:
-      //   Validates that user is the organizer and calculates next match
-      //   Updates bracket for that tournament in db
-      // Server sends back new tournament state to all users
-      socket.on('update_bracket', (data) => {
-        console.log('update_bracket', data);
-        if (data.to != null) {
-          console.log('sending back');
-        }
-
-        socket.emit('update_bracket_success');
-        socket.emit('update_bracket_fail');
-      });
-
       // Client sends ID of tournament they wish to accept an invite to
       // Server does the following:
       //   Adds user to tournament roster
@@ -94,14 +114,25 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends the user the updated state including new tourn list and tournament
       // Server sends all users in that tournament a chat message noting the user accepted
       // Server sends new roster to all users in that tournament
+
+      // *** Potentially Functional, Untested ***
+
       socket.on('accept_invite', (data) => {
         console.log('accept_invite', data);
         if (data.to != null) {
           console.log('sending back');
-          io.to(data.to).emit('user_accepted',
-            { id: socket.request.user._id, name: socket.request.user.name });
-          socket.emit('accept_invite_success');
-          socket.emit('add_tourn', data.entry.tournId);
+
+          users.acceptInvite(socket.request.user._id, data.entry.alertid)
+            .then(() => {
+              io.to(data.to).emit('user_accepted',
+              { id: socket.request.user._id, name: socket.request.user.name });
+              socket.emit('accept_invite_success');
+              socket.emit('add_tourn', data.entry.tournId);
+            })
+            .catch((err) => {
+              console.log('Accept invitation error: ', err)
+              socket.emit('accept_invite_fail');
+            });          
         } else {
           socket.emit('accept_invite_fail');
         }
