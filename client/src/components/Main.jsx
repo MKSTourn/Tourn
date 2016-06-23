@@ -6,9 +6,13 @@ import { Provider } from 'react-redux';
 import store from '../store.jsx';
 import Chat from './Chat.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
+import startListeners from '../utilities/socketListeners.jsx'
 
+import { socket } from '../utilities/socketContainer.jsx';
 
-// import io from 'socket.io-client';
+// Kick off event listeners for server events
+startListeners(socket);
+
 /* class MainComponent extends React.Component {
   constructor() {
     super();
@@ -26,10 +30,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 //   //TODO: submit to the server and refresh the list
 //   console.log('handleMessageSubmit ran')
 // )
-// const socket = io('http://localhost');
-// const handleMessageSubmit = (author, text) => {
-//   const timeStamp = Date.now();
-//   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
+
+
 // };
 
 const Main = () => (

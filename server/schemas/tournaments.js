@@ -8,6 +8,10 @@ const tournamentSchema = new Schema({
 
   type: String,
 
+  bracketSize: Number,
+  registrationOpen: Boolean,
+  tournState: String,
+
   // All messages for a given tournament
   chatHistory: [{
     sender: Schema.ObjectId,
@@ -27,6 +31,7 @@ const tournamentSchema = new Schema({
       playerA: Schema.ObjectId,
       playerB: Schema.ObjectId,
       winner: Schema.ObjectId,
+      status: String,
     }],
   }],
 });

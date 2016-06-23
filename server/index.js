@@ -20,6 +20,8 @@ const http = require('http');
 const server = new http.Server(app);
 const io = require('socket.io')(server);
 
+require('./routes/socketHandler').socket(io);
+
 // Setup webpack configuration
 const config = webpack(webpackConfig);
 
