@@ -31,7 +31,7 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
     return state.set('bracket', fromJS(newBracket));
   }
 
-  if (!newBracket.matches[nextMatch].player1) {
+export default function bracket(state = fromJS(INITIAL_STATE).getIn(['tournament', 'bracket']), action) {
     // Fill player1 slot of next match
     newBracket.matches[nextMatch].player1 = winner;
   } else if (!newBracket.matches[nextMatch].player2) {

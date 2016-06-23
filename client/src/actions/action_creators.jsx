@@ -77,8 +77,9 @@ export function acceptInvite(tournId, alertId) {
     alertId,
   };
 }
-
+//CHANGED!!!
 export function toggleTournSelect(showTournList) {
+  console.log('toggleTournSelect action creator ran');
   return {
     type: 'TOGGLE_SELECT',
     showTournList,

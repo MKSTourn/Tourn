@@ -34,8 +34,10 @@ function handleAcceptInvite(state, tournId, alertId) {
 }
 
 function handleToggleSelect(state, showTournList) {
-  console.log('Header reducer: handleToggleSelect');
-  return state.set('showTournList', !showTournList);
+  let toggledTournList = !state.get('showTournList');
+  console.log('handleToggleSelect reducer function ran');
+  console.log('state before update', state);
+  return state.set('showTournList', toggledTournList );
 }
 
 function handleToggleAlerts(state, showAlertList) {
@@ -43,7 +45,7 @@ function handleToggleAlerts(state, showAlertList) {
   return state.set('showAlertList', !showAlertList);
 }
 
-export default function header(state = fromJS(INITIAL_STATE).get('header'), action) {
+export default function header(state, action) {
   switch (action.type) {
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state, action.tourn);
@@ -54,7 +56,7 @@ export default function header(state = fromJS(INITIAL_STATE).get('header'), acti
     case 'ACCEPT_INVITE':
       return handleAcceptInvite(state, action.userId, action.tournId, alert);
     case 'TOGGLE_SELECT':
-      return handleToggleSelect(state, action.showTournList);
+      return handleToggleSelect(state, action.showTournList); //CHANGED!!!
     case 'TOGGLE_ALERTS':
       return handleToggleAlerts(state, action.data);
     default:
