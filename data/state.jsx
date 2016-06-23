@@ -62,8 +62,16 @@ const INITIAL_STATE = {
       tournWinner: null, // player object of tournament champion
       matches: [
         // {
-        //   player1: null, // index into roster array
-        //   player2: null, // index into roster array
+        //   player1: {
+        //     userId: null,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   player2: {
+        //     userId: 1,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
         //   winner: null,  // set to either player1 or player2
         //                  // when match is concluded
         //   status: '',    // string denoting match status
