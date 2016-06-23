@@ -80,4 +80,3 @@ describe('bracket reducer', () => {
     expect(nextState).to.deep.equal(expectedState);
   });
 });
-
