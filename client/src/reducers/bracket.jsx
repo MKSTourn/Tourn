@@ -2,7 +2,6 @@
 // Bracket reducer
 //
 
-import INITIAL_STATE from '../../../data/state.jsx';
 import { fromJS } from 'immutable';
 import { getNextMatch } from '../utilities/bracket_helpers.jsx';
 
@@ -16,8 +15,12 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
   const newBracket = state.toJS();
   const nextMatch = getNextMatch(matchIndex, newBracket.bracketSize);
 
+  // console.log('handleUpdateBracket: tournId, matchIndex, winner:', tournId, matchIndex, winner);
+  console.log('handleUpdateBracket: nextMatch:', nextMatch);
+
   if (!nextMatch) {
     // Invalid match index. Do not change state!
+    console.log('handleUpdateBracket: invalid match index!');
     return state;
   }
 
@@ -26,32 +29,35 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
 
   if (nextMatch === -1) {
     // Final match has concluded
+    console.log('handleUpdateBracket: tournament has concluded!');
     newBracket.tournWinner = winner;
-    newBracket.tournStates = 'Concluded';
-    return state.set('bracket', fromJS(newBracket));
+    newBracket.tournStatus = 'Concluded';
+    return fromJS(newBracket);
   }
 
-  if (!newBracket.matches[nextMatch].player1) {
+  if (!newBracket.matches[nextMatch].player1.userId) {
     // Fill player1 slot of next match
+    console.log('handleUpdateBracket: filling player1 slot of next match!');
     newBracket.matches[nextMatch].player1 = winner;
-  } else if (!newBracket.matches[nextMatch].player2) {
+  } else if (!newBracket.matches[nextMatch].player2.userId) {
     // Fill player2 slot of next match
+    console.log('handleUpdateBracket: filling player2 slot of next match!');
     newBracket.matches[nextMatch].player2 = winner;
+    newBracket.matches[nextMatch].status = 'In Progress';
   } else {
-    // should never happen
+    // Should never happen
     console.log('handleUpdateBracket: error - match already full!');
   }
 
-  return state.set('bracket', fromJS(newBracket));
+  return fromJS(newBracket);
 }
 
-export default function bracket(state = fromJS(INITIAL_STATE).getIn(['tournament', 'bracket']),
-                                action) {
+export default function bracket(state = {}, action) {
   switch (action.type) {
     // case 'SUBMIT_ADVANCE':
     //   return handleSubmitAdvance(state, action.bracket);
     case 'UPDATE_BRACKET':
-      return handleUpdateBracket(state, action.bracket);
+      return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
     default:
       return state;
   }

@@ -20,12 +20,7 @@ const INITIAL_STATE = {
           isInvite: false, // true if the alert is an invite
         },
       ],
-      userTourns: [
-        {
-          tournName: '',
-          tournId: '',
-        },
-      ],  // array of tournaments this user is apart of
+      userTourns: [],  // array of tournaments this user is apart of
     },
   },
   tournament: {

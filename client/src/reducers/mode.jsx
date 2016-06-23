@@ -10,7 +10,7 @@ function handleChangeMode(state, mode) {
   return state;
 }
 
-export default function mode(state = fromJS(INITIAL_STATE).get('mode'), action) {
+export default function mode(state = {}, action) {
   switch (action.type) {
     case 'CHANGE_MODE':
       return handleChangeMode(state, action.mode);
