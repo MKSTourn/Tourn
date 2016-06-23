@@ -3,9 +3,15 @@ import '../styles/header_styles.css';
 import * as actions from '../actions/action_creators.jsx';
 import { connect } from 'react-redux';
 
+
+
+
 const Header = ({ showTournList, toggleTournSelect }) => (
-  <button onClick={toggleTournSelect}>Test Me</button>
+  showTournList ? <div><h2>Cheeseballs</h2>
+<button onClick={toggleTournSelect}>Test Me</button></div> :
+   <button onClick={toggleTournSelect}>Test Me</button>
 )
+
 
 export default Header;
 //

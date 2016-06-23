@@ -48,6 +48,7 @@ export function acceptInvite(userId, tournId) {
 }
 //CHANGED!!!
 export function toggleTournSelect(showTournList) {
+  console.log('toggleTournSelect action creator ran');
   return {
     type: 'TOGGLE_SELECT',
     showTournList,

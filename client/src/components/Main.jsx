@@ -34,7 +34,6 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 const Main = () => (
   <div>
-    <p>Hello world</p>
     <HeaderContainer />
   </div>
 )

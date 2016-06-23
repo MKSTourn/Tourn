@@ -5,8 +5,9 @@ import Header from './Header.jsx';
 import {toggleTournSelect} from '../actions/action_creators.jsx';
 
 function mapStateToProps(state){
+  console.log('mapStateToProps showTournList', state.getIn(['header','showTournList']));
   return {
-    showTournList: state.showTournList,
+    showTournList: state.getIn(['header','showTournList']),
   }
 }
 
