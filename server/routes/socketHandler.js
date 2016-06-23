@@ -8,7 +8,6 @@ module.exports.socket = function socketAttachment(io) {
     if (socket.request && socket.request.user) {
       console.log(socket.request.user);
       socket.join(socket.request.user._id);
-    }
     // No need for this event.
     // Client automatically will receive logged state
     // when server detects user is logged in
