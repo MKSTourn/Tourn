@@ -4,10 +4,12 @@ import { Grid, Row, Col } from 'react-bootstrap';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
 
 
-const Bracket = ({size, players, matches}) => {
+const Bracket = ({ size, players, matches, updateBracket }) => {
   let points = generateBracketPoints(
-    Math.pow(2, Math.ceil(Math.log2(players.size))), size.x, size.y);
-  console.log('points', points);
+    Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
+  
+  console.log('Bracket!', size, players, matches);
+
   return (
     <div className='bracket'>
       <svg
@@ -38,16 +40,16 @@ const Bracket = ({size, players, matches}) => {
           </polyline>
           {flag ?
             <foreignObject x={point1.x} y={point1.y + 20} width={200} height={40}>
-              <button>
-                Zak
+              <button onClick={updateBracket.bind(null, null, key, matches[key].player1)}>
+                {matches[key].player1.playerName}
               </button>
             </foreignObject>
             : null});
 
           {flag ?
             <foreignObject x={point1.x} y={point1.y - 40} width={200} height={40}>
-              <button>
-                Zak
+              <button onClick={updateBracket.bind(null, null, key, matches[key].player2)}>
+                {matches[key].player2.playerName}
               </button>
             </foreignObject>
             : null});
