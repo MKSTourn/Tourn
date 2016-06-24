@@ -3,15 +3,14 @@ import '../../styles/header_styles.css';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
 
-
 const Bracket = ({ size, players, matches, updateBracket }) => {
-  let points = generateBracketPoints(
+  const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
-  
+
   console.log('Bracket!', size, players, matches);
 
   return (
-    <div className='bracket'>
+    <div className="bracket">
       <svg
         width={size.x}
         height={size.y}
@@ -23,9 +22,9 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
 
           console.log('Point set!', val);
 
-          let point1 = val[0];
-          let point2 = val[1];
-          let flag = val[2];
+          const point1 = val[0];
+          const point2 = val[1];
+          const flag = val[2];
           return (<g><polyline
             points={`${point1.x},${point1.y} ${point2.x},${point2.y}`}
             key={key}
@@ -58,7 +57,7 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
       }
       </svg>
     </div>
-  )
+  );
 };
 
 export default Bracket;
@@ -79,9 +78,7 @@ export default Bracket;
 //     <Chat />
 //   </Col>
 // </Row>
-
-
-
+//
 //
 // if (props.mode === 'LoggedOut') {
 //   return (<div className="topbar">
