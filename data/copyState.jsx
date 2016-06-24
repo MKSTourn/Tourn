@@ -47,10 +47,13 @@ const INITIAL_STATE = {
     start: false,
     invite: false,
     roster: [
-      { playerId: 1, playerStatus: '', playerName: 'Zak', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 2, playerStatus: '', playerName: 'Maher', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 3, playerStatus: '', playerName: 'Adam', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 4, playerStatus: '', playerName: 'Mark', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
+      // {
+      //   playerId: null, // integer
+      //   playerStatus: '', // text determining player's status in tournament
+      //                     // 'Eliminated', 'Match X' where X is the player's active match
+      //   playerName: '', // player name string
+      //   playerPic: '', // player pic url string
+      // },
     ],
     bracket: {
       bracketSize: null, // bracket size integer set to closest power of 2
