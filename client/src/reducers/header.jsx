@@ -41,8 +41,10 @@ function handleToggleSelect(state, showTournList) {
 }
 
 function handleToggleAlerts(state, showAlertList) {
-  console.log('Header reducer: handleToggleAlerts');
-  return state.set('showAlertList', !showAlertList);
+  let toggleAlertList = !state.get('showAlertList');
+  console.log('handleToggleAlerts reducer function ran');
+  console.log('state before update', state);
+  return state.set('showAlertList', toggleAlertList);
 }
 
 export default function header(state, action) {
@@ -58,7 +60,7 @@ export default function header(state, action) {
     case 'TOGGLE_SELECT':
       return handleToggleSelect(state, action.showTournList); //CHANGED!!!
     case 'TOGGLE_ALERTS':
-      return handleToggleAlerts(state, action.data);
+      return handleToggleAlerts(state, action.showAlertList);
     default:
       return state;
   }
