@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware } from 'redux';
 import { fromJS } from 'immutable';
-import { syncHistoryWithStore } from 'react-router-redux';
-//import { browserHistory } from 'react-router';
+// import { syncHistoryWithStore } from 'react-router-redux';
+// import { browserHistory } from 'react-router';
 
 // import the root reducer
 import tournamentReducer from './reducers/tournament.jsx';
