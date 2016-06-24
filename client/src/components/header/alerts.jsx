@@ -9,7 +9,7 @@ const Alerts = ({ showAlertList, userAlerts, toggleAlerts }) => (
   showAlertList ?
   <div>
     <button onClick={toggleAlerts}>Alerts</button>
-    <ol>
+    <ol className='alertDropdownList'>
       {userAlerts.map(function(alert){
         return <li key={alert.get('alertId')}>{alert.get('text')}</li>
       })}

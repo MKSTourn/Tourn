@@ -12,20 +12,13 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 const Header = ({ showTournList, userTourns, toggleTournSelect, showAlertList, userAlerts, toggleAlerts }) => (
   <div className="topbar">
-    <Col md={3}>
-      <CreateTournament />
-    </Col>
-    <Col md={3}>
-      <UserTournaments toggleTournSelect = { toggleTournSelect } showTournList = { showTournList } userTourns = { userTourns } />
-    </Col>
+    <CreateTournament />
+    <UserTournaments toggleTournSelect = { toggleTournSelect } showTournList = { showTournList } userTourns = { userTourns } />
     <h1 className="center">Tourn</h1>
-    <Col md={3}>
-      <Alerts toggleAlerts = { toggleAlerts } showAlertList = { showAlertList } userAlerts = { userAlerts } />
-    </Col>
-    <Col md={3}>
-      <Login />
-    </Col>
+    <Alerts toggleAlerts = { toggleAlerts } showAlertList = { showAlertList } userAlerts = { userAlerts } />
+    <Login />
   </div>
+
 )
 // <Row className={'show-grid'}>
 //   <Col md={12}>

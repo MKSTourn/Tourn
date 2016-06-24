@@ -53,6 +53,20 @@
   margin-left: 10%;
 }
 
+.tournDropdownList {
+  color:black;
+  top: 80px;
+  left: 10%;
+  position: fixed;
+}
+
+.alertDropdownList {
+  color:black;
+  top: 80px;
+  right: 10%;
+  position: fixed;
+}
+
 .center {
   float: left;
   color: white;
@@ -63,15 +77,15 @@
 .alertBtn {
   float: left;
   color: black;
-  margin-top:30px;
-  position: relative;
-  margin-left: 15%;
+  top:30px;
+  position: fixed;
+  right: 50px;
 }
 
 .facebookLogin {
   float: left;
   color: black;
-  margin-top:30px;
-  position: relative;
-  margin-left: 15%;
+  top:30px;
+  position: fixed;
+  right: 10px;
 }

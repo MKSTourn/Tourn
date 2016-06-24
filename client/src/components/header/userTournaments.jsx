@@ -9,7 +9,7 @@ const UserTournaments = ({ showTournList, userTourns, toggleTournSelect }) => (
   showTournList ?
   <div>
     <button className="dropdownBtn" onClick={toggleTournSelect}>Tournaments List</button>
-    <ol>
+    <ol className='tournDropdownList'>
       {userTourns.map(function(tournament){
         return <li key={tournament.get('tournId')}>{tournament.get('tournName')}</li>
       })}
