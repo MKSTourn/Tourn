@@ -3,7 +3,7 @@
 //
 
 // import INITIAL_STATE from '../../../data/state.jsx';
-import { fromJS, toJS } from 'immutable';
+import { fromJS } from 'immutable';
 
 function handleSubmit(state) {
   console.log('Header reducer: handleSubmit');
