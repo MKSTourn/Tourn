@@ -1,7 +1,7 @@
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as actionCreators from '../actions/action_creators.jsx';
-import Header from './Header.jsx';
+import Header from './header/Header.jsx';
 import {toggleTournSelect} from '../actions/action_creators.jsx';
 
 function mapStateToProps(state){
@@ -10,6 +10,8 @@ function mapStateToProps(state){
   return {
     showTournList: state.getIn(['header','showTournList']),
     userTourns: state.getIn(['header', 'userData', 'userTourns']),
+    showAlertList: state.getIn(['header','showAlertList']),
+    userAlerts: state.getIn(['header', 'userData', 'alerts']),
   }
 }
 

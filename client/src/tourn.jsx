@@ -4,8 +4,11 @@ import Main from './components/Main.jsx';
 import { Router, Route, IndexRoute } from 'react-router';
 import { Provider } from 'react-redux';
 import store from './store.jsx';
+import startListeners from './utilities/socketListeners.jsx';
+import { socket } from './utilities/socketContainer.jsx';
 
-
+// Kick off event listeners for server events
+startListeners(socket);
 
 render(
   <Provider store={store}>

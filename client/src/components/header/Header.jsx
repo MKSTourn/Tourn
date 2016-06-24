@@ -1,27 +1,52 @@
 import React, { PropTypes } from 'react';
-import '../styles/header_styles.css';
-import * as actions from '../actions/action_creators.jsx';
+import '../../styles/header_styles.css';
+import * as actions from '../../actions/action_creators.jsx';
 import { connect } from 'react-redux';
+import UserTournaments from './userTournaments.jsx';
+import Alerts from './alerts.jsx';
+import Login from './login.jsx';
+import CreateTournament from './createTournament.jsx';
+import { Grid, Row, Col } from 'react-bootstrap';
 
 
 
-
-const Header = ({ showTournList, userTourns, toggleTournSelect }) => (
-  showTournList ?
-  <div>
-    <button onClick={toggleTournSelect}>Tournaments List</button>
-    <ol>
-      {userTourns.map(function(tournament){
-        return <li key={tournament.get('tournId')}>{tournament.get('tournName')}</li>
-      })}
-    </ol>
+const Header = ({ showTournList, userTourns, toggleTournSelect, showAlertList, userAlerts, toggleAlerts }) => (
+  <div className="topbar">
+    <CreateTournament />
+    <UserTournaments toggleTournSelect = { toggleTournSelect } showTournList = { showTournList } userTourns = { userTourns } />
+    <h1 className="center">Tourn</h1>
+    <Alerts toggleAlerts = { toggleAlerts } showAlertList = { showAlertList } userAlerts = { userAlerts } />
+    <Login />
   </div>
-  :
-  <div>
-    <button onClick={toggleTournSelect}>Tournaments List</button>
-  </div>
+
 )
-
+// <Row className={'show-grid'}>
+//   <Col md={12}>
+//     <Header />
+//   </Col>
+// </Row>
+// <Row className={'show-grid'}>
+//   <Col md={3}>
+//     <div id="roster"></div>
+//   </Col>
+//   <Col md={6}>
+//     <Bracket />
+//   </Col>
+//   <Col md={3}>
+//     <Chat />
+//   </Col>
+// </Row>
+// <Row>
+//   <Col md={3}>
+//     <span></span>
+//   </Col>
+//   <Col md={6}>
+//     <div id="rules"></div>
+//   </Col>
+//   <Col md={3}>
+//     <span></span>
+//   </Col>
+// </Row>
 
 export default Header;
 //

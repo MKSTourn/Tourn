@@ -78,18 +78,16 @@ export function acceptInvite(tournId, alertId) {
   };
 }
 //CHANGED!!!
-export function toggleTournSelect(showTournList) {
+export function toggleTournSelect() {
   console.log('toggleTournSelect action creator ran');
   return {
     type: 'TOGGLE_SELECT',
-    showTournList,
   };
 }
 
-export function toggleAlerts(showAlertList) {
+export function toggleAlerts() {
   return {
-    type: 'TOGGLE_SELECT',
-    showAlertList,
+    type: 'TOGGLE_ALERTS',
   };
 }
 

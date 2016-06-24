@@ -13,30 +13,19 @@ const INITIAL_STATE = {
       userName: '', // string
       userPic: '', // img url string
       alerts: [
-        {
-          alertId: null,
-          text: '', // alert text string
-          tournId: null, // associated tourn id
-          isInvite: false, // true if the alert is an invite
-        },
+        // {
+        //   alertId: null,
+        //   text: '', // alert text string
+        //   tournId: null, // associated tourn id
+        //   tournName: '', // associated tourn name
+        //   isInvite: false, // true if the alert is an invite
+        // },
       ],
       userTourns: [
-        {
-          tournName: 'Ping Pong Tournament',
-          tournId: '1',
-        },
-        {
-          tournName: 'Coding Tournament',
-          tournId: '2',
-        },
-        {
-          tournName: 'Murder Tournament',
-          tournId: '3',
-        },
-        {
-          tournName: 'Pool Tournament',
-          tournId: '4',
-        },
+        // {
+        //   tournName: '',
+        //   tournId: '',
+        // },
       ],  // array of tournaments this user is apart of
     },
   },
@@ -49,22 +38,22 @@ const INITIAL_STATE = {
       rules: '', // organizer defined rules text string
     },
     chat: [
-      {
-        authorId: null, // id of user who wrote message
-        comment: '', // user message string
-        timeStamp: '',
-      },
+      // {
+      //   authorId: null, // id of user who wrote message
+      //   comment: '', // user message string
+      //   timeStamp: '',
+      // },
     ],
     start: false,
     invite: false,
     roster: [
-      {
-        playerId: null, // integer
-        playerStatus: '', // text determining player's status in tournament
-                          // 'Eliminated', 'Match X' where X is the player's active match
-        playerName: '', // player name string
-        playerPic: '', // player pic url string
-      },
+      // {
+      //   playerId: null, // integer
+      //   playerStatus: '', // text determining player's status in tournament
+      //                     // 'Eliminated', 'Match X' where X is the player's active match
+      //   playerName: '', // player name string
+      //   playerPic: '', // player pic url string
+      // },
     ],
     bracket: {
       bracketSize: null, // bracket size integer set to closest power of 2
@@ -72,21 +61,22 @@ const INITIAL_STATE = {
                        // 'Not Started', 'In Progress', or 'Concluded'
       tournWinner: null, // player object of tournament champion
       matches: [
-        {
-          player1: {
-            userId: null,
-            playerName: '',
-            playerPic: '',
-          },
-          player2: {
-            userId: null,
-            playerName: '',
-            playerPic: '',
-          },
-          winner: null, // set to either player1 or player2 object when match is concluded
-          status: '', // string denoting match status
-                     // 'In Progress' or 'Concluded'
-        },
+        // {
+        //   player1: {
+        //     userId: null,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   player2: {
+        //     userId: 1,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   winner: null,  // set to either player1 or player2
+        //                  // when match is concluded
+        //   status: '',    // string denoting match status
+        //                  // 'Not Started','In Progress' or 'Concluded'
+        // },
       ],
     },
   },
