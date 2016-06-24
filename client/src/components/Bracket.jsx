@@ -41,15 +41,15 @@ const BracketComponent = (props) => {
         >
         </polyline>
         {flag ?
-          <foreignObject x={point1.x} y={point1.y + 20} width={200}>
-            <button>
+          <foreignObject x={point1.x} y={point1.y + 5} width={200} height={30}>
+            <button style={{ zIndex: 9999 }}>
               Zak
             </button>
           </foreignObject>
           : null});
 
         {flag ?
-          <foreignObject x={point1.x} y={point1.y - 40} width={200}>
+          <foreignObject x={point1.x} y={point1.y - 30} width={200} height={30}>
             <button>
               Zak
             </button>
