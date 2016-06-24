@@ -24,9 +24,11 @@ function handleSelectTourn(state) {
 function handleDeleteAlert(state, alertId) {
   console.log('Header reducer: handleDeleteAlert');
   console.log('Header reducer: alertId =', alertId);
+  console.log('Header reducer: state =', state);
   // Optimistic next state:
   // Delete alertId obj from userData.alerts
   const alerts = state.getIn(['userData', 'alerts']).toJS();
+  console.log('Header reducer: alerts =', alerts);
   const delIndex = alerts.findIndex(alert => alert.alertId === alertId);
   alerts.splice(delIndex, 1);
   return ~delIndex ? state.setIn(['userData', 'alerts'], fromJS(alerts)) :
