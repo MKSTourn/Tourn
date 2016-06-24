@@ -2,19 +2,25 @@
 // Invite button reducer
 //
 
-import INITIAL_STATE from '../../../data/state.jsx';
-import { fromJS } from 'immutable';
-
-function handleToggleInvite(state, invite) {
-  return state.set('Invite', invite);
-  // TODO: freeze future UI
-  // TODO: show spinner
+function handleToggleInvite(state) {
+  console.log('Invite reducer: handleToggleInvite');
+  const toggledInviteBtn = !state.get('invite');
+  return state.set('showTournList', toggledInviteBtn);
 }
 
-export default function Invite(state = {}, action) {
+function handleSendInvite(state) {
+  console.log('Invite reducer: handleSendInvite');
+  // User's player invite has been submitted to server.
+  // Nothing to render in the meantime, so don't change state.
+  return state;
+}
+
+export default function invite(state = {}, action) {
   switch (action.type) {
-    case 'TOGGLE_SHOW_INVITE':
-      return handleToggleInvite(state, action.invite);
+    case 'TOGGLE_INVITE':
+      return handleToggleInvite(state);
+    case 'SEND_INVITE':
+      return handleSendInvite(state);
     default:
       return state;
   }

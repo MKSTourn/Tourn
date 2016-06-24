@@ -52,12 +52,18 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
   return fromJS(newBracket);
 }
 
+function handleUpdateSize(state, bracketSize) {
+  return state.set('rules', bracketSize);
+}
+
 export default function bracket(state = {}, action) {
   switch (action.type) {
     // case 'SUBMIT_ADVANCE':
     //   return handleSubmitAdvance(state, action.bracket);
     case 'UPDATE_BRACKET':
       return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
+    case 'UPDATE_BRACKET_SIZE':
+      return handleUpdateSize(state.tournInfo, action.bracketSize);
     default:
       return state;
   }
