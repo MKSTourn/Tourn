@@ -39,7 +39,9 @@ function generateBracketPoints(playerCount, width, height) {
 
       result.push([
         { x: horizontalSpacing * width, y: verticalSpacing * height },
-        { x: horizontalSpacing * width + (width * (1 / (Math.log2(matchCount) + 1))), y: verticalSpacing * height },
+        { x: horizontalSpacing * width + (width * (1 / (Math.log2(matchCount) + 1))),
+          y: verticalSpacing * height },
+        true,
       ]);
     }
 
@@ -58,8 +60,8 @@ function generateBracketPoints(playerCount, width, height) {
       const bot = i + 1;
       const end = i + (matchCount - Math.floor(bot / 2));
 
-      result.push([result[top][1], result[end][0]]);
-      result.push([result[bot][1], result[end][0]]);
+      result.push([result[top][1], result[end][0], false]);
+      result.push([result[bot][1], result[end][0], false]);
     }
   }
 

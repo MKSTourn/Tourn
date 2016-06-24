@@ -35,14 +35,17 @@ const generateTournamentData = (userObject, tournObject) => ({
 });
 
 const generateUserState = (userId, tournId) => {
-  users.findById(userId)
+  console.log('Generating User State');
+  return users.findById(userId)
     .then((user) => {
       if (!user) {
         throw new Error('User not found');
       }
 
+      console.log('Searching for tournaments');
       return tournaments.findById(tournId)
       .then((tourn) => {
+        console.log(tourn);
         const resultObject = {
           mode: 'LoggedIn',
         };
@@ -53,9 +56,10 @@ const generateUserState = (userId, tournId) => {
           userData: generateUserData(user),
         };
 
-        if (!tourn) {
+        if (tourn) {
+          console.log('Shouldnt fire');
           resultObject.tournament = generateTournamentData(user, tourn);
-          }
+        }
         return resultObject;
       })
       .catch((err) => {
