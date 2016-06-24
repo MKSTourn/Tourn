@@ -37,7 +37,7 @@ const Bracket = ({size, players, matches}) => {
           >
           </polyline>
           {flag ?
-            <foreignObject x={point1.x} y={point1.y + 20} width={200}>
+            <foreignObject x={point1.x} y={point1.y + 20} width={200} height={40}>
               <button>
                 Zak
               </button>
@@ -45,7 +45,7 @@ const Bracket = ({size, players, matches}) => {
             : null});
 
           {flag ?
-            <foreignObject x={point1.x} y={point1.y - 40} width={200}>
+            <foreignObject x={point1.x} y={point1.y - 40} width={200} height={40}>
               <button>
                 Zak
               </button>
