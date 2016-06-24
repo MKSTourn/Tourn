@@ -2,7 +2,6 @@
 // Header reducer
 //
 
-// import INITIAL_STATE from '../../../data/state.jsx';
 import { fromJS } from 'immutable';
 
 function handleSubmit(state) {
@@ -25,26 +24,23 @@ function handleSelectTourn(state) {
 function handleDeleteAlert(state, alertId) {
   console.log('Header reducer: handleDeleteAlert');
   console.log('Header reducer: alertId =', alertId);
-  console.log('Header reducer: state =', state);
   // Optimistic next state:
   // Delete alertId obj from userData.alerts
   const alerts = state.getIn(['userData', 'alerts']).toJS();
-  console.log('Header reducer: alerts =', alerts);
   const delIndex = alerts.findIndex(alert => alert.alertId === alertId);
   alerts.splice(delIndex, 1);
-  console.log('Header reducer: alerts after delete =', alerts);
   return ~delIndex ? state.setIn(['userData', 'alerts'], fromJS(alerts)) :
                      state;
 }
 
 function handleAcceptInvite(state, tournId, alertId) {
   console.log('Header reducer: handleAcceptInvite');
+  console.log('Header reducer: tournId, alertId =', tournId, alertId);
   // Optimistic next state:
   // Add new tourn to userData.userTourns
   const alerts = state.getIn(['userData', 'alerts']).toJS();
-  let tourns = state.getIn(['userData', 'userTourns']).toJS();
+  const tourns = state.getIn(['userData', 'userTourns']).toJS();
   const delIndex = alerts.findIndex(alert => alert.alertId === alertId);
-  console.log('Header reducer: deleteIndex =', delIndex);
   const newTourn = {
     tournName: alerts[delIndex].tournName,
     tournId,
@@ -59,14 +55,14 @@ function handleAcceptInvite(state, tournId, alertId) {
 }
 
 function handleToggleSelect(state) {
-  const toggledTournList = !state.get('showTournList');
   console.log('Header reducer: handleToggleSelect');
+  const toggledTournList = !state.get('showTournList');
   return state.set('showTournList', toggledTournList);
 }
 
 function handleToggleAlerts(state) {
-  const toggledAlertList = !state.get('showAlertList');
   console.log('Header reducer: handleToggleAlerts');
+  const toggledAlertList = !state.get('showAlertList');
   return state.set('showAlertList', toggledAlertList);
 }
 
