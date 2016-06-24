@@ -134,10 +134,18 @@ export function updateSize(bracketSize) {
 // Chat
 //
 
-export function updateChat(chat) {
+
+export function updateChat(newChat) {
   return {
     type: 'UPDATE_CHAT',
-    chat,
+    newChat,
+  };
+}
+
+export function submitChat(message) {
+  return {
+    type: 'SUBMIT_CHAT',
+    message,
   };
 }
 
@@ -145,10 +153,23 @@ export function updateChat(chat) {
 // Roster
 //
 
-export function toggleInviteBtn(bracket) {
+export function toggleInviteBtn() {
   return {
-    type: 'SHOW_INVITE',
-    bracket,
+    type: 'TOGGLE_INVITE',
+  };
+}
+
+export function sendInvite(input) {
+  return {
+    type: 'SEND_INVITE',
+    input,
+  };
+}
+
+export function updateRoster(newRoster) {
+  return {
+    type: 'UPDATE_ROSTER',
+    newRoster,
   };
 }
 
