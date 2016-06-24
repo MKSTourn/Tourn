@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
 import HeaderContainer from './HeaderContainer';
-import Bracket from './Bracket.jsx';
+import BracketContainer from './BracketContainer.js';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
 import Chat from './Chat.jsx';
-import Test from './test.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 // import io from 'socket.io-client';
@@ -32,22 +31,20 @@ import { Grid, Row, Col } from 'react-bootstrap';
 //   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
 // };
 
-console.log('Dakka', Test);
-
 const Main = () => (
   <div>
-    <Grid>
-      <Row className={'show-grid'}>
-        <HeaderContainer />
-        <Bracket />
-        <Test />
-      </Row>
-    </Grid>
+    <HeaderContainer />
+    <BracketContainer />
   </div>
-);
+)
+    //TODO: <Bracket />, <Chat />, etc
+
+
+        //{React.cloneElement(this.props.children, this.props)}
+
 
 export default Main;
-// ///////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 // var cloneWithProps = require('react-addons-clone-with-props');
 //
 // var _makeBlue = function(element) {

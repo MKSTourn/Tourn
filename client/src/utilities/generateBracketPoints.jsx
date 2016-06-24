@@ -39,8 +39,7 @@ function generateBracketPoints(playerCount, width, height) {
 
       result.push([
         { x: horizontalSpacing * width, y: verticalSpacing * height },
-        { x: horizontalSpacing * width + (width * (1 / (Math.log2(matchCount) + 1))),
-          y: verticalSpacing * height },
+        { x: horizontalSpacing * width + (width * (1 / (Math.log2(matchCount) + 1))), y: verticalSpacing * height },
         true,
       ]);
     }
