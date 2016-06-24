@@ -1,5 +1,6 @@
 require('babel-register');
 const INITIAL_STATE = require('../../data/state.jsx');
+const stateGenerator = require('../generateUserInitialStateTree.js');
 const tournaments = require('../models/tournaments.js');
 const users = require('../models/users.js');
 
@@ -15,7 +16,7 @@ module.exports.socket = function socketAttachment(io) {
     // happens
       console.log(socket.request.user);
       socket.join(socket.request.user._id);
-      socket.emit('set_state', INITIAL_STATE);
+      socket.emit('set_state', stateGenerator.generateUserState(socket.request.user._id));
 
       // Client submits newly created tournament data,
       // Server adds tournament to db,
