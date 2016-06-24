@@ -1,137 +1,421 @@
-// Logged out application state
-export const LoggedOut = {
+//
+// Before submitting a new tourn
+//
+export const SUBMIT_STATE = {
   mode: 'LoggedOut', // string identifying app mode
-                     // modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
-  header: { },
-  tournament: { },
-};
-
-export const LoggedIn = {
-  mode: 'LoggedIn', // string identifying app mode
-                     // modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
+                     // modes: LoggedOut, LoggedIn, Edit, Registration
   header: {
+    showTournList: false,
+    showAlertList: false,
     userData: {
-      userId: 1, // integer
-      facebookId: 0, // integer
-      userName: 'Adam Smith', // string
-      userPic: 'adamurl', // img url string
-      alerts: [],
-      userTourns: [], // array of tournament ids this user is apart of
-    },
-  },
-  tournament: {},
-};
-
-export const Edit = {
-  mode: 'Edit', // string identifying app mode
-                     // modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
-  header: {
-    userData: {
-      userId: 1, // integer
-      facebookId: 0, // integer
-      userName: 'Adam Smith', // string
-      userPic: 'adamurl', // img url string
-      alerts: [],
-      userTourns: [], // array of tournament ids this user is apart of
+      userId: null, // integer
+      facebookId: null, // integer
+      userName: '', // string
+      userPic: '', // img url string
+      alerts: [
+        // {
+        //   alertId: null,
+        //   text: '', // alert text string
+        //   tournId: null, // associated tourn id
+        //   tournName: '', // associated tourn name
+        //   isInvite: false, // true if the alert is an invite
+        // },
+      ],
+      userTourns: [
+        // {
+        //   tournName: '',
+        //   tournId: '',
+        // },
+      ],  // array of tournaments this user is apart of
     },
   },
   tournament: {
-    tournId: 2, // integer
-    tournName: 'My Tournament', // tourn name string
-    tournType: 'single', // tourn type string (single, double, roundrobin)
-    organizerId: 1, // user id of organizer
-    chatHistory: [],
-    rules: '', // organizer defined rules text string
+    info: {
+      tournId: null, // integer
+      tournName: '', // tourn name string
+      tournType: '', // tourn type string (single, double, roundrobin)
+      isOrganizer: false, // true if the current user is the organizer of this tourn
+      rules: '', // organizer defined rules text string
+    },
+    chat: [
+      // {
+      //   authorId: null, // id of user who wrote message
+      //   comment: '', // user message string
+      //   timeStamp: '',
+      // },
+    ],
+    start: false,
+    invite: false,
     roster: [
-      {
-        playerId: 1, // integer
-        playerStatus: 'Match 1', // text determining player's status in tournament
-                          // 'Eliminated', 'Match X' where X is the player's active match
-        playerName: 'Adam Smith',   // player name string
-        playerPic: 'adamurl', // player pic url string
-      },
+      // {
+      //   playerId: null, // integer
+      //   playerStatus: '', // text determining player's status in tournament
+      //                     // 'Eliminated', 'Match X' where X is the player's active match
+      //   playerName: '', // player name string
+      //   playerPic: '', // player pic url string
+      // },
     ],
     bracket: {
-      bracketSize: 2, // bracket size integer set to closest power of 2
+      bracketSize: null, // bracket size integer set to closest power of 2
+      tournStatus: '', // string determining overall tourn states
+                       // 'Not Started', 'In Progress', or 'Concluded'
+      tournWinner: null, // player object of tournament champion
       matches: [
-        {
-          player1: {
-            userId: null,
-            playerName: '',
-            playerPic: '',
-          },
-          player2: {
-            userId: null,
-            playerName: '',
-            playerPic: '',
-          },
-          status: 'Not Started', // string denoting match status
-                                 // 'In Progress' or 'Player X' where X is the winner
-        },
+        // {
+        //   player1: {
+        //     userId: null,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   player2: {
+        //     userId: 1,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   winner: null,  // set to either player1 or player2
+        //                  // when match is concluded
+        //   status: '',    // string denoting match status
+        //                  // 'Not Started','In Progress' or 'Concluded'
+        // },
       ],
     },
   },
 };
 
-// // Template application state
-// const state = {
-//   mode: 'LoggedOut', // string identifying app mode
-//                      // modes: LoggedOut, LoggedIn, PlayerView, OrganizerView, Edit, Registration
-//   header: {
-//     userData: {
-//       userId: null, // integer
-//       facebookId: null, // integer
-//       userName: '', // string
-//       userPic: '', // img url string
-//       alerts: [
-//         {
-//           text: '', // alert text string
-//           tournId: null, // associated tourn id
-//           isInvite: false, // true if the alert is an invite
-//         },
-//       ],
-//       userTourns: [], // array of tournament ids this user is apart of
-//     },
-//   },
-//   tournament: {
-//     tournId: null, // integer
-//     tournName: '', // tourn name string
-//     tournType: '', // tourn type string (single, double, roundrobin)
-//     organizerId: null, // user id of organizer
-//     chatHistory: [
-//       {
-//         authorId: null, // id of user who wrote message
-//         comment: '', // user message string
-//       },
-//     ],
-//     rules: '', // organizer defined rules text string
-//     roster: [
-//       {
-//         playerId: null, // integer
-//         playerStatus: '', // text determining player's status in tournament
-//                           // 'Eliminated', 'Match X' where X is the player's active match
-//         playerName: '', // player name string
-//         playerPic: '', // player pic url string
-//       },
-//     ],
-//     bracket: {
-//       bracketSize: null, // bracket size integer set to closest power of 2
-//       matches: [
-//         {
-//           player1: {
-//             userId: null,
-//             playerName: '',
-//             playerPic: '',
-//           },
-//           player2: {
-//             userId: null,
-//             playerName: '',
-//             playerPic: '',
-//           },
-//           status: '', // string denoting match status
-//                      // 'In Progress' or 'Player X' where X is the winner
-//         },
-//       ],
-//     },
-//   },
-// };
+//
+// After submitting a new tourn
+// Note: it doesn't really matter what we fill in here it
+// just needs to be the same as before
+export const SUBMIT_STATE_NEXT = {
+  mode: 'LoggedOut', // string identifying app mode
+                     // modes: LoggedOut, LoggedIn, Edit, Registration
+  header: {
+    showTournList: false,
+    showAlertList: false,
+    userData: {
+      userId: null, // integer
+      facebookId: null, // integer
+      userName: '', // string
+      userPic: '', // img url string
+      alerts: [
+        // {
+        //   alertId: null,
+        //   text: '', // alert text string
+        //   tournId: null, // associated tourn id
+        //   tournName: '', // associated tourn name
+        //   isInvite: false, // true if the alert is an invite
+        // },
+      ],
+      userTourns: [
+        // {
+        //   tournName: '',
+        //   tournId: '',
+        // },
+      ],  // array of tournaments this user is apart of
+    },
+  },
+  tournament: {
+    info: {
+      tournId: null, // integer
+      tournName: '', // tourn name string
+      tournType: '', // tourn type string (single, double, roundrobin)
+      isOrganizer: false, // true if the current user is the organizer of this tourn
+      rules: '', // organizer defined rules text string
+    },
+    chat: [
+      // {
+      //   authorId: null, // id of user who wrote message
+      //   comment: '', // user message string
+      //   timeStamp: '',
+      // },
+    ],
+    start: false,
+    invite: false,
+    roster: [
+      // {
+      //   playerId: null, // integer
+      //   playerStatus: '', // text determining player's status in tournament
+      //                     // 'Eliminated', 'Match X' where X is the player's active match
+      //   playerName: '', // player name string
+      //   playerPic: '', // player pic url string
+      // },
+    ],
+    bracket: {
+      bracketSize: null, // bracket size integer set to closest power of 2
+      tournStatus: '', // string determining overall tourn states
+                       // 'Not Started', 'In Progress', or 'Concluded'
+      tournWinner: null, // player object of tournament champion
+      matches: [
+        // {
+        //   player1: {
+        //     userId: null,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   player2: {
+        //     userId: 1,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   winner: null,  // set to either player1 or player2
+        //                  // when match is concluded
+        //   status: '',    // string denoting match status
+        //                  // 'Not Started','In Progress' or 'Concluded'
+        // },
+      ],
+    },
+  },
+};
+
+// TODO: Include SELECT_TOURN and SELECT_TOURN_NEXT states
+// For now just use the above
+
+export const DELETE_ALERT_STATE = {
+  showTournList: false,
+  showAlertList: true,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};
+
+export const DELETE_ALERT_STATE_NEXT = {
+  showTournList: false,
+  showAlertList: true,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};
+
+export const ACCEPT_INVITE_STATE = {
+  showTournList: false,
+  showAlertList: true,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};
+
+export const ACCEPT_INVITE_STATE_NEXT = {
+  showTournList: false,
+  showAlertList: true,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      {
+        tournName: 'Ping Pong',
+        tournId: 1,
+      },
+    ],
+  },
+};
+
+export const TOGGLE_ALERT_STATE = {
+  showTournList: false,
+  showAlertList: false,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};
+
+export const TOGGLE_ALERT_STATE_NEXT = {
+  showTournList: false,
+  showAlertList: true,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};
+
+export const TOGGLE_SELECT_STATE = {
+  showTournList: false,
+  showAlertList: false,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};
+
+export const TOGGLE_SELECT_STATE_NEXT = {
+  showTournList: true,
+  showAlertList: false,
+  userData: {
+    userId: 1,
+    facebookId: 1,
+    userName: 'Maher',
+    userPic: 'maherurl',
+    alerts: [
+      {
+        alertId: 0,
+        text: 'Invited to Ping Pong',
+        tournId: 1,
+        tournName: 'Ping Pong',
+        isInvite: true,
+      },
+      {
+        alertId: 1,
+        text: 'Invited to Table Tennis',
+        tournId: 2,
+        tournName: 'Table Tennis',
+        isInvite: true,
+      },
+    ],
+    userTourns: [
+      // {
+      //   tournName: '',
+      //   tournId: '',
+      // },
+    ],
+  },
+};

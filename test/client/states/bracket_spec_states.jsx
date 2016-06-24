@@ -76,7 +76,7 @@ export const BRACKET_STATE_NEXT = {
         playerPic: 'zackurl',
       },
       winner: null, // set to either player1 or player2 object when match is concluded
-      status: 'Not Started', // string denoting match status
+      status: 'In Progress', // string denoting match status
                  // 'In Progress' or 'Concluded'
     },
     {
@@ -171,9 +171,8 @@ export const BRACKET_FINAL_STATE = {
         playerName: 'Maher',
         playerPic: 'maherurl',
       },
-      winner: null, // set to either player1 or player2 object when match is concluded
-      status: 'In Progress', // string denoting match status
-                 // 'In Progress' or 'Concluded'
+      winner: null,
+      status: 'In Progress',
     },
   ],
 };
@@ -186,10 +185,10 @@ export const BRACKET_FINAL_STATE_NEXT = {
   tournStatus: 'Concluded', // string determining overall tourn states
                    // 'Not Started', 'In Progress', or 'Concluded'
   tournWinner: {
-        userId: 1,
-        playerName: 'Maher',
-        playerPic: 'maherurl',
-      }, // player object of tournament champion
+    userId: 1,
+    playerName: 'Maher',
+    playerPic: 'maherurl',
+  }, // player object of tournament champion
   matches: [
     {
       player1: {
