@@ -2,72 +2,89 @@
 // Template state
 //
 const INITIAL_STATE = {
-  mode: 'LoggedOut', // string identifying app mode
+  mode: 'LoggedIn', // string identifying app mode
                      // modes: LoggedOut, LoggedIn, Edit, Registration
   header: {
     showTournList: false,
     showAlertList: false,
     userData: {
-      userId: null, // integer
-      facebookId: null, // integer
-      userName: '', // string
-      userPic: '', // img url string
+      userId: 0, // integer
+      facebookId: 0, // integer
+      userName: 'Mark Boraski', // string
+      userPic: 'https://a.cocaine.ninja/pjeevc.jpg', // img url string
       alerts: [
-        // {
-        //   alertId: null,
-        //   text: '', // alert text string
-        //   tournId: null, // associated tourn id
-        //   tournName: '', // associated tourn name
-        //   isInvite: false, // true if the alert is an invite
-        // },
+        {
+          alertId: 0,
+          text: 'Invited to Dodgeball', // alert text string
+          tournId: 2, // associated tourn id
+          tournName: 'Dodgeball', // associated tourn name
+          isInvite: true, // true if the alert is an invite
+        },
+        {
+          alertId: 1,
+          text: 'Adam Smith joined Ping Pong', // alert text string
+          tournId: 0, // associated tourn id
+          tournName: 'Ping Pong', // associated tourn name
+          isInvite: false, // true if the alert is an invite
+        },
       ],
       userTourns: [
-        // {
-        //   tournName: '',
-        //   tournId: '',
-        // },
+        {
+          tournName: 'Ping Pong',
+          tournId: 0,
+        },
+        {
+          tournName: 'Rock Paper Scissors',
+          tournId: 1,
+        },
       ],  // array of tournaments this user is apart of
     },
   },
   tournament: {
     info: {
-      tournId: null, // integer
-      tournName: '', // tourn name string
-      tournType: '', // tourn type string (single, double, roundrobin)
-      isOrganizer: false, // true if the current user is the organizer of this tourn
-      rules: '', // organizer defined rules text string
+      tournId: 0, // integer
+      tournName: 'Ping Pong', // tourn name string
+      tournType: 'single', // tourn type string (single, double, roundrobin)
+      isOrganizer: true, // true if the current user is the organizer of this tourn
+      rules: 'Fight to the death', // organizer defined rules text string
     },
     chat: [
-      // {
-      //   authorId: null, // id of user who wrote message
-      //   comment: '', // user message string
-      //   timeStamp: '',
-      // },
+      {
+        authorName: 'Mark Boraski',
+        authorPic: 'https://a.cocaine.ninja/pjeevc.jpg',
+        comment: 'I will win', // user message string
+        timeStamp: 'sometime',
+      },
+      {
+        authorName: 'Adam Smith',
+        authorPic: 'https://a.cocaine.ninja/pjeevc.jpg',
+        comment: 'No', // user message string
+        timeStamp: 'someothertime',
+      },
     ],
     start: false,
-    invite: false,
+    invite: true,
     roster: [
-      { playerId: 1, playerStatus: '', playerName: 'Zak', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 2, playerStatus: '', playerName: 'Maher', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 3, playerStatus: '', playerName: 'Adam', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 4, playerStatus: '', playerName: 'Mark', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
+      { playerId: 0, playerStatus: '', playerName: 'Mark Boraski', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
+      { playerId: 1, playerStatus: '', playerName: 'Zackery Perryman', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
+      { playerId: 2, playerStatus: '', playerName: 'Adam Smith', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
     ],
     bracket: {
       bracketSize: 4, // bracket size integer set to closest power of 2
-      tournStatus: '', // string determining overall tourn states
-                       // 'Not Started', 'In Progress', or 'Concluded'
+      tournStatus: 'Not Started', // string determining overall tourn states
+                                  // 'Not Started', 'In Progress', or 'Concluded'
       tournWinner: null, // player object of tournament champion
       matches: [
         {
           player1: {
-            userId: 1,
-            playerName: 'Maher',
-            playerPic: 'maherurl',
+            userId: 0,
+            playerName: 'Mark Boraski',
+            playerPic: 'https://a.cocaine.ninja/pjeevc.jpg',
           },
           player2: {
-            userId: 2,
-            playerName: 'Zack',
-            playerPic: 'zackurl',
+            userId: 1,
+            playerName: 'Zackery Perryman',
+            playerPic: 'https://a.cocaine.ninja/pjeevc.jpg',
           },
           winner: null, // set to either player1 or player2 object when match is concluded
           status: 'In Progress', // string denoting match status
@@ -75,17 +92,17 @@ const INITIAL_STATE = {
         },
         {
           player1: {
-            userId: 3,
-            playerName: 'Mark',
-            playerPic: 'markurl',
+            userId: 2,
+            playerName: 'Adam Smith',
+            playerPic: 'https://a.cocaine.ninja/pjeevc.jpg',
           },
           player2: {
-            userId: 4,
-            playerName: 'Adam',
-            playerPic: 'adamurl',
+            userId: null,
+            playerName: '',
+            playerPic: '',
           },
           winner: null, // set to either player1 or player2 object when match is concluded
-          status: 'In Progress', // string denoting match status
+          status: 'Not Started', // string denoting match status
                      // 'In Progress' or 'Concluded'
         },
         {
