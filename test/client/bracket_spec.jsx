@@ -81,32 +81,3 @@ describe('bracket reducer', () => {
   });
 });
 
-describe('bracket reducer', () => {
-  it('produces correct next state given an in progress tournament', () => {
-    const initialState = fromJS(BRACKET_STATE);
-    const expectedState = fromJS(BRACKET_STATE_NEXT);
-
-    const action = actions.updateBracket(0, 1, {
-      userId: 4,
-      playerName: 'Adam',
-      playerPic: 'adamurl',
-    });
-
-    const nextState = rootReducer(initialState, action);
-    expect(nextState).to.equal(expectedState);
-  });
-
-  it('produces correct next state given a tournament concluding final match', () => {
-    const initialState = fromJS(BRACKET_FINAL_STATE);
-    const expectedState = fromJS(BRACKET_FINAL_STATE_NEXT);
-
-    const action = actions.updateBracket(0, 2, {
-      userId: 1,
-      playerName: 'Maher',
-      playerPic: 'maherurl',
-    });
-
-    const nextState = rootReducer(initialState, action);
-    expect(nextState).to.deep.equal(expectedState);
-  });
-});
