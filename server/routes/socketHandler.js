@@ -155,15 +155,16 @@ module.exports.socket = function socketAttachment(io) {
       });
 
       socket.on('submit_chat', (data) => {
+        console.log('submit_chat', data);
         tournaments.addChatMessage(
           data.entry.tournId,
-          socket.requet.user._id,
+          socket.request.user._id,
           socket.request.user.name,
           data.entry.message,
           data.entry.timeStamp)
         .then(() => {
           socket.emit('submit_chat_success');
-          io.on(data.to).emit('chat_message', {
+          io.to(data.to).emit('chat_message', {
             authorId: socket.request.user._id,
             authorName: socket.request.user.name,
             message: data.entry.message,
@@ -171,6 +172,7 @@ module.exports.socket = function socketAttachment(io) {
           });
         })
         .catch((err) => {
+          console.log('Submit chat error', err);
           socket.emit('submit_chat_fail');
         });
       });

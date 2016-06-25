@@ -137,6 +137,7 @@ export function submitChat(tournId, message, timeStamp) {
   return {
     type: 'SUBMIT_CHAT',
     meta: {
+      event: 'submit_chat',
       to: tournId,
       entry: {
         tournId,
