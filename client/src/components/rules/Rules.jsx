@@ -12,19 +12,3 @@ const Rules = () => (
 
 
 export default Rules;
-
-// <ul className="chatbox"></ul>
-// <form onSubmit={handleSubmit}>
-//   <input
-//     type="text"
-//     placeholder="New Message"
-//     value={'Hi.'}
-//     className="newMessage"
-//   />
-//   <input type="submit" value="Post" />
-// </form>
-// const handleSubmit = (e) => {
-//   e.preventDefault();
-//   // let author, text;
-//   // this.props.onMessageSubmit({ text });
-// };
