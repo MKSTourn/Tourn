@@ -4,7 +4,6 @@ import { fromJS } from 'immutable';
 // import { browserHistory } from 'react-router';
 
 // import the root reducer
-import tournamentReducer from './reducers/tournament.jsx';
 import rootReducer from './reducers/root.jsx';
 import state from '../../data/state.jsx';
 import socketMiddleware from './actions/socket_middleware.jsx';
@@ -19,11 +18,10 @@ const store = createStore(
   rootReducer,
   initialState,
   applyMiddleware(socketMiddleware(socket)),
-  window.devToolsExtension && window.devToolsExtension(),
+  window.devToolsExtension && window.devToolsExtension()
 );
 
-
-//export const history = syncHistoryWithStore(browserHistory, store);
+// export const history = syncHistoryWithStore(browserHistory, store);
 
 // if (module.hot) {
 //   module.hot.accept('./reducers', () => {

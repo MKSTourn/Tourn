@@ -2,9 +2,6 @@
 // Tournament info reducer
 //
 
-import INITIAL_STATE from '../../../data/state.jsx';
-import { fromJS } from 'immutable';
-
 function handleUpdateId(state, tournId) {
   return state.set('tournId', tournId);
 }
@@ -21,10 +18,6 @@ function handleUpdateRules(state, rules) {
   return state.set('rules', rules);
 }
 
-function handleUpdateSize(state, bracketSize) {
-  return state.set('rules', bracketSize);
-}
-
 export default function info(state = {}, action) {
   switch (action.type) {
     case 'UPDATE_ID':
@@ -35,8 +28,6 @@ export default function info(state = {}, action) {
       return handleUpdateName(state.tournInfo, action.tournName);
     case 'UPDATE_RULES':
       return handleUpdateRules(state.tournInfo, action.rules);
-    case 'UPDATE_BRACKET_SIZE':
-      return handleUpdateSize(state.tournInfo, action.bracketSize);
     default:
       return state;
   }

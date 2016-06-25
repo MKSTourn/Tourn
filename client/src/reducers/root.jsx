@@ -9,9 +9,9 @@ import mode from './mode.jsx';
 import network from './network.jsx';
 
 const rootReducer = combineReducers({
+  mode,
   header,
   tournament,
-  mode,
   network,
 });
 

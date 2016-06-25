@@ -2,17 +2,15 @@
 // Roster Reducer
 //
 
-import INITIAL_STATE from '../../../data/state.jsx';
-import { fromJS } from 'immutable';
-
-function handleToggleInvite(state, showInviteBtn) {
-  return state.set('showInviteBtn', showInviteBtn);
+function handleUpdateRoster(state, newRoster) {
+  console.log('Roster reducer: handleUpdateRoster');
+  return state.set('roster', newRoster);
 }
 
 export default function roster(state = {}, action) {
   switch (action.type) {
-    case 'SHOW_INVITE':
-      return handleToggleInvite(state.tournament, action.showInviteBtn);
+    case 'UPDATE_ROSTER':
+      return handleUpdateRoster(state, action.newRoster);
     default:
       return state;
   }

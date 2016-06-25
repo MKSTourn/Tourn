@@ -1,4 +1,4 @@
-.topbar {
+/*.topbar {
   position: fixed;
   z-index: 10;
   top: 0;
@@ -10,6 +10,10 @@
   color: #fff;
 }
 
+.bracket {
+  position: relative;
+  top: 100px;
+}
 .addTournamentButton {
   float: left;
   margin-top: 20px;
@@ -23,7 +27,6 @@
   box-shadow: 0 0 3px gray;
   font-size:25px;
   font-weight:bold;
-  padding-bottom: 5px;
 }
 
 .submitTournamentButton {
@@ -88,4 +91,4 @@
   top:30px;
   position: fixed;
   right: 10px;
-}
+}*/

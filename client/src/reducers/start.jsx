@@ -2,19 +2,25 @@
 // Start button reducer
 //
 
-import INITIAL_STATE from '../../../data/state.jsx';
-import { fromJS } from 'immutable';
+function handleToggleStart(state) {
+  console.log('Start reducer: handleToggleStart');
+  const toggledStartBtn = !state.get('start');
+  return state.set('start', toggledStartBtn);
+}
 
-function handleToggleStart(state, start) {
-  return state.set('start', start);
-  // TODO: freeze future UI
-  // TODO: show spinner
+function handleStartTourn(state) {
+  console.log('Invite reducer: handleSendInvite');
+  // User sent start tourn request to server.
+  // Nothing to render in the meantime, so don't change state.
+  return state;
 }
 
 export default function start(state = {}, action) {
   switch (action.type) {
-    case 'TOGGLE_SHOW_START':
-      return handleToggleStart(state, action.start);
+    case 'TOGGLE_START':
+      return handleToggleStart(state);
+    case 'START_TOURN':
+      return handleStartTourn(state, action.start);
     default:
       return state;
   }

@@ -1,47 +1,25 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
 import HeaderContainer from './HeaderContainer';
-import Bracket from './Bracket.jsx';
+import RosterContainer from './RosterContainer.js';
+import BracketContainer from './BracketContainer.js';
+import ChatContainer from './ChatContainer';
+import RulesContainer from './RulesContainer.js';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
-import Chat from './Chat.jsx';
+import Test from './Test.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-// import io from 'socket.io-client';
-/* class MainComponent extends React.Component {
-  constructor() {
-    super();
-  }
-
-  render() {
-    return (<div>I am a test.</div>);
-  }
-} */
-
-
-// console.log(Bracket);
-
-// let handleMessageSubmit = (message) => (
-//   //TODO: submit to the server and refresh the list
-//   console.log('handleMessageSubmit ran')
-// )
-// const socket = io('http://localhost');
-// const handleMessageSubmit = (author, text) => {
-//   const timeStamp = Date.now();
-//   socket.emit('chat message', { author: 'Mark', text, time: timeStamp });
-// };
 
 const Main = () => (
   <div>
-    <Grid>
-      <Row className={'show-grid'}>
-        <HeaderContainer />
-      </Row>
-    </Grid>
+    <HeaderContainer />
+    <RosterContainer />
+    <BracketContainer />
+    <ChatContainer />
+    <RulesContainer />
   </div>
 )
-    //TODO: <Bracket />, <Chat />, etc
-
 
         //{React.cloneElement(this.props.children, this.props)}
 

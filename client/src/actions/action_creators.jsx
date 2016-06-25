@@ -77,9 +77,8 @@ export function acceptInvite(tournId, alertId) {
     alertId,
   };
 }
-//CHANGED!!!
+
 export function toggleTournSelect() {
-  console.log('toggleTournSelect action creator ran');
   return {
     type: 'TOGGLE_SELECT',
   };
@@ -123,32 +122,31 @@ export function updateRules(tournRules) {
   };
 }
 
-export function updateSize(bracketSize) {
-  return {
-    type: 'UPDATE_BRACKET_SIZE',
-    bracketSize,
-  };
-}
-
 //
 // Chat
 //
 
-export function updateChat(chat) {
+export function updateChat(newChat) {
   return {
     type: 'UPDATE_CHAT',
-    chat,
+    newChat,
   };
 }
 
-//
-// Roster
-//
-
-export function toggleInviteBtn(bracket) {
+export function submitChat(tournId, message, timeStamp) {
   return {
-    type: 'SHOW_INVITE',
-    bracket,
+    type: 'SUBMIT_CHAT',
+    meta: {
+      event: 'submit_chat',
+      to: tournId,
+      entry: {
+        tournId,
+        message,
+        timeStamp,
+      },
+    },
+    message,
+    timeStamp,
   };
 }
 
@@ -156,10 +154,17 @@ export function toggleInviteBtn(bracket) {
 // Bracket
 //
 
-export function submitAdvance(bracket) {
+// export function submitAdvance(bracket) {
+//   return {
+//     type: 'SUBMIT_ADVANCE',
+//     bracket,
+//   };
+// }
+
+export function updateSize(bracketSize) {
   return {
-    type: 'SUBMIT_ADVANCE',
-    bracket,
+    type: 'UPDATE_BRACKET_SIZE',
+    bracketSize,
   };
 }
 
@@ -169,7 +174,7 @@ export function updateBracket(tournId, matchIndex, winner) {
   return {
     type: 'UPDATE_BRACKET',
     meta: {
-      event: 'accept_invite',
+      event: 'update_bracket',
       to: tournId,
       entry: {
         tournId,
@@ -184,6 +189,65 @@ export function updateBracket(tournId, matchIndex, winner) {
 }
 
 //
+// Roster
+//
+
+export function updateRoster(newRoster) {
+  return {
+    type: 'UPDATE_ROSTER',
+    newRoster,
+  };
+}
+
+//
+// Start
+//
+
+export function toggleStartBtn() {
+  return {
+    type: 'TOGGLE_START',
+  };
+}
+
+export function startTourn(tournId) {
+  return {
+    type: 'START_TOURN',
+    meta: {
+      event: 'start_tourn',
+      to: tournId,
+      entry: {
+        tournId,
+      },
+    },
+  };
+}
+
+//
+// Invite
+//
+
+export function toggleInviteBtn() {
+  return {
+    type: 'TOGGLE_INVITE',
+  };
+}
+
+export function sendInvite(tournId, message) {
+  return {
+    type: 'SEND_INVITE',
+    meta: {
+      event: 'send_invite',
+      to: null, // Send this to the userId
+      entry: {
+        tournId,
+        message,
+      },
+    },
+    message,
+  };
+}
+
+//
 // Network
 //
 
@@ -195,22 +259,10 @@ export function setState(state) {
   };
 }
 
-// Server sends a tournament state update
-export function setTournState(state) {
+// Server sends a user state update
+export function setUserState(state) {
   return {
-    type: 'SET_STATE',
-    state,
-  };
-}
-
-//
-// Network
-//
-
-// Server sends a complete state update
-export function setState(state) {
-  return {
-    type: 'SET_STATE',
+    type: 'SET_USER_STATE',
     state,
   };
 }
@@ -218,7 +270,7 @@ export function setState(state) {
 // Server sends a tournament state update
 export function setTournState(state) {
   return {
-    type: 'SET_STATE',
+    type: 'SET_TOURN_STATE',
     state,
   };
 }
