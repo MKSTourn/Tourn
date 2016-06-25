@@ -6,7 +6,18 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 const Roster = () => (
   <section>
-    <p>Roster box is rendering</p>
+  	<div className="roster-box">
+  		<div className="roster-names-container">
+  			<div className="roster-name">
+  			</div>
+  		</div>
+  		<form>
+  			<input type="text" /><br />
+  			<button type="submit" value="submit" className="new-player-submit" >
+  				Add to Tournament
+  			</button>
+  		</form>
+  	</div>
   </section>
 );
 
