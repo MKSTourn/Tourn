@@ -68,7 +68,7 @@ module.exports.socket = function socketAttachment(io) {
         socket.join(data.entry.tournId);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
-            console.log('tourn result', result)
+            console.log('tourn result', result);
             if (result) {
               socket.emit('select_tourn_success', result);
             } else {

@@ -86,6 +86,11 @@ export default function startListeners(socket) {
     console.log('Socket event: update_bracket_fail:', data);
   });
 
+  socket.on('advance_player', (data) => {
+    console.log('Socket event: advance_player', data);
+    dispatch(actions.advancePlayer(data));
+  });
+
   //
   // Start
   //

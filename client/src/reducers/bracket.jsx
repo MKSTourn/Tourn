@@ -63,6 +63,8 @@ export default function bracket(state = {}, action) {
   switch (action.type) {
     // case 'SUBMIT_ADVANCE':
     //   return handleSubmitAdvance(state, action.bracket);
+    case 'ADVANCE_PLAYER':
+      return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
     case 'UPDATE_BRACKET':
       return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
     case 'UPDATE_BRACKET_SIZE':

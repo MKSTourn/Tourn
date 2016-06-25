@@ -188,6 +188,15 @@ export function updateBracket(tournId, matchIndex, winner) {
   };
 }
 
+export function advancePlayer(advance) {
+  return {
+    type: 'ADVANCE_PLAYER',
+    tournId: advance.tournId,
+    matchIndex: advance.matchIndex,
+    winner: advance.winner,
+  };
+}
+
 //
 // Roster
 //
