@@ -39,8 +39,9 @@ const INITIAL_STATE = {
     },
     chat: [
       // {
-      //   authorId: null, // id of user who wrote message
-      //   message: '', // user message string
+      //   authorName: '',
+      //   authorPic: '',
+      //   comment: '', // user message string
       //   timeStamp: '',
       // },
     ],

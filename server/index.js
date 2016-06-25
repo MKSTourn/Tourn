@@ -22,8 +22,6 @@ const io = require('socket.io')(server);
 
 require('./routes/socketHandler').socket(io);
 
-require('./routes/socketHandler').socket(io);
-
 // Setup webpack configuration
 const config = webpack(webpackConfig);
 

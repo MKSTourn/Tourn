@@ -2,11 +2,13 @@ import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 import { Grid, Row, Col } from 'react-bootstrap';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
+import '../../styles/bracket_styles.css';
+
 
 const Bracket = ({ size, players, matches, updateBracket }) => {
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
-
+  
   console.log('Bracket!', size, players, matches);
 
   return (
@@ -28,25 +30,18 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
           return (<g><polyline
             points={`${point1.x},${point1.y} ${point2.x},${point2.y}`}
             key={key}
-            style={
-              /* "fill:white;stroke:black;stroke-width:4" */
-            {
-              fill: 'white',
-              stroke: 'black',
-              strokeWidth: '4',
-            }}
           >
           </polyline>
-          {flag ?
-            <foreignObject x={point1.x} y={point1.y + 20} width={200} height={40}>
+          {flag && !!matches[key].player1.playerName ?
+            <foreignObject x={point1.x} y={point1.y - 40} width={200} height={40}>
               <button onClick={updateBracket.bind(null, null, key, matches[key].player1)}>
                 {matches[key].player1.playerName}
               </button>
             </foreignObject>
             : null});
 
-          {flag ?
-            <foreignObject x={point1.x} y={point1.y - 40} width={200} height={40}>
+          {flag && !!matches[key].player2.playerName ?
+            <foreignObject x={point1.x} y={point1.y + 20} width={200} height={40}>
               <button onClick={updateBracket.bind(null, null, key, matches[key].player2)}>
                 {matches[key].player2.playerName}
               </button>
@@ -57,7 +52,7 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
       }
       </svg>
     </div>
-  );
+  )
 };
 
 export default Bracket;

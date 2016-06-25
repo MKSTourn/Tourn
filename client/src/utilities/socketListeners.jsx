@@ -8,7 +8,7 @@ export default function startListeners(socket) {
   // Header
   //
 
-  // Update tourn ID after submitting new tourn info
+  // Update user's tourn ID after submitting new tourn info
   socket.on('new_tourn_success', (data) => {
     console.log('Socket event: new_tourn_success:', data);
     dispatch(actions.updateId(data));
@@ -19,7 +19,7 @@ export default function startListeners(socket) {
     console.log('Socket event: new_tourn_fail:', data);
   });
 
-  // Update tournament object after submitting tournId
+  // Update tournament state after submitting tournId
   socket.on('select_tourn_success', (data) => {
     console.log('Socket event: select_tourn_success:', data);
     dispatch(actions.setTournState(data));
@@ -30,11 +30,8 @@ export default function startListeners(socket) {
     console.log('Socket event: select_tourn_fail:', data);
   });
 
-  // Update alerts after submitting alert to delete
+  // Server sends back an OK after deleting an alert from user's alerts
   socket.on('delete_alert_success', (data) => {
-    // TODO: decide whether client optimistically deletes alert
-    //       or update alerts list on this event
-    // Do nothing for now
     console.log('Socket event: delete_alert_success:', data);
   });
 
@@ -43,10 +40,10 @@ export default function startListeners(socket) {
     console.log('Socket event: delete_alert_fail:', data);
   });
 
-  // Update user's tourn list
+  // Update user data state after accepting a tourn invite
   socket.on('accept_invite_success', (data) => {
     console.log('Socket event: accept_invite_success:', data);
-    dispatch(actions.setTournState(data));
+    dispatch(actions.setUserState(data));
   });
 
   // TODO: Revert state and display error
@@ -58,10 +55,16 @@ export default function startListeners(socket) {
   // Chat
   //
 
-  // Update user's tourn list
+  // Update chat history to include a new message from
+  // some user in the tourn
+  socket.on('update_chat', (data) => {
+    console.log('Socket event: update_chat:', data);
+    dispatch(actions.updateChat(data));
+  });
+
+  // Server sends back an OK after user submits a new chat message
   socket.on('submit_chat_success', (data) => {
     console.log('Socket event: submit_chat_success:', data);
-    dispatch(actions.setTournState(data));
   });
 
   // TODO: Revert state and display error
@@ -73,12 +76,9 @@ export default function startListeners(socket) {
   // Bracket
   //
 
-  // Update user's tourn list
+  // Server sends back an OK after advancing a player in the tournament
   socket.on('update_bracket_success', (data) => {
     console.log('Socket event: update_bracket_success:', data);
-    // TODO: decide whether client optimistically deletes alert
-    //       or update alerts list on this event
-    // Do nothing for now
   });
 
   // TODO: Revert state and display error
@@ -90,6 +90,7 @@ export default function startListeners(socket) {
   // Start
   //
 
+  // Server sends back an OK after user presses Start Tourn button
   // Toggle show start and invite button
   // and set mode to 'View'
   socket.on('start_tourn_success', (data) => {
@@ -109,10 +110,15 @@ export default function startListeners(socket) {
   // Roster
   //
 
-  // Update user's roster
+  // Update roster after a user accepts an invite to the tournament
+  socket.on('update_roster', (data) => {
+    console.log('Socket event: update_roster:', data);
+    dispatch(actions.updateRoster(data));
+  });
+
+  // Server sends back an OK after user sends an invite to another user
   socket.on('send_invite_success', (data) => {
     console.log('Socket event: send_invite_success:', data);
-    dispatch(actions.setTournState(data));
   });
 
   // TODO: Revert state and display error
@@ -130,11 +136,13 @@ export default function startListeners(socket) {
     dispatch(actions.setState(data));
   });
 
+  // Update header state
   socket.on('set_user_state', (data) => {
     console.log('Socket event: set_user_state:', data);
     dispatch(actions.setState(data));
   });
 
+  // Update tourn state
   socket.on('set_tourn_state', (data) => {
     console.log('Socket event: set_tourn_state:', data);
     dispatch(actions.setState(data));
