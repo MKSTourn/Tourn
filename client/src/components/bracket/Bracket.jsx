@@ -5,7 +5,7 @@ import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx
 import '../../styles/bracket_styles.css';
 
 
-const Bracket = ({ size, players, matches, updateBracket }) => {
+const Bracket = ({ size, players, matches, submitAdvance }) => {
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
 
@@ -38,7 +38,7 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
 //     </polyline>
 //     {flag && !!matches[key].player1.playerName ?
 //       <foreignObject x={point1.x} y={point1.y - 40} width={200} height={40}>
-//         <button onClick={updateBracket.bind(null, null, key, matches[key].player1)}>
+//         <button onClick={submitAdvance.bind(null, null, key, matches[key].player1)}>
 //           {matches[key].player1.playerName}
 //         </button>
 //       </foreignObject>
@@ -46,7 +46,7 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
 //
 //     {flag && !!matches[key].player2.playerName ?
 //       <foreignObject x={point1.x} y={point1.y + 20} width={200} height={40}>
-//         <button onClick={updateBracket.bind(null, null, key, matches[key].player2)}>
+//         <button onClick={submitAdvance.bind(null, null, key, matches[key].player2)}>
 //           {matches[key].player2.playerName}
 //         </button>
 //       </foreignObject>
