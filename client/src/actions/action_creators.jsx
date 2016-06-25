@@ -133,9 +133,17 @@ export function updateChat(newChat) {
   };
 }
 
-export function submitChat(message) {
+export function submitChat(tournId, message) {
   return {
     type: 'SUBMIT_CHAT',
+    meta: {
+      event: 'update_bracket',
+      to: tournId,
+      entry: {
+        tournId,
+        message,
+      },
+    },
     message,
   };
 }

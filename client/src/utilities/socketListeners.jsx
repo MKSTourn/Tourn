@@ -59,16 +59,20 @@ export default function startListeners(socket) {
   //
 
   // Update user's tourn list
+  socket.on('update_chat', (data) => {
+    console.log('Socket event: update_chat:', data);
+    dispatch(actions.updateChat(data));
+  });
+
+  // Update user's tourn list
   socket.on('submit_chat_success', (data) => {
     console.log('Socket event: submit_chat_success:', data);
-    dispatch(actions.setTournState(data));
   });
 
   // TODO: Revert state and display error
   socket.on('submit_chat_fail', (data) => {
     console.log('Socket event: submit_chat_fail:', data);
   });
-
   //
   // Bracket
   //
@@ -109,10 +113,15 @@ export default function startListeners(socket) {
   // Roster
   //
 
-  // Update user's roster
+  // Server sends back an OK
+  socket.on('update_roster', (data) => {
+    console.log('Socket event: update_roster:', data);
+    dispatch(actions.updateRoster(data));
+  });
+
+  // Server sends back an OK
   socket.on('send_invite_success', (data) => {
     console.log('Socket event: send_invite_success:', data);
-    dispatch(actions.setTournState(data));
   });
 
   // TODO: Revert state and display error
