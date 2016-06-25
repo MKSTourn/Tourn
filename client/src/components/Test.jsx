@@ -44,7 +44,11 @@ const ExportTest = connect(() => ({}),
   },
 
   testSendInvite: () => {
-    dispatch();
+    dispatch(actions.sendInvite(window.tournId, window.userId, window.message));
+  },
+
+  testSendMessage: () => {
+    dispatch(actions.sendChat(window.tournId, window.message, Date.now()));
   },
 }))(Test);
 

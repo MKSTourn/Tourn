@@ -133,10 +133,19 @@ export function updateChat(newChat) {
   };
 }
 
-export function submitChat(message) {
+export function submitChat(tournId, message, timeStamp) {
   return {
     type: 'SUBMIT_CHAT',
+    meta: {
+      to: tournId,
+      entry: {
+        tournId,
+        message,
+        timeStamp,
+      },
+    },
     message,
+    timeStamp,
   };
 }
 
@@ -222,18 +231,18 @@ export function toggleInviteBtn() {
   };
 }
 
-export function sendInvite(input, tournId) {
+export function sendInvite(tournId, message) {
   return {
     type: 'SEND_INVITE',
     meta: {
       event: 'send_invite',
       to: null, // Send this to the userId
       entry: {
-        input,
         tournId,
+        message,
       },
     },
-    input,
+    message,
   };
 }
 
