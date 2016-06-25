@@ -37,7 +37,21 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.rules
         )
         .then((result) => {
-          socket.emit('new_tourn_success', result);
+          socket.emit('new_tourn_success', {
+            info: {
+              tournId: result._id,
+              tournName: result.name,
+              tournType: result.type,
+              rules: result.rules,
+            },
+            tournStatus: result.tournStatus,
+            tournWinner: result.tournWinner,
+            roster: result.roster,
+            bracket: {
+              bracketSize: result.roster.length,
+              matches: result.matches,
+            },
+          });
           socket.join(result._id);
         })
         .catch((err) => {
@@ -84,14 +98,14 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new tournament state to all users
       socket.on('update_bracket', (data) => {
         console.log('update_bracket', data);
-        tournaments.advancePlayer(data.entry.tournId, data.entry.playerId, data.entry.match)
+        tournaments.advancePlayer(data.entry.tournId, data.entry.winner, data.entry.matchIndex)
         .then(() => {
           socket.emit('update_bracket_success');
           io.to(data.to).emit('advance_player',
             {
               tournId: data.entry.tournId,
-              playerId: data.entry.playerId,
-              match: data.entry.match,
+              winner: data.entry.playerId,
+              matchIndex: data.entry.matchIndex,
             });
         })
         .catch(() => {
