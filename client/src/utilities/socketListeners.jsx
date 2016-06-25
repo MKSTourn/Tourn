@@ -11,7 +11,8 @@ export default function startListeners(socket) {
   // Update user's tourn ID after submitting new tourn info
   socket.on('new_tourn_success', (data) => {
     console.log('Socket event: new_tourn_success:', data);
-    dispatch(actions.updateId(data));
+    dispatch(actions.changeMode('LoggedIn'));
+    dispatch(actions.setTournState(data));
   });
 
   // TODO: Revert state and display error
@@ -75,6 +76,12 @@ export default function startListeners(socket) {
   //
   // Bracket
   //
+
+  // Server sends back an OK after advancing a player in the tournament
+  socket.on('update_bracket', (data) => {
+    console.log('Socket event: update_bracket:', data);
+    dispatch(actions.updateBracket(data));
+  });
 
   // Server sends back an OK after advancing a player in the tournament
   socket.on('update_bracket_success', (data) => {
