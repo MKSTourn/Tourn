@@ -2,6 +2,8 @@ require('babel-register');
 const TournamentSchema = require('../schemas/tournaments.js');
 const BracketHelper = require('../../client/src/utilities/bracket_helpers.jsx');
 
+const users = require('./users.js');
+
 const Tournaments = module.exports;
 
 Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, reject) => {
@@ -17,7 +19,18 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
     }],
   }, (err, result) => {
     if (err) reject(err);
-    resolve(result);
+
+    users.findById(organizerid)
+      .then((user) => {
+        user.tournamentIds.push({
+          tournId: result._id,
+          tournName: result.name,
+        });
+        user.save((saveErr) => {
+          if (saveErr) reject(saveErr);
+          resolve(result);
+        });
+      });
   });
 });
 

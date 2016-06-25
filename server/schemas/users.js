@@ -7,6 +7,9 @@ const userSchema = new Schema({
   // Facebook Identifier string
   fbid: String,
 
+  // Link to Facebook profile picture
+  picture: String,
+
   tournamentIds: [{
     tournId: Schema.ObjectId,
     tournName: String,
@@ -15,8 +18,9 @@ const userSchema = new Schema({
   // All pending alerts for a user
   alerts: [{
     tournId: Schema.ObjectId,
+    tournName: String,
     isInvite: Boolean,
-    message: String,
+    text: String,
   }],
 });
 
