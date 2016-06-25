@@ -40,7 +40,7 @@ const INITIAL_STATE = {
     chat: [
       // {
       //   authorId: null, // id of user who wrote message
-      //   comment: '', // user message string
+      //   message: '', // user message string
       //   timeStamp: '',
       // },
     ],
