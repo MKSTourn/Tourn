@@ -5,25 +5,26 @@
 import { fromJS } from 'immutable';
 import { getNextMatch } from '../utilities/bracket_helpers.jsx';
 
-// function handleSubmitAdvance(state, bracket) {
-//   // TODO: Submit player advancement request to server
-//   // provide matchIndex, userId of winner
-//   return state;
-// }
+function handleUpdateBracket(state, newBracket) {
+  // TODO: Submit player advancement request to server
+  // provide matchIndex, userId of winner
+  console.log('handleUpdateBracket');
+  return state.set('bracket', newBracket);
+}
 
-function handleUpdateBracket(state, tournId, matchIndex, winner) {
+function handleSubmitAdvance(state, tournId, matchIndex, winner) {
   const newBracket = state.toJS();
-  
+
   const nextMatch = getNextMatch(matchIndex, newBracket.bracketSize);
 
-  console.log('handleUpdateBracket: properties', tournId, matchIndex, winner);
+  console.log('handleSubmitAdvance: properties', tournId, matchIndex, winner);
 
-  // console.log('handleUpdateBracket: tournId, matchIndex, winner:', tournId, matchIndex, winner);
-  console.log('handleUpdateBracket: nextMatch:', nextMatch);
+  // console.log('handleSubmitAdvance: tournId, matchIndex, winner:', tournId, matchIndex, winner);
+  console.log('handleSubmitAdvance: nextMatch:', nextMatch);
 
   if (!nextMatch) {
     // Invalid match index. Do not change state!
-    console.log('handleUpdateBracket: invalid match index!');
+    console.log('handleSubmitAdvance: invalid match index!');
     return state;
   }
 
@@ -32,7 +33,7 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
 
   if (nextMatch === -1) {
     // Final match has concluded
-    console.log('handleUpdateBracket: tournament has concluded!');
+    console.log('handleSubmitAdvance: tournament has concluded!');
     newBracket.tournWinner = winner;
     newBracket.tournStatus = 'Concluded';
     return fromJS(newBracket);
@@ -40,16 +41,16 @@ function handleUpdateBracket(state, tournId, matchIndex, winner) {
 
   if (!newBracket.matches[nextMatch].player1.userId) {
     // Fill player1 slot of next match
-    console.log('handleUpdateBracket: filling player1 slot of next match!');
+    console.log('handleSubmitAdvance: filling player1 slot of next match!');
     newBracket.matches[nextMatch].player1 = winner;
   } else if (!newBracket.matches[nextMatch].player2.userId) {
     // Fill player2 slot of next match
-    console.log('handleUpdateBracket: filling player2 slot of next match!');
+    console.log('handleSubmitAdvance: filling player2 slot of next match!');
     newBracket.matches[nextMatch].player2 = winner;
     newBracket.matches[nextMatch].status = 'In Progress';
   } else {
     // Should never happen
-    console.log('handleUpdateBracket: error - match already full!');
+    console.log('handleSubmitAdvance: error - match already full!');
   }
 
   return fromJS(newBracket);
@@ -61,8 +62,8 @@ function handleUpdateSize(state, bracketSize) {
 
 export default function bracket(state = {}, action) {
   switch (action.type) {
-    // case 'SUBMIT_ADVANCE':
-    //   return handleSubmitAdvance(state, action.bracket);
+    case 'SUBMIT_ADVANCE':
+      return handleSubmitAdvance(state, action.bracket);
     case 'UPDATE_BRACKET':
       return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
     case 'UPDATE_BRACKET_SIZE':
