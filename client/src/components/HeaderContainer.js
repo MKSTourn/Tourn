@@ -15,13 +15,6 @@ function mapStateToProps(state){
   }
 }
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     toggleTournSelect: () => {
-//       dispatch(toggleTournSelect);
-//     }
-//   }
-// }
 function mapDispatchToProps(dispatch){
   return bindActionCreators(actionCreators, dispatch);
 }
