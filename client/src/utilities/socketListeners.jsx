@@ -43,6 +43,7 @@ export default function startListeners(socket) {
   // Update user data state after accepting a tourn invite
   socket.on('accept_invite_success', (data) => {
     console.log('Socket event: accept_invite_success:', data);
+    dispatch(actions.setUserState(data));
   });
 
   // TODO: Revert state and display error

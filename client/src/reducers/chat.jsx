@@ -15,7 +15,7 @@ function handleChatUpdate(state, newChat) {
 export default function chat(state = {}, action) {
   switch (action.type) {
     case 'SUBMIT_CHAT':
-      return handleSubmitChat(state, action.chat);
+      return handleSubmitChat(state);
     case 'UPDATE_CHAT':
       return handleChatUpdate(state, action.newChat);
     default:
