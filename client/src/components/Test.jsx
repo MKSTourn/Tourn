@@ -14,10 +14,12 @@ const Test = (props) => (<div style={{
   <button onClick={props.testSendInvite}> SEND INVITE </button>
   <button onClick={props.testAcceptInvite}> ACCEPT INVITE </button>
   <button onClick={props.testDeleteInvite}> DELETE ALERT </button>
+  <button onClick={props.testSendMessage}> SEND MESSAGE </button>
 </div>);
 
 const ExportTest = connect(() => ({}),
 (dispatch) => ({
+  // works
   testNewTourn: () => {
     dispatch(actions.submitNewTourn({
       name: 'Best Slav',
@@ -26,25 +28,35 @@ const ExportTest = connect(() => ({}),
     }));
   },
 
+  // works
   testSelectTourn: () => {
     dispatch(actions.selectTourn(window.tournId));
   },
 
+  // ???
   testDeleteAlert: () => {
     dispatch(actions.deleteAlert(window.alertId));
   },
 
+  // next
   testUpdateBracket: () => {
     dispatch(actions.updateBracket(
       window.tournId, window.matchIndex, window.winner/* tourn Id, matchIndex, winner*/));
   },
 
+  // ???
   testAcceptInvite: () => {
     dispatch(actions.acceptInvite(window.tournId, window.alertId/* Tourn Id, Alert Id*/));
   },
 
+  // ???
   testSendInvite: () => {
-    dispatch();
+    dispatch(actions.sendInvite(window.tournId, window.userId, window.message));
+  },
+
+  // ???
+  testSendMessage: () => {
+    dispatch(actions.submitChat(window.tournId, window.message, Date.now()));
   },
 }))(Test);
 

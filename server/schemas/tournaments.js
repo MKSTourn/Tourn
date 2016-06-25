@@ -24,8 +24,10 @@ const tournamentSchema = new Schema({
 
   // All messages for a given tournament
   chatHistory: [{
-    sender: Schema.ObjectId,
+    authorId: Schema.ObjectId,
+    authorName: String,
     message: String,
+    timeStamp: String,
   }],
 
   rules: String,

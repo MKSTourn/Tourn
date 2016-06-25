@@ -48,11 +48,32 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
   });
 });
 
-Tournaments.addChatMessage = (tournid, sender, message) => new Promise((resolve, reject) => {
+Tournaments.addChatMessage = (tournid, authorId, authorName, message, timeStamp) => new Promise((resolve, reject) => {
+  TournamentSchema.findById(tournid, (err, result) => {
+    console.log('addChatMessage error gate');
+    if (err) reject(err);
+
+    console.log('addChatMessage null gate');
+    if (!result) throw new Error('Tournament not found');
+
+    console.log('addChatMessage meat');
+    result.chatHistory.push({ authorId, authorName, message, timeStamp });
+    result.save((saveErr, saveResult) => {
+      if (saveErr) reject(saveErr);
+      resolve(saveResult);
+    });
+  });
+});
+
+Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
     if (err) reject(err);
-    result.chatHistory.push({ sender, message });
-    result.save((saveErr, saveResult) => {
+
+    const endResult = result;
+
+    endResult.start = true;
+    endResult.invite = false;
+    endResult.save((saveErr, saveResult) => {
       if (saveErr) reject(saveErr);
       resolve(saveResult);
     });

@@ -84,12 +84,20 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new tournament state to all users
       socket.on('update_bracket', (data) => {
         console.log('update_bracket', data);
-        if (data.to != null) {
-          console.log('sending back');
-        socket.emit('new_tourn_success');
-        socket.emit('new_tourn_fail');
-      }
-    });
+        tournaments.advancePlayer(data.entry.tournId, data.entry.playerId, data.entry.match)
+        .then(() => {
+          socket.emit('update_bracket_success');
+          io.to(data.to).emit('advance_player',
+            {
+              tournId: data.entry.tournId,
+              playerId: data.entry.playerId,
+              match: data.entry.match,
+            });
+        })
+        .catch(() => {
+          socket.emit('update_bracket_fail');
+        });
+      });
 
       // Client sends ID of tournament they wish to accept an invite to
       // Server does the following:
@@ -100,26 +108,73 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends new roster to all users in that tournament
       socket.on('accept_invite', (data) => {
         console.log('accept_invite', data);
-        if (data.to != null) {
-          console.log('sending back');
-          io.to(data.to).emit('user_accepted',
-            { id: socket.request.user._id, name: socket.request.user.name });
-          socket.emit('accept_invite_success');
-          socket.emit('add_tourn', data.entry.tournId);
-        } else {
-          socket.emit('accept_invite_fail');
-        }
+        users.acceptInvite(socket.request.user._id, data.entry.alertid)
+          .then((result) => {
+            tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
+              .then(() => {
+                socket.emit('accept_invite_success', { tournId: result.tournId });
+                io.to(data.to).emit('roster_update');
+              })
+              .catch(() => {
+                socket.emit('accept_invite_fail');
+              });
+          })
+          .catch(() => {
+            socket.emit('accept_invite_fail');
+          });
       });
 
       socket.on('send_invite', (data) => {
         console.log('send_invite', data);
 
-        io.to(data.userid).emit('update_alert',
-          {
-            tournId: data.tournId,
-            message: 'Invited to a tournament!',
-            isInvite: true,
+        users.createAlert(data.entry.userId, data.entry.tournId, true, data.entry.message)
+        .then(() => {
+          io.to(data.entry.userId).emit('update_alert',
+            {
+              tournId: data.entry.tournId,
+              message: 'Invited to a tournament!',
+              isInvite: true,
+            });
+        })
+        .catch(() => {
+          socket.emit('send_invite_fail');
+        });
+      });
+
+      socket.on('start_tourn', (data) => {
+        console.log('start_tourn', data);
+        // Flip a switch on the tourn, if user is the organized
+        tournaments.startTourn(data.entry.tournId)
+        .then(() => {
+          socket.emit('start_tourn_success');
+        })
+        .catch((err) => {
+          console.log('Start tourn error: ', err);
+          socket.emite('start_tourn_fail');
+        });
+      });
+
+      socket.on('submit_chat', (data) => {
+        console.log('submit_chat', data);
+        tournaments.addChatMessage(
+          data.entry.tournId,
+          socket.request.user._id,
+          socket.request.user.name,
+          data.entry.message,
+          data.entry.timeStamp)
+        .then(() => {
+          socket.emit('submit_chat_success');
+          io.to(data.to).emit('chat_message', {
+            authorId: socket.request.user._id,
+            authorName: socket.request.user.name,
+            message: data.entry.message,
+            timeStamp: data.entry.timeStamp,
           });
+        })
+        .catch((err) => {
+          console.log('Submit chat error', err);
+          socket.emit('submit_chat_fail');
+        });
       });
     }
   });
@@ -142,7 +197,7 @@ module.exports.socket = function socketAttachment(io) {
 // submit_chat
 // Client sends the new chat message in the form of:
 // {
-//   authorId: null, // id of user who wrote message
+//   tournId: null,  // id of tournament that message is addressed to
 //   message: '',    // user message string
 //   timeStamp: '',  // time message was generated
 // }
