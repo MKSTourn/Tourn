@@ -13,7 +13,10 @@ import { getNextMatch } from '../utilities/bracket_helpers.jsx';
 
 function handleUpdateBracket(state, tournId, matchIndex, winner) {
   const newBracket = state.toJS();
+  
   const nextMatch = getNextMatch(matchIndex, newBracket.bracketSize);
+
+  console.log('handleUpdateBracket: properties', tournId, matchIndex, winner);
 
   // console.log('handleUpdateBracket: tournId, matchIndex, winner:', tournId, matchIndex, winner);
   console.log('handleUpdateBracket: nextMatch:', nextMatch);

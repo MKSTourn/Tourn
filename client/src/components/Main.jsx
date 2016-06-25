@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { render } from 'react-dom';
 import HeaderContainer from './HeaderContainer';
-import Bracket from './Bracket.jsx';
+import BracketContainer from './BracketContainer.js';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
 import Chat from './Chat.jsx';
@@ -33,11 +33,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 const Main = () => (
   <div>
-    <Grid>
-      <Row className={'show-grid'}>
-        <HeaderContainer />
-      </Row>
-    </Grid>
+    <HeaderContainer />
+    <BracketContainer />
   </div>
 )
     //TODO: <Bracket />, <Chat />, etc

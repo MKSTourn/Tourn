@@ -164,7 +164,7 @@ export function updateBracket(tournId, matchIndex, winner) {
   return {
     type: 'UPDATE_BRACKET',
     meta: {
-      event: 'accept_invite',
+      event: 'update_bracket',
       to: tournId,
       entry: {
         tournId,
