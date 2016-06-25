@@ -5,6 +5,7 @@ import BracketContainer from './BracketContainer.js';
 import { Provider } from 'react-redux';
 import store from '../store.jsx';
 import Chat from './Chat.jsx';
+import Test from './Test.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 // import io from 'socket.io-client';
@@ -35,6 +36,7 @@ const Main = () => (
   <div>
     <HeaderContainer />
     <BracketContainer />
+    <Test />
   </div>
 )
     //TODO: <Bracket />, <Chat />, etc

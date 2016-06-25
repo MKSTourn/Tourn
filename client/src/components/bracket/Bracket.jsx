@@ -6,7 +6,6 @@ import '../../styles/bracket_styles.css';
 
 
 const Bracket = ({ size, players, matches, updateBracket }) => {
-  let points = generateBracketPoints(
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
   
