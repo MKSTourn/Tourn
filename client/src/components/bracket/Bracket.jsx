@@ -1,11 +1,10 @@
 import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
-import { Grid, Row, Col } from 'react-bootstrap';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
 import '../../styles/bracket_styles.css';
 
 
-const Bracket = ({ size, players, matches, updateBracket }) => {
+const Bracket = ({ size, players, matches, updateBrackets }) => {
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
 
@@ -34,16 +33,28 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
             {flag && !!matches[index].player1.playerName ?
               <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
                 <div>
-                  <img style={{ float: 'left', width: 50, height: 50 }} src={matches[index].player1.playerPic} alt="Player 1" />
-                  <p onClick={updateBracket}> {matches[index].player1.playerName} </p>
+                  <img
+                    style={{ float: 'left', width: 50, height: 50 }}
+                    src={matches[index].player1.playerPic}
+                    alt="Player 1"
+                  />
+                  <p onClick={updateBrackets[index].player1}>
+                    {matches[index].player1.playerName}
+                  </p>
                 </div>
               </foreignObject> : null
             }
             {flag && !!matches[index].player2.playerName ?
               <foreignObject x={start.x} y={start.y + 4} width={200} height={40}>
                 <div>
-                  <img style={{ float: 'left', width: 50, height: 50 }} src={matches[index].player2.playerPic} alt="Player 2" />
-                  <p onClick={updateBracket}> {matches[index].player2.playerName} </p>
+                  <img
+                    style={{ float: 'left', width: 50, height: 50 }}
+                    src={matches[index].player2.playerPic}
+                    alt="Player 2"
+                  />
+                  <p onClick={updateBrackets[index].player2}>
+                    {matches[index].player2.playerName}
+                  </p>
                 </div>
               </foreignObject> : null
             }
@@ -56,10 +67,10 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
 };
 
 Bracket.propTypes = {
-  size: React.PropTypes.object,
-  players: React.PropTypes.array,
-  matches: React.PropTypes.array,
-  updateBracket: React.PropTypes.func,
+  size: PropTypes.object,
+  players: PropTypes.array,
+  matches: PropTypes.array,
+  updateBrackets: PropTypes.array,
 };
 
 // <svg
