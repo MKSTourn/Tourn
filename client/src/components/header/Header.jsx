@@ -11,13 +11,13 @@ import { Grid, Row, Col } from 'react-bootstrap';
 
 
 const Header = ({ showTournList, userTourns, toggleTournSelect, showAlertList, userAlerts, toggleAlerts }) => (
-  <div className="topbar">
+  <header className="topbar">
     <CreateTournament />
     <UserTournaments toggleTournSelect = { toggleTournSelect } showTournList = { showTournList } userTourns = { userTourns } />
     <h1 className="center">Tourn</h1>
     <Alerts toggleAlerts = { toggleAlerts } showAlertList = { showAlertList } userAlerts = { userAlerts } />
     <Login />
-  </div>
+  </header>
 
 )
 // <Row className={'show-grid'}>
