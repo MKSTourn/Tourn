@@ -48,11 +48,26 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
   });
 });
 
-Tournaments.addChatMessage = (tournid, sender, message) => new Promise((resolve, reject) => {
+Tournaments.addChatMessage = (tournid, authorId, authorName, message, timeStamp) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
     if (err) reject(err);
-    result.chatHistory.push({ sender, message });
+    result.chatHistory.push({ authorId, authorName, message, timeStamp });
     result.save((saveErr, saveResult) => {
+      if (saveErr) reject(saveErr);
+      resolve(saveResult);
+    });
+  });
+});
+
+Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
+  TournamentSchema.findById(tournid, (err, result) => {
+    if (err) reject(err);
+
+    const endResult = result;
+
+    endResult.start = true;
+    endResult.invite = false;
+    endResult.save((saveErr, saveResult) => {
       if (saveErr) reject(saveErr);
       resolve(saveResult);
     });

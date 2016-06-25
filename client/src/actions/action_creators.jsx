@@ -163,7 +163,7 @@ export function updateSize(bracketSize) {
 export function updateBracket(tournId, matchIndex, winner) {
   return {
     type: 'UPDATE_BRACKET',
-    /*meta: {
+    meta: {
       event: 'update_bracket',
       to: tournId,
       entry: {
@@ -171,7 +171,7 @@ export function updateBracket(tournId, matchIndex, winner) {
         matchIndex,
         winner,
       },
-    },*/
+    },
     tournId,
     matchIndex,
     winner,
