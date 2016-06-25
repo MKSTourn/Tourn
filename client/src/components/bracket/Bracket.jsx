@@ -9,14 +9,59 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
 
-  console.log('Bracket!', size, players, matches);
-
   return (
     <section className="bracket">
       <p>Bracket Box is Rendering</p>
+      <svg
+        width={size.x}
+        height={size.y}
+        xmlns="http://www.w3.org/2000/svg"
+        xmlnsXlink="http://www.w3.org/1999/xlink"
+      >
+      {
+        points.map((line, index) => {
+          const start = line[0];
+          const end = line[1];
+          const flag = line[2];
+
+          return (<g>
+            <polyline
+              points={
+                `${start.x},${start.y} ${end.x},${end.y}`
+              }
+              key={index}
+            />
+            {flag && !!matches[index].player1.playerName ?
+              <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
+                <div>
+                  <img style={{ float: 'left', width: 50, height: 50 }} src={matches[index].player1.playerPic} alt="Player 1" />
+                  <p onClick={updateBracket}> {matches[index].player1.playerName} </p>
+                </div>
+              </foreignObject> : null
+            }
+            {flag && !!matches[index].player2.playerName ?
+              <foreignObject x={start.x} y={start.y + 4} width={200} height={40}>
+                <div>
+                  <img style={{ float: 'left', width: 50, height: 50 }} src={matches[index].player2.playerPic} alt="Player 2" />
+                  <p onClick={updateBracket}> {matches[index].player2.playerName} </p>
+                </div>
+              </foreignObject> : null
+            }
+          </g>);
+        })
+      }
+      </svg>
     </section>
-  )
+  );
 };
+
+Bracket.propTypes = {
+  size: React.PropTypes.object,
+  players: React.PropTypes.array,
+  matches: React.PropTypes.array,
+  updateBracket: React.PropTypes.func,
+};
+
 // <svg
 //   width={size.x}
 //   height={size.y}
