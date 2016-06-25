@@ -39,70 +39,45 @@ const INITIAL_STATE = {
     },
     chat: [
       // {
-      //   authorId: null, // id of user who wrote message
-      //   message: '', // user message string
+      //   authorName: '',
+      //   authorPic: '',
+      //   comment: '', // user message string
       //   timeStamp: '',
       // },
     ],
     start: false,
     invite: false,
     roster: [
-      { playerId: 1, playerStatus: '', playerName: 'Zak', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 2, playerStatus: '', playerName: 'Maher', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 3, playerStatus: '', playerName: 'Adam', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
-      { playerId: 4, playerStatus: '', playerName: 'Mark', playerPic: 'https://a.cocaine.ninja/pjeevc.jpg' },
+      // {
+      //   playerId: null, // integer
+      //   playerStatus: '', // text determining player's status in tournament
+      //                     // 'Eliminated', 'Match X' where X is the player's active match
+      //   playerName: '', // player name string
+      //   playerPic: '', // player pic url string
+      // },
     ],
     bracket: {
-      bracketSize: 4, // bracket size integer set to closest power of 2
+      bracketSize: null, // bracket size integer set to closest power of 2
       tournStatus: '', // string determining overall tourn states
                        // 'Not Started', 'In Progress', or 'Concluded'
       tournWinner: null, // player object of tournament champion
       matches: [
-        {
-          player1: {
-            userId: 1,
-            playerName: 'Maher',
-            playerPic: 'maherurl',
-          },
-          player2: {
-            userId: 2,
-            playerName: 'Zack',
-            playerPic: 'zackurl',
-          },
-          winner: null, // set to either player1 or player2 object when match is concluded
-          status: 'In Progress', // string denoting match status
-                     // 'In Progress' or 'Concluded'
-        },
-        {
-          player1: {
-            userId: 3,
-            playerName: 'Mark',
-            playerPic: 'markurl',
-          },
-          player2: {
-            userId: 4,
-            playerName: 'Adam',
-            playerPic: 'adamurl',
-          },
-          winner: null, // set to either player1 or player2 object when match is concluded
-          status: 'In Progress', // string denoting match status
-                     // 'In Progress' or 'Concluded'
-        },
-        {
-          player1: {
-            userId: null,
-            playerName: '',
-            playerPic: '',
-          },
-          player2: {
-            userId: null,
-            playerName: '',
-            playerPic: '',
-          },
-          winner: null, // set to either player1 or player2 object when match is concluded
-          status: 'Not Started', // string denoting match status
-                     // 'In Progress' or 'Concluded'
-        },
+        // {
+        //   player1: {
+        //     userId: null,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   player2: {
+        //     userId: 1,
+        //     playerName: '',
+        //     playerPic: '',
+        //   },
+        //   winner: null,  // set to either player1 or player2
+        //                  // when match is concluded
+        //   status: '',    // string denoting match status
+        //                  // 'Not Started','In Progress' or 'Concluded'
+        // },
       ],
     },
   },
