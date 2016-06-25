@@ -6,7 +6,7 @@ import INITIAL_STATE from '../../../data/state.jsx';
 import { fromJS } from 'immutable';
 
 function handleChangeMode(state, mode) {
-  console.log('handleChangeMode');
+  console.log('Mode reducer: handleChangeMode');
   return state;
 }
 

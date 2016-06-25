@@ -2,18 +2,24 @@
 // Chat reducer
 //
 
-import INITIAL_STATE from '../../../data/state.jsx';
-import { fromJS } from 'immutable';
+function handleSubmitChat(state) {
+  // User's new chat message has been submitted to server.
+  // Nothing to render in the meantime, so don't change state.
+  return state;
+}
 
-function handleChatUpdate(state, chat) {
-  return state.set('chat', chat);
+function handleChatUpdate(state, newChat) {
+  return state.set('chat', newChat);
 }
 
 export default function chat(state = {}, action) {
   switch (action.type) {
+    case 'SUBMIT_CHAT':
+      return handleSubmitChat(state, action.chat);
     case 'UPDATE_CHAT':
-      return handleChatUpdate(state.tournament, action.chat);
+      return handleChatUpdate(state, action.newChat);
     default:
       return state;
   }
 }
+

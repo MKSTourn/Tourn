@@ -10,6 +10,11 @@ function handleSetState(state, newState) {
   return state.merge(newState);
 }
 
+function handleSetUserState(state, newUserState) {
+  console.log('handleSetUserState');
+  return state.merge(newUserState);
+}
+
 function handleSetTournState(state, newTournState) {
   console.log('handleSetTournState');
   return state.merge(newTournState);
@@ -20,6 +25,8 @@ export default function mode(state = fromJS(INITIAL_STATE), action) {
     case 'SET_STATE':
       console.log(action);
       return handleSetState(state, action.newState);
+    case 'SET_USER_STATE':
+      return handleSetUserState(state.getIn(['header', 'userData'], action.newUserState));
     case 'SET_TOURN_STATE':
       console.log(action);
       return handleSetTournState(state.get('tournament'), action.newTournState);

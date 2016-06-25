@@ -124,3 +124,27 @@ module.exports.socket = function socketAttachment(io) {
     }
   });
 };
+
+// send_invite
+// Client sends a tournId and a user name to send an invite to
+// Server matches name against the user db.
+// If there is a match, add a new alert to the invited user's
+// alerts list.
+// Server sends back a new user state to the invited user with
+// updated alert list.
+//
+
+// start_tourn
+// Client sends the tournId of tournament to begin
+// Server updates tournament state in DB
+// Server sends back success message to all players in tourn
+
+// submit_chat
+// Client sends the new chat message in the form of:
+// {
+//   authorId: null, // id of user who wrote message
+//   message: '',    // user message string
+//   timeStamp: '',  // time message was generated
+// }
+// Server adds new message to the tournament's chat history
+// Server sends new chat history to all players in tourn
