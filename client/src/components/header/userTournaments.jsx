@@ -34,11 +34,11 @@ const UserTournaments = (props) => (
 export default UserTournaments;
 
 const TournListItem = (props) => {
-  let _onClick = () => (
-    props.ontournamentClick(props.tournament.get('tournId'))
-  )
+  const onTournClick = () => (
+    props.onTournamentClick(props.tournament.get('tournId'))
+  );
   return (
-    <li onClick={_onClick}>
+    <li onClick={onTournClick}>
       {props.tournament.get('tournName')}
     </li>
   );
