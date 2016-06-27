@@ -1,8 +1,5 @@
 import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
-import * as actions from '../../actions/action_creators.jsx';
-import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
 
 import { Message } from './ChatMessage.jsx';
 
@@ -12,7 +9,7 @@ const Chat = (props) => (
 
       {props.messages.map((message, key) => (<Message
         key={key}
-        author={message.author}
+        sender={message.author}
         timestamp={message.timeStamp}
         message={message.message}
       />))}
@@ -27,7 +24,7 @@ const Chat = (props) => (
 
 
 Chat.propTypes = {
-  messages: PropTypes.Array,
+  messages: PropTypes.array,
 };
 
 export default Chat;

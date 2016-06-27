@@ -76,7 +76,8 @@ module.exports.socket = function socketAttachment(io) {
           .then((result) => {
             console.log('tourn result', result);
             if (result) {
-              socket.emit('select_tourn_success', result);
+              socket.emit('select_tourn_success',
+                stateGenerator.generateTournamentData(socket.request.user, result));
             } else {
               socket.emit('select_tourn_fail', 'doesnt exist');
             }

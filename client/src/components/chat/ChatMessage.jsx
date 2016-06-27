@@ -11,9 +11,9 @@ const ChatMessage = (props) => (<div>
 </div>);
 
 ChatMessage.propTypes = {
-  sender: PropTypes.String,
-  timestamp: PropTypes.String,
-  message: PropTypes.String,
+  sender: PropTypes.string,
+  timestamp: PropTypes.string,
+  message: PropTypes.string,
 };
 
 export default ChatMessage;
