@@ -16,11 +16,11 @@ const Roster = (props) => (
          roster={props.roster}
       />
       <AddPlayer
-
+        invite={props.invite}
+        isOrganizer={props.isOrganizer}
+        sendInvite={props.sendInvite}
       />
-      <StartTournament
-
-      />
+      <StartTournament invite={props.invite} isOrganizer={props.isOrganizer} />
   	</div>
   </section>
 );
