@@ -5,11 +5,14 @@ import Chat from './chat/Chat.jsx';
 
 
 function mapStateToProps(state){
-  console.log('mapStateToProps showTournList', state.getIn(['header','showTournList']));
+  console.log('mapStateToProps showTournList', state.getIn(['header', 'showTournList']));
   console.log('mapStateToProps userTourns', state.getIn(['header', 'userData', 'userTourns']));
-  return {
 
-  }
+  console.log('CHAT STATE!', state.getIn('tournament'));
+
+  return {
+    messages: state.getIn('tournament', 'chat').toJS(),
+  };
 }
 
 function mapDispatchToProps(dispatch){

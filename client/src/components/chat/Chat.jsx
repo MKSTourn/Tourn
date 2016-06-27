@@ -4,12 +4,31 @@ import * as actions from '../../actions/action_creators.jsx';
 import { connect } from 'react-redux';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-const Chat = () => (
+import { Message } from './ChatMessage.jsx';
+
+const Chat = (props) => (
   <section>
-    <p>Chat box is rendering</p>
+    <div className="messages">
+
+      {props.messages.map((message, key) => (<Message
+        key={key}
+        author={message.author}
+        timestamp={message.timeStamp}
+        message={message.message}
+      />))}
+
+    </div>
+    <div className="controls">
+      <input type="textbox" />
+      <button />
+    </div>
   </section>
 );
 
+
+Chat.propTypes = {
+  messages: PropTypes.Array,
+};
 
 export default Chat;
 
