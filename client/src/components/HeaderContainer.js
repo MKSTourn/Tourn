@@ -5,8 +5,6 @@ import Header from './header/Header.jsx';
 
 
 function mapStateToProps(state) {
-  console.log('mapStateToProps showTournList', state.getIn(['header', 'showTournList']));
-  console.log('mapStateToProps userTourns', state.getIn(['header', 'userData', 'userTourns']));
   return {
     mode: state.get('mode'),
     tournInfo: state.getIn(['tournament', 'info']),

@@ -5,8 +5,6 @@ import Rules from './rules/Rules.jsx';
 
 
 function mapStateToProps(state){
-  console.log('mapStateToProps showTournList', state.getIn(['header','showTournList']));
-  console.log('mapStateToProps userTourns', state.getIn(['header', 'userData', 'userTourns']));
   return {
 
   }
