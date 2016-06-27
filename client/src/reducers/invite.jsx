@@ -5,7 +5,7 @@
 function handleToggleInvite(state) {
   console.log('Invite reducer: handleToggleInvite');
   const toggledInviteBtn = !state.get('invite');
-  return state.set('showTournList', toggledInviteBtn);
+  return state.set('invite', toggledInviteBtn);
 }
 
 function handleSendInvite(state) {
@@ -18,9 +18,9 @@ function handleSendInvite(state) {
 export default function invite(state = {}, action) {
   switch (action.type) {
     case 'TOGGLE_INVITE':
-      return handleToggleInvite(state);
+      return handleToggleInvite(state.get('tournament'));
     case 'SEND_INVITE':
-      return handleSendInvite(state);
+      return handleSendInvite(state.get('tournament'));
     default:
       return state;
   }

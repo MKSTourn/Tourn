@@ -9,7 +9,7 @@ function handleToggleStart(state) {
 }
 
 function handleStartTourn(state) {
-  console.log('Invite reducer: handleSendInvite');
+  console.log('Start reducer: handleStartTourn');
   // User sent start tourn request to server.
   // Nothing to render in the meantime, so don't change state.
   return state;
@@ -18,9 +18,9 @@ function handleStartTourn(state) {
 export default function start(state = {}, action) {
   switch (action.type) {
     case 'TOGGLE_START':
-      return handleToggleStart(state);
+      return handleToggleStart(state.get(['tournament']));
     case 'START_TOURN':
-      return handleStartTourn(state, action.start);
+      return handleStartTourn(state.get(['tournament']));
     default:
       return state;
   }

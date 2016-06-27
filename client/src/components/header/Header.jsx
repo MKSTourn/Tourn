@@ -21,7 +21,9 @@ const Header = ({
   mode,
   selectTourn,
   deleteAlert,
-}) => (
+  acceptInvite,
+}) => mode === 'LoggedOut' ?
+(
   <header className="topbar">
     <CreateTournament
       mode={mode}
@@ -41,8 +43,33 @@ const Header = ({
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
+      acceptInvite={acceptInvite}
     />
     <Login />
+  </header>
+) :
+(
+  <header className="topbar">
+    <CreateTournament
+      mode={mode}
+      changeMode={changeMode}
+      submitNewTourn={submitNewTourn}
+      tournInfo={tournInfo}
+    />
+    <UserTournaments
+      toggleTournSelect={toggleTournSelect}
+      showTournList={showTournList}
+      userTourns={userTourns}
+      selectTourn={selectTourn}
+    />
+    <h1>Tourn</h1>
+    <Alerts
+      toggleAlerts={toggleAlerts}
+      showAlertList={showAlertList}
+      userAlerts={userAlerts}
+      deleteAlert={deleteAlert}
+      acceptInvite={acceptInvite}
+    />
   </header>
 );
 
