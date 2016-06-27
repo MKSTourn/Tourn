@@ -18,7 +18,9 @@ const Header = ({
   toggleAlerts,
   submitNewTourn,
   tournInfo,
-  mode
+  mode,
+  selectTourn,
+  deleteAlert,
 }) => (
   <header className="topbar">
     <CreateTournament
@@ -31,12 +33,14 @@ const Header = ({
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
+      selectTourn={selectTourn}
     />
-    <h1 className="center">Tourn</h1>
+    <h1>Tourn</h1>
     <Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
+      deleteAlert={deleteAlert}
     />
     <Login />
   </header>
