@@ -3,7 +3,20 @@ import '../../styles/header_styles.css';
 
 import Message from './ChatMessage.jsx';
 
-const Chat = (props) => (<section>
+const Chat = (props) => {
+  let message = '';
+  const updateMessage = (e) => {
+    e.preventDefault();
+    message = e.target.value;
+  }
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+    props.submitChat(props.tournId,
+                     message,
+                     Date.now());
+    message = '';
+  };
+  return (<section>
   <div className="messages">
 
     {props.messages.map((message, key) => {
@@ -23,10 +36,19 @@ const Chat = (props) => (<section>
 
   </div>
   <div className="controls">
-    <input type="textbox" />
-    <button />
+  <form onSubmit={onSubmitClick}>
+    <input
+      onChange={updateMessage}
+      type="text"
+      placeholder="Enter message..."
+      // value={'Hi.'}
+      className="newMessage"
+    />
+    <button type="submit">OK</button>
+  </form>
   </div>
 </section>);
+};
 
 
 Chat.propTypes = {
@@ -35,18 +57,18 @@ Chat.propTypes = {
 
 export default Chat;
 
-// <ul className="chatbox"></ul>
+// <ul lassName="chatbox"></ul>
 // <form onSubmit={handleSubmit}>
-//   <input
-//     type="text"
-//     placeholder="New Message"
-//     value={'Hi.'}
-//     className="newMessage"
-//   />
-//   <input type="submit" value="Post" />
+  // <input
+    // type="text"
+    // placeholder="New Message"
+    // value={'Hi.'}
+    // className="newMessage"
+  // />
+  // <input type="submit" value="Post" />
 // </form>
 // const handleSubmit = (e) => {
-//   e.preventDefault();
-//   // let author, text;
-//   // this.props.onMessageSubmit({ text });
+  // e.preventDefault();
+  // let author, text;
+  // this.props.onMessageSubmit({ text });
 // };
