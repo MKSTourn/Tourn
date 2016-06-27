@@ -3,6 +3,8 @@ import '../../styles/header_styles.css';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
 import '../../styles/bracket_styles.css';
 
+import BracketPlayer from './BracketPlayer.jsx';
+import BracketWinner from './BracketWinner.jsx';
 
 const Bracket = ({ size, players, matches, updateBracket }) => {
   const points = generateBracketPoints(
@@ -22,6 +24,16 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
           const end = line[1];
           const flag = line[2];
 
+          let player1;
+          let player2;
+          let winner;
+
+          if (matches[index]) {
+            player1 = matches[index].player1;
+            player2 = matches[index].player2;
+            winner = matches[index].winner ? matches[index].winner : { _id: null };
+          }
+
           return (<g>
             <polyline
               points={
@@ -29,32 +41,24 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
               }
               key={index}
             />
-            {flag && !!matches[index].player1.playerName ?
+            {flag && !!player1.playerName ?
               <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
-                <div>
-                  <img
-                    style={{ float: 'left', width: 50, height: 50 }}
-                    src={matches[index].player1.playerPic}
-                    alt="Player 1"
-                  />
-                  <p onClick={updateBracket.bind(null, [index].player1)}>
-                    {matches[index].player1.playerName}
-                  </p>
-                </div>
+                {player1._id === winner._id ?
+                  <BracketWinner player={player1} won /> :
+                  winner._id ?
+                    <BracketWinner player={player1} /> :
+                    <BracketPlayer player={player1} updateBracket={updateBracket} />
+                  }
               </foreignObject> : null
             }
-            {flag && !!matches[index].player2.playerName ?
+            {flag && !!player2.playerName ?
               <foreignObject x={start.x} y={start.y + 4} width={200} height={40}>
-                <div>
-                  <img
-                    style={{ float: 'left', width: 50, height: 50 }}
-                    src={matches[index].player2.playerPic}
-                    alt="Player 2"
-                  />
-                  <p onClick={updateBracket.bind(null, [index].player2)}>
-                    {matches[index].player2.playerName}
-                  </p>
-                </div>
+                {player2._id === winner._id ?
+                  <BracketWinner player={player2} won /> :
+                  winner._id ?
+                    <BracketWinner player={player2} /> :
+                    <BracketPlayer player={player2} updateBracket={updateBracket} />
+                  }
               </foreignObject> : null
             }
           </g>);
@@ -69,7 +73,7 @@ Bracket.propTypes = {
   size: PropTypes.object,
   players: PropTypes.array,
   matches: PropTypes.array,
-  updateBrackets: PropTypes.array,
+  updateBracket: PropTypes.func,
 };
 
 // <svg

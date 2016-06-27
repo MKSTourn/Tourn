@@ -7,13 +7,38 @@ const ObjectId = mongoose.Types.ObjectId;
 const Users = module.exports;
 
 const Tournaments = require('./tournaments.js');
+const UnclaimedInvites = require('./unclaimedInvites.js');
 
 // Instantiation functions
 
 Users.create = (name, fbid) => new Promise((resolve, reject) => {
-  UsersSchema.create({ name, fbid }, (err, result) => {
-    if (err) reject(err);
-    resolve(result);
+  UsersSchema.create({ name, fbid }, (err, user) => {
+    if (err) { reject(err); return; }
+
+    UnclaimedInvites.findAllWithFacebookId(fbid)
+      .then((invites) => {
+        if (invites.length !== 0) {
+          invites.forEach((invite) => {
+            user.alerts.push({
+              tournId: invite.tournId,
+              tournName: invite.tournName,
+              isInvite: true,
+              text: invite.message,
+            });
+
+            invite.remove();
+          });
+        }
+
+        user.save((saveErr, result) => {
+          if (saveErr) {
+            reject(saveErr);
+            return;
+          }
+
+          resolve(result);
+        });
+      });
   });
 });
 
@@ -40,17 +65,23 @@ Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
   });
 });
 
-Users.createAlert = (userid, tournId, isInvite, message) => new Promise((resolve, reject) => {
-  Users.findById(userid)
+Users.createAlert = (
+  facebookId, tournId, tournName, isInvite, message
+) => new Promise((resolve, reject) => {
+  Users.findByFacebookId(facebookId)
     .then((result) => {
+      if (!result) {
+        UnclaimedInvites.createUnclaimedInvite(facebookId, tournId, tournName);
+
+        return;
+      }
+
+
       result.alerts.push({
         tournId,
         isInvite,
         message,
       });
-    })
-    .catch((err) => {
-      reject(err);
     });
 });
 
