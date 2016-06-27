@@ -4,13 +4,16 @@ import * as actionCreators from '../actions/action_creators.jsx';
 import Chat from './chat/Chat.jsx';
 
 
-function mapStateToProps(state){
-  return {
+function mapStateToProps(state) {
 
-  }
+  console.log('CHAT STATE!', state.getIn('tournament'));
+
+  return {
+    messages: state.getIn(['tournament', 'chat']).toJS(),
+  };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
