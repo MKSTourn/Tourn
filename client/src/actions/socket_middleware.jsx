@@ -7,7 +7,7 @@
 export default socket => store => next => action => {
   // Make a request for a user with a given ID
 
-  console.log('Middleware!', socket, store, next, action);
+  console.log('Socket middleware');
 
   const meta = action.meta;
 

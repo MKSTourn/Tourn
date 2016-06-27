@@ -87,6 +87,29 @@ module.exports.socket = function socketAttachment(io) {
       // Client sends ID of alert they want deleted
       // Server updates user's alert list in db with alert removed
       // Server sends back new user data with alert list updated
+
+      socket.on('create_alert', data => {
+        console.log('create_alert', data);
+        users.createAlert(
+          data.entry.facebookId,
+          data.entry.tournId,
+          data.entry.tournName,
+          false,
+          data.entry.message)
+        .then((result) => {
+          socket.emit('create_alert_success');
+          io.to(result._id).emit('alert', {
+            tournId: data.entry.tournId,
+            tournName: data.entry.tournName,
+            messsage: data.entry.message,
+          });
+        })
+        .catch((err) => {
+          console.log('create_alert error', err);
+          socket.emit('create_alert_fail');
+        });
+      });
+
       socket.on('delete_alert', (data) => {
         console.log('delete_alert', data);
         users.deleteAlert(socket.request.user._id, data.entry.alertid)
@@ -136,11 +159,13 @@ module.exports.socket = function socketAttachment(io) {
                 socket.emit('accept_invite_success', { tournId: result.tournId });
                 io.to(data.to).emit('set_tourn_state', result);
               })
-              .catch(() => {
+              .catch((err) => {
+                console.log('accept_invited tournament update error', err);
                 socket.emit('accept_invite_fail');
               });
           })
-          .catch(() => {
+          .catch((err) => {
+            console.log('accept_invited user accept error', err);
             socket.emit('accept_invite_fail');
           });
       });
@@ -148,14 +173,17 @@ module.exports.socket = function socketAttachment(io) {
       socket.on('send_invite', (data) => {
         console.log('send_invite', data);
 
-        users.createAlert(data.entry.userId, data.entry.tournId, true, data.entry.message)
-        .then(() => {
-          io.to(data.entry.userId).emit('update_alert',
-            {
-              tournId: data.entry.tournId,
-              message: 'Invited to a tournament!',
-              isInvite: true,
-            });
+        users.createAlert(data.entry.facebookId, data.entry.tournId, true, data.entry.message)
+        .then((result) => {
+          if (!result.tournId) {
+            io.to(data.entry.userId).emit('update_alert',
+              {
+                tournId: data.entry.tournId,
+                message: 'Invited to a tournament!',
+                isInvite: true,
+              });
+          }
+          socket.emit('send_invite_success');
         })
         .catch(() => {
           socket.emit('send_invite_fail');
@@ -168,6 +196,7 @@ module.exports.socket = function socketAttachment(io) {
         tournaments.startTourn(data.entry.tournId)
         .then(() => {
           socket.emit('start_tourn_success');
+          io.to(data.to).emit('tourn_started');
         })
         .catch((err) => {
           console.log('Start tourn error: ', err);
