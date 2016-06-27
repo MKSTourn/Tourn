@@ -6,11 +6,14 @@ import Rules from './rules/Rules.jsx';
 
 function mapStateToProps(state){
   return {
-
-  }
+    mode: state.get('mode'),
+    isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']),
+    rules: state.getIn(['tournament', 'info', 'rules']),
+    tournType: state.getIn(['tournament', 'info', 'tournType']),
+  };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
