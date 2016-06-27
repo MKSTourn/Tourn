@@ -16,6 +16,7 @@ const Alerts = (props) => (
             key={alert.get('alertId')}
             alert={alert}
             onAlertCancel={props.deleteAlert}
+            onInviteAccept={props.acceptInvite}
           />
         )}
       </ul>
@@ -34,13 +35,25 @@ const Alerts = (props) => (
 export default Alerts;
 
 const AlertListItem = (props) => {
-  let _onClick = () => (
+  const onDeleteClick = () => (
     props.onAlertCancel(props.alert.get('alertId'))
-  )
-  return (
+  );
+  const onAcceptClick = () => (
+    props.onInviteAccept(props.alert.get('tournId'),
+                         props.alert.get('alertId'))
+  );
+  return props.alert.get('isInvite') ?
+  (
     <li>
       {props.alert.get('text')}
-      <button onClick={_onClick}>X</button>
+      <button onClick={onAcceptClick}>A</button>
+      <button onClick={onDeleteClick}>X</button>
+    </li>
+  ) :
+  (
+    <li>
+      {props.alert.get('text')}
+      <button onClick={onDeleteClick}>X</button>
     </li>
   );
 };

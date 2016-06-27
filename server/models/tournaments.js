@@ -84,7 +84,8 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
     if (err) reject(err);
-
+    console.log('addRosterPlayer: result =', result);
+    if (!result) reject('Couldnt find tournament!');
     const endResult = result;
 
     endResult.roster.push({ playerId });
