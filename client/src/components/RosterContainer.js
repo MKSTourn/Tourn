@@ -10,6 +10,7 @@ function mapStateToProps(state){
   return {
   	matches: state.getIn(['tournament', 'bracket', 'matches']);
   	invite: state.getIn(['tournament', 'invite' ]);
+  	isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']);
   }
 }
 

@@ -3,6 +3,8 @@ import '../../styles/header_styles.css';
 import * as actions from '../../actions/action_creators.jsx';
 import { connect } from 'react-redux';
 import RosterPlayers from './rosterPlayers.jsx';
+import AddTournament from './addTournament.jsx';
+import StartTournament from './startTournament.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
 
 
@@ -13,15 +15,12 @@ const Roster = () => (
   		<RosterPlayers 
 
       />
-  		<form>
-  			<input type="text" /><br />
-  			<button type="submit" value="submit" className="new-player-submit" >
-  				Add to Tournament
-  			</button><br />
-  			<button type="submit" value="submit" className="start-tourn-submit">
-  				Start Tournament
-  			</button>
-  		</form>
+      <AddTournament
+
+      />
+      <StartTournament
+
+      />
   	</div>
   </section>
 );

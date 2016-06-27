@@ -1,34 +1,27 @@
 import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 
-const Alerts = (props) => (
-  props.showAlertList ?
-    <div>
-      <button
-        className="alertBtn"
-        onClick={props.toggleAlerts}
-      >
-        Alerts
-      </button>
-      <ul className="alertDropdownList">
-        {props.userAlerts.map(alert =>
-          <AlertListItem
-            key={alert.get('alertId')}
-            alert={alert}
-            onAlertCancel={props.deleteAlert}
-          />
-        )}
-      </ul>
-    </div>
-    :
-    <div>
-      <button
-        className="alertBtn"
-        onClick={props.toggleAlerts}
-      >
-        Alerts
-      </button>
-    </div>
+const RosterPlayers = (props) => (
+  <div>
+    <h2>Roster</h2>
+    <ul className="roster-players">
+      {props.roster.map(player =>
+        <PlayerListItem
+          key={player.get('playerId')}
+          player={player}
+        />
+      )}
+    </ul>
+  </div>
+  :
+  <div>
+    <button
+      className="alertBtn"
+      onClick={props.toggleAlerts}
+    >
+      Alerts
+    </button>
+  </div>
 );
 
 export default Alerts;
