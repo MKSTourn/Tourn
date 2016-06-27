@@ -154,12 +154,12 @@ export function submitChat(tournId, message, timeStamp) {
 // Bracket
 //
 
-// export function submitAdvance(bracket) {
-//   return {
-//     type: 'SUBMIT_ADVANCE',
-//     bracket,
-//   };
-// }
+export function updateBracket(newBracket) {
+  return {
+    type: 'UPDATE_BRACKET',
+    newBracket,
+  };
+}
 
 export function updateSize(bracketSize) {
   return {
@@ -170,9 +170,9 @@ export function updateSize(bracketSize) {
 
 // Tournament organizer requests to advance a player to next match
 // State is updated locally and OK'ed by server
-export function updateBracket(tournId, matchIndex, winner) {
+export function submitAdvance(tournId, matchIndex, winner) {
   return {
-    type: 'UPDATE_BRACKET',
+    type: 'SUBMIT_ADVANCE',
     meta: {
       event: 'update_bracket',
       to: tournId,

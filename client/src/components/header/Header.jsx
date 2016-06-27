@@ -8,18 +8,44 @@ import Login from './login.jsx';
 import CreateTournament from './createTournament.jsx';
 import { Grid, Row, Col } from 'react-bootstrap';
 
-
-
-const Header = ({ showTournList, userTourns, toggleTournSelect, showAlertList, userAlerts, toggleAlerts }) => (
+const Header = ({
+  changeMode,
+  showTournList,
+  userTourns,
+  toggleTournSelect,
+  showAlertList,
+  userAlerts,
+  toggleAlerts,
+  submitNewTourn,
+  tournInfo,
+  mode,
+  selectTourn,
+  deleteAlert,
+}) => (
   <header className="topbar">
-    <CreateTournament />
-    <UserTournaments toggleTournSelect = { toggleTournSelect } showTournList = { showTournList } userTourns = { userTourns } />
-    <h1 className="center">Tourn</h1>
-    <Alerts toggleAlerts = { toggleAlerts } showAlertList = { showAlertList } userAlerts = { userAlerts } />
+    <CreateTournament
+      mode={mode}
+      changeMode={changeMode}
+      submitNewTourn={submitNewTourn}
+      tournInfo={tournInfo}
+    />
+    <UserTournaments
+      toggleTournSelect={toggleTournSelect}
+      showTournList={showTournList}
+      userTourns={userTourns}
+      selectTourn={selectTourn}
+    />
+    <h1>Tourn</h1>
+    <Alerts
+      toggleAlerts={toggleAlerts}
+      showAlertList={showAlertList}
+      userAlerts={userAlerts}
+      deleteAlert={deleteAlert}
+    />
     <Login />
   </header>
+);
 
-)
 // <Row className={'show-grid'}>
 //   <Col md={12}>
 //     <Header />
