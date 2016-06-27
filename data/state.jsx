@@ -2,7 +2,7 @@
 // Template state
 //
 const INITIAL_STATE = {
-  mode: 'LoggedIn', // string identifying app mode
+  mode: 'Edit', // string identifying app mode
                      // modes: LoggedOut, LoggedIn, Edit, Registration
   header: {
     showTournList: false,
