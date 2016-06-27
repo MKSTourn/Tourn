@@ -26,10 +26,12 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
 
           let player1;
           let player2;
+          let winner;
 
           if (matches[index]) {
             player1 = matches[index].player1;
             player2 = matches[index].player2;
+            winner = matches[index].winner ? matches[index].winner : { _id: null };
           }
 
           return (<g>
@@ -41,18 +43,22 @@ const Bracket = ({ size, players, matches, updateBracket }) => {
             />
             {flag && !!player1.playerName ?
               <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
-                {
-                player1._id === winner._id ?
-                  <BracketWinner player={player1} won={true} /> :
-                  <BracketPlayer player={player1} updateBracket={updateBracket} />
-                }
+                {player1._id === winner._id ?
+                  <BracketWinner player={player1} won /> :
+                  winner._id ?
+                    <BracketWinner player={player1} /> :
+                    <BracketPlayer player={player1} updateBracket={updateBracket} />
+                  }
               </foreignObject> : null
             }
             {flag && !!player2.playerName ?
               <foreignObject x={start.x} y={start.y + 4} width={200} height={40}>
-                player1._id === winner._id ?
-                  <BracketWinner player={player2} won={true} /> :
-                  <BracketPlayer player={player2} updateBracket={updateBracket} />
+                {player2._id === winner._id ?
+                  <BracketWinner player={player2} won /> :
+                  winner._id ?
+                    <BracketWinner player={player2} /> :
+                    <BracketPlayer player={player2} updateBracket={updateBracket} />
+                  }
               </foreignObject> : null
             }
           </g>);

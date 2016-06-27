@@ -8,12 +8,13 @@ const BracketPlayer = (props) => (<div>
     title={props.player.playerName}
   />
   <h2>
-    Winner!
+    {props.won ? 'Winner!' : 'Loser!'}
   </h2>
 </div>);
 
 BracketPlayer.propTypes = {
   player: PropTypes.object,
+  won: PropTypes.boolean,
 };
 
 export default BracketPlayer;
