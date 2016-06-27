@@ -13,7 +13,7 @@ import { socket } from './utilities/socketContainer.jsx';
 
 const initialState = fromJS(state);
 
-console.log('INITIAL_STATE', initialState);
+console.log('INITIAL_STATE', state);
 const store = createStore(
   rootReducer,
   initialState,
