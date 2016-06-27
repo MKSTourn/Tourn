@@ -1,26 +1,32 @@
 import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 
-import { Message } from './ChatMessage.jsx';
+import Message from './ChatMessage.jsx';
 
-const Chat = (props) => (
-  <section>
-    <div className="messages">
+const Chat = (props) => (<section>
+  <div className="messages">
 
-      {props.messages.map((message, key) => (<Message
+    {props.messages.map((message, key) => {
+      const messageElement = (<Message
         key={key}
         sender={message.author}
         timestamp={message.timeStamp}
         message={message.message}
-      />))}
+      />);
 
-    </div>
-    <div className="controls">
-      <input type="textbox" />
-      <button />
-    </div>
-  </section>
-);
+      if (messageElement) {
+        return messageElement;
+      }
+
+      return '';
+    })}
+
+  </div>
+  <div className="controls">
+    <input type="textbox" />
+    <button />
+  </div>
+</section>);
 
 
 Chat.propTypes = {

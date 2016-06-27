@@ -11,11 +11,7 @@ function mapStateToProps(state) {
   console.log('CHAT STATE!', state.getIn('tournament'));
 
   return {
-    messages: [{
-      author: 'zak',
-      timeStamp: '12-12-12',
-      message: 'Hello!',
-    }],
+    messages: state.getIn(['tournament', 'chat']).toJS(),
   };
 }
 
