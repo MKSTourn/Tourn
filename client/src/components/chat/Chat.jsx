@@ -1,15 +1,37 @@
 import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
-import * as actions from '../../actions/action_creators.jsx';
-import { connect } from 'react-redux';
-import { Grid, Row, Col } from 'react-bootstrap';
 
-const Chat = () => (
-  <section>
-    <p>Chat box is rendering</p>
-  </section>
-);
+import Message from './ChatMessage.jsx';
 
+const Chat = (props) => (<section>
+  <div className="messages">
+
+    {props.messages.map((message, key) => {
+      const messageElement = (<Message
+        key={key}
+        sender={message.author}
+        timestamp={message.timeStamp}
+        message={message.message}
+      />);
+
+      if (messageElement) {
+        return messageElement;
+      }
+
+      return '';
+    })}
+
+  </div>
+  <div className="controls">
+    <input type="textbox" />
+    <button />
+  </div>
+</section>);
+
+
+Chat.propTypes = {
+  messages: PropTypes.array,
+};
 
 export default Chat;
 
