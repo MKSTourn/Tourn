@@ -6,7 +6,7 @@ const AddPlayer = (props) => {
 	const inviteeName = (e) => (
 		invitee = e.target.value
 	);
-	const submitInvite = (props) => (
+	const submitInvite = () => (
 		props.sendInvite(props.tournId, invitee)
 	);
 

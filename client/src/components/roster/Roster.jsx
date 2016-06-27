@@ -20,7 +20,12 @@ const Roster = (props) => (
         isOrganizer={props.isOrganizer}
         sendInvite={props.sendInvite}
       />
-      <StartTournament invite={props.invite} isOrganizer={props.isOrganizer} />
+      <StartTournament
+        invite={props.invite}
+        isOrganizer={props.isOrganizer}
+        startTourn={props.startTourn}
+        tournamentId={props.tournamentId}
+      />
   	</div>
   </section>
 );

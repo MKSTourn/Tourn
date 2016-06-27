@@ -10,10 +10,10 @@ function mapStateToProps(state){
   console.log(state.get('tournament').get('roster').toJS());
   console.log(state.getIn(['tournament', 'roster']).toJS());
   return {
-  	matches: state.getIn(['tournament', 'bracket', 'matches']),
   	invite: state.getIn(['tournament', 'invite']),
   	isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']),
   	roster: state.getIn(['tournament', 'roster']),
+  	tournamentId: state.getIn(['tournament', 'info', 'tournamentId'])
   }
 }
 
