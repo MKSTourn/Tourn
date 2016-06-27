@@ -13,27 +13,14 @@ const RosterPlayers = (props) => (
       )}
     </ul>
   </div>
-  :
-  <div>
-    <button
-      className="alertBtn"
-      onClick={props.toggleAlerts}
-    >
-      Alerts
-    </button>
-  </div>
 );
 
-export default Alerts;
+export default RosterPlayers;
 
-const AlertListItem = (props) => {
-  let _onClick = () => (
-    props.onAlertCancel(props.alert.get('alertId'))
-  )
+const PlayerListItem = (props) => {
   return (
     <li>
-      {props.alert.get('text')}
-      <button onClick={_onClick}>X</button>
+      {props.player.get('playerName')}
     </li>
   );
 };

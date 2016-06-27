@@ -3,24 +3,18 @@ import '../../styles/header_styles.css';
 import * as actions from '../../actions/action_creators.jsx';
 import { connect } from 'react-redux';
 import RosterPlayers from './rosterPlayers.jsx';
-import AddTournament from './addTournament.jsx';
-import StartTournament from './startTournament.jsx';
+
 import { Grid, Row, Col } from 'react-bootstrap';
 
 
-const Roster = () => (
+const Roster = (props) => (
 
   <section>
   	<div className="roster-box">
   		<RosterPlayers 
-
+        roster={props.roster}
       />
-      <AddTournament
-
-      />
-      <StartTournament
-
-      />
+   
   	</div>
   </section>
 );
