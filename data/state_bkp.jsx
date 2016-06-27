@@ -37,14 +37,17 @@ const INITIAL_STATE = {
       isOrganizer: false, // true if the current user is the organizer of this tourn
       rules: '', // organizer defined rules text string
     },
-    chat: [
-      // {
-      //   authorName: '',
-      //   authorPic: '',
-      //   comment: '', // user message string
-      //   timeStamp: '',
-      // },
-    ],
+    chat: {
+      message: '',
+      history: [
+        // {
+        //   authorName: '', // user name string
+        //   authorPic: '', // user pic url string
+        //   comment: '',  // user message
+        //   timeStamp: null, // message time
+        // },
+      ],
+    },
     start: false,
     invite: false,
     roster: [

@@ -48,20 +48,23 @@ const INITIAL_STATE = {
       isOrganizer: true, // true if the current user is the organizer of this tourn
       rules: 'Fight to the death', // organizer defined rules text string
     },
-    chat: [
-      {
-        authorName: 'Mark Boraski',
-        authorPic: 'https://a.cocaine.ninja/pjeevc.jpg',
-        comment: 'I will win', // user message string
-        timeStamp: 'sometime',
-      },
-      {
-        authorName: 'Adam Smith',
-        authorPic: 'https://a.cocaine.ninja/pjeevc.jpg',
-        comment: 'No', // user message string
-        timeStamp: 'someothertime',
-      },
-    ],
+    chat: {
+      message: '',
+      history: [
+        {
+          authorName: 'Mark Boraski',
+          authorPic: 'https://a.cocaine.ninja/pjeevc.jpg',
+          comment: 'I will win', // user message string
+          timeStamp: 'sometime',
+        },
+        {
+          authorName: 'Adam Smith',
+          authorPic: 'https://a.cocaine.ninja/pjeevc.jpg',
+          comment: 'No', // user message string
+          timeStamp: 'someothertime',
+        },
+      ],
+    },
     start: false,
     invite: true,
     roster: [

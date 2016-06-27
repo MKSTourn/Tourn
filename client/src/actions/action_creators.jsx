@@ -133,6 +133,13 @@ export function updateChat(newChat) {
   };
 }
 
+export function updateMessage(message) {
+  return {
+    type: 'UPDATE_MESSAGE',
+    message,
+  };
+}
+
 export function submitChat(tournId, message, timeStamp) {
   return {
     type: 'SUBMIT_CHAT',

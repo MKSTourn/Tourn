@@ -4,55 +4,50 @@ import '../../styles/header_styles.css';
 import Message from './ChatMessage.jsx';
 
 const Chat = (props) => {
-  let message = '';
   const updateMessage = (e) => {
     e.preventDefault();
-    message = e.target.value;
-  }
+    props.updateMessage(e.target.value);
+  };
   const onSubmitClick = (e) => {
     e.preventDefault();
     props.submitChat(props.tournId,
-                     message,
+                     props.chat.message,
                      Date.now());
-    message = '';
   };
   return (<section>
-  <div className="messages">
+    <div className="messages">
+      {props.chat.history.map((message, key) => {
+        const messageElement = (<Message
+          key={key}
+          sender={message.author}
+          timestamp={message.timeStamp}
+          message={message.message}
+        />);
 
-    {props.messages.map((message, key) => {
-      const messageElement = (<Message
-        key={key}
-        sender={message.author}
-        timestamp={message.timeStamp}
-        message={message.message}
-      />);
+        if (messageElement) {
+          return messageElement;
+        }
 
-      if (messageElement) {
-        return messageElement;
-      }
-
-      return '';
-    })}
-
-  </div>
-  <div className="controls">
-  <form onSubmit={onSubmitClick}>
-    <input
-      onChange={updateMessage}
-      type="text"
-      placeholder="Enter message..."
-      // value={'Hi.'}
-      className="newMessage"
-    />
-    <button type="submit">OK</button>
-  </form>
-  </div>
-</section>);
+        return '';
+      })}
+    </div>
+    <div className="controls">
+      <form onSubmit={onSubmitClick}>
+        <input
+          onChange={updateMessage}
+          type="text"
+          placeholder="Enter message..."
+          value={props.chat.message}
+          className="newMessage"
+        />
+        <button type="submit">OK</button>
+      </form>
+    </div>
+  </section>);
 };
 
-
 Chat.propTypes = {
-  messages: PropTypes.array,
+  chat: PropTypes.object,
 };
 
 export default Chat;
