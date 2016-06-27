@@ -31,7 +31,7 @@ const INITIAL_STATE = {
       userTourns: [
         {
           tournName: 'Ping Pong',
-          tournId: 0,
+          tournId: '5771534ff950d08d629d570e',
         },
         {
           tournName: 'Rock Paper Scissors',
@@ -42,7 +42,7 @@ const INITIAL_STATE = {
   },
   tournament: {
     info: {
-      tournId: 0, // integer
+      tournId: '5771534ff950d08d629d570e', // integer
       tournName: 'Ping Pong', // tourn name string
       tournType: 'single', // tourn type string (single, double, roundrobin)
       isOrganizer: true, // true if the current user is the organizer of this tourn

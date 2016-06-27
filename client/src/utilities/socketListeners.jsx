@@ -13,6 +13,7 @@ export default function startListeners(socket) {
     console.log('Socket event: new_tourn_success:', data);
     dispatch(actions.changeMode('LoggedIn'));
     dispatch(actions.setTournState(data));
+    dispatch(actions.toggleInviteBtn());
   });
 
   // TODO: Revert state and display error
