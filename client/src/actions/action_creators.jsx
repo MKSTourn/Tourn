@@ -241,7 +241,7 @@ export function toggleInviteBtn() {
   };
 }
 
-export function sendInvite(tournId, message) {
+export function sendInvite(tournId, invitee) {
   return {
     type: 'SEND_INVITE',
     meta: {
@@ -249,10 +249,11 @@ export function sendInvite(tournId, message) {
       to: null, // Send this to the userId
       entry: {
         tournId,
-        message,
+        invitee,
       },
     },
     message,
+    invitee,
   };
 }
 
