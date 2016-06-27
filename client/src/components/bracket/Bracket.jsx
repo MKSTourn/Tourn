@@ -4,13 +4,12 @@ import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx
 import '../../styles/bracket_styles.css';
 
 
-const Bracket = ({ size, players, matches, submitAdvance }) => {
+const Bracket = ({ size, players, matches, updateBracket }) => {
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
 
   return (
     <section className="bracket">
-      <p>Bracket Box is Rendering</p>
       <svg
         width={size.x}
         height={size.y}
@@ -38,7 +37,7 @@ const Bracket = ({ size, players, matches, submitAdvance }) => {
                     src={matches[index].player1.playerPic}
                     alt="Player 1"
                   />
-                  <p onClick={updateBrackets[index].player1}>
+                  <p onClick={updateBracket.bind(null, [index].player1)}>
                     {matches[index].player1.playerName}
                   </p>
                 </div>
@@ -52,7 +51,7 @@ const Bracket = ({ size, players, matches, submitAdvance }) => {
                     src={matches[index].player2.playerPic}
                     alt="Player 2"
                   />
-                  <p onClick={updateBrackets[index].player2}>
+                  <p onClick={updateBracket.bind(null, [index].player2)}>
                     {matches[index].player2.playerName}
                   </p>
                 </div>
