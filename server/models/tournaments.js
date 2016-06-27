@@ -88,7 +88,9 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
     const endResult = result;
 
     endResult.roster.push({ playerId });
-    endResult.bracketSize = result.bracketSize ? result.bracketSize + 1 : 1;
+    endResult.bracketSize = result.bracketSize ?
+      BracketHelper.getBracketSize(endResult.roster.length) :
+      2;
     endResult.save((saveErr, saveResult) => {
       if (saveErr) reject(saveErr);
       resolve(saveResult);

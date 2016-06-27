@@ -65,6 +65,12 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new tournament object
       socket.on('select_tourn', (data) => {
         console.log('select_tourn', data);
+
+        for (let key in socket.rooms) {
+          socket.leave(key);
+        }
+
+        socket.join(socket.request.user._id);
         socket.join(data.entry.tournId);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
@@ -127,7 +133,7 @@ module.exports.socket = function socketAttachment(io) {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
               .then(() => {
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-                io.to(data.to).emit('roster_update');
+                io.to(data.to).emit('set_tourn_state', result);
               })
               .catch(() => {
                 socket.emit('accept_invite_fail');
