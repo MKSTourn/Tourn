@@ -10,13 +10,20 @@ const AddPlayer = (props) => {
 		props.sendInvite(props.tournId, invitee)
 	);
 
-	return (props.invite ?
-		<form>
-			<input type="text" onChange={inviteeName}></input><br />
-			<button type="submit" onClick={submitInvite}>Add Player</button>
-		</form>
+  return (props.invite && !props.start ?
+    <form>
+      <input type="text" onChange={inviteeName}></input><br />
+      <button type="submit" onClick={submitInvite}>Add Player</button>
+    </form>
 	:
 	null);
+};
+
+AddPlayer.propTypes = {
+  sendInvite: PropTypes.func,
+  tournId: PropTypes.string,
+  invite: PropTypes.bool,
+  start: PropTypes.bool,
 };
 
 export default AddPlayer;

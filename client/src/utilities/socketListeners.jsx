@@ -123,8 +123,11 @@ export default function startListeners(socket) {
 
   socket.on('tourn_started', () => {
     console.log('Socket event: tourn_started');
-    // Disable invite btn
-    // Disable organizer's start btn
+    // set tournament.start = true
+    // set tournament.invite = false
+    // set tournament.showStart = false
+    // set tournament.showInvite = false
+    // set tournament.bracket.tournStatus = 'In Progress'
   });
 
   //

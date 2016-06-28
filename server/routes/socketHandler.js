@@ -213,7 +213,7 @@ module.exports.socket = function socketAttachment(io) {
         // Flip a switch on the tourn, if user is the organized
         tournaments.startTourn(data.entry.tournId)
         .then(() => {
-          console.log('Start tourn success: ', err);
+          console.log('Start tourn success');
           socket.emit('start_tourn_success');
           io.to(data.to).emit('tourn_started');
         })

@@ -78,12 +78,15 @@ Tournaments.addChatMessage =
 
 Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
+    console.log('startTourn');
     if (err) {
+      console.log('startTourn: err =', err);
       reject(err);
       return;
     }
 
     if (!result) {
+      console.log('startTourn: tournament not found!');
       reject('tournament not found');
       return;
     }
@@ -92,7 +95,10 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 
     endResult.start = true;
     endResult.invite = false;
+    console.log('startTourn: saving...!');
     endResult.save((saveErr, saveResult) => {
+      console.log('startTourn: saveResult =', saveResult);
+      console.log('startTourn: saveErr =', saveErr);
       if (saveErr) reject(saveErr);
       resolve(saveResult);
     });

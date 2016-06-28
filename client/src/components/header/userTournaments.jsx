@@ -1,4 +1,4 @@
-import React, { PropTypes }from 'react';
+import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 
 const UserTournaments = (props) => (
@@ -31,6 +31,13 @@ const UserTournaments = (props) => (
     </div>
 );
 
+UserTournaments.propTypes = {
+  showTournList: PropTypes.bool,
+  toggleTournSelect: PropTypes.func,
+  userTourns: PropTypes.object,
+  selectTourn: PropTypes.func,
+};
+
 export default UserTournaments;
 
 const TournListItem = (props) => {
@@ -42,4 +49,9 @@ const TournListItem = (props) => {
       {props.tournament.get('tournName')}
     </li>
   );
+};
+
+TournListItem.propTypes = {
+  onTournamentClick: PropTypes.func,
+  tournament: PropTypes.object,
 };
