@@ -29,13 +29,14 @@ passport.use(new FacebookStrategy({
   clientID: '986354861484992',
   clientSecret: '7966d7fab2fd294004fd28622a1aaad8',
   callbackURL: 'http://localhost:4000/auth/facebook/callback',
-  profileFields: ['id', 'displayName', 'name', 'gender', 'emails', 'picture.type(large)'],
+  profileFields: ['id', 'displayName', 'name', 'gender', 'emails', 'photos'],
 },
   (accessToken, refreshToken, profile, done) => {
     const id = profile.id;
     console.log('accessToken:', accessToken);
     // console.log('refreshToken:', refreshToken);
     console.log('profile:', profile);
+    console.log('profile picture:', profile._json.picture.url);
     console.log('done:', done);
     console.log('id:', id);
 
@@ -43,7 +44,7 @@ passport.use(new FacebookStrategy({
     Users.findByFacebookId(id)
       .then((result) => {
         if (!result) {
-          Users.create(profile.displayName, id)
+          Users.create(profile.displayName, id, profile._json.picture.url)
             .then((user) => {
               // User didn't exist, so we created one and passed it back.
               done(null, user, 'login worked');

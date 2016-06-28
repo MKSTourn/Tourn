@@ -11,8 +11,8 @@ const UnclaimedInvites = require('./unclaimedInvites.js');
 
 // Instantiation functions
 
-Users.create = (name, fbid) => new Promise((resolve, reject) => {
-  UsersSchema.create({ name, fbid }, (err, user) => {
+Users.create = (name, fbid, picture) => new Promise((resolve, reject) => {
+  UsersSchema.create({ name, fbid, picture }, (err, user) => {
     if (err) { reject(err); return; }
 
     UnclaimedInvites.findAllWithFacebookId(fbid)

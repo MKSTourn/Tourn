@@ -12,15 +12,23 @@ module.exports.socket = function socketAttachment(io) {
     // when server detects user is logged in
     // Server will push down LoggedIn initial state when this
     // happens
-      console.log(socket.request.user);
+      // console.log('Socket attached user object', socket.request.user);
       socket.join(socket.request.user._id);
-
-      stateGenerator.generateUserState(socket.request.user._id)
-        .then((state) => {
-          console.log(state);
-          socket.emit('set_state', state);
+      users.findById(socket.request.user._id)
+        .then((resultUser) => {
+          // console.log('Database fresh user object', resultUser);
+          stateGenerator.generateUserState(
+            resultUser._id,
+            resultUser.tournamentIds[0] ? resultUser.tournamentIds[0].tournId : null
+          )
+            .then((state) => {
+              // console.log('State sent to client:', state);
+              socket.emit('set_state', state);
+            });
+        })
+        .catch((err) => {
+          // console.log('Error while searching for user, ', err);
         });
-
 
       // Client submits newly created tournament data,
       // Server adds tournament to db,
@@ -32,9 +40,8 @@ module.exports.socket = function socketAttachment(io) {
         console.log('new_tourn', data);
         tournaments.create(
           socket.request.user._id,
-          data.entry.name,
-          data.entry.type,
-          data.entry.rules
+          data.entry.tournName,
+          data.entry.tournType
         )
         .then((result) => {
           socket.emit('new_tourn_success', {
