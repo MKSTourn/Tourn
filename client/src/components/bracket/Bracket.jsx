@@ -2,16 +2,21 @@ import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
 import '../../styles/bracket_styles.css';
-
+import TournName from './TournName.jsx';
 import BracketPlayer from './BracketPlayer.jsx';
 import BracketWinner from './BracketWinner.jsx';
 
-const Bracket = ({ size, players, matches, updateBracket }) => {
+const Bracket = ({ size, updateName, players, matches, updateBracket, tournName, mode }) => {
   const points = generateBracketPoints(
     Math.pow(2, Math.ceil(Math.log2(players.length))), size.x, size.y);
 
   return (
     <section className="bracket">
+      <TournName
+        updateName={updateName}
+        tournName={tournName}
+        mode={mode}
+      />
       <svg
         width={size.x}
         height={size.y}
@@ -74,6 +79,9 @@ Bracket.propTypes = {
   players: PropTypes.array,
   matches: PropTypes.array,
   updateBracket: PropTypes.func,
+  tournName: PropTypes.string,
+  mode: PropTypes.string,
+  updateName: PropTypes.func,
 };
 
 // <svg

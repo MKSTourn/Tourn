@@ -3,50 +3,67 @@ import '../../styles/header_styles.css';
 
 import Message from './ChatMessage.jsx';
 
-const Chat = (props) => (<section>
-  <div className="messages">
+const Chat = (props) => {
+  const updateMessage = (e) => {
+    e.preventDefault();
+    props.updateMessage(e.target.value);
+  };
+  const onSubmitClick = (e) => {
+    e.preventDefault();
+    props.submitChat(props.tournId,
+                     props.chat.message,
+                     Date.now());
+  };
+  return (<section>
+    <div className="messages">
+      {props.chat.history.map((message, key) => {
+        const messageElement = (<Message
+          key={key}
+          sender={message.author}
+          timestamp={message.timeStamp}
+          message={message.message}
+        />);
 
-    {props.messages.map((message, key) => {
-      const messageElement = (<Message
-        key={key}
-        sender={message.author}
-        timestamp={message.timeStamp}
-        message={message.message}
-      />);
+        if (messageElement) {
+          return messageElement;
+        }
 
-      if (messageElement) {
-        return messageElement;
-      }
-
-      return '';
-    })}
-
-  </div>
-  <div className="controls">
-    <input type="textbox" />
-    <button />
-  </div>
-</section>);
-
+        return '';
+      })}
+    </div>
+    <div className="controls">
+      <form onSubmit={onSubmitClick}>
+        <input
+          onChange={updateMessage}
+          type="text"
+          placeholder="Enter message..."
+          value={props.chat.message}
+          className="newMessage"
+        />
+        <button type="submit">OK</button>
+      </form>
+    </div>
+  </section>);
+};
 
 Chat.propTypes = {
-  messages: PropTypes.array,
+  chat: PropTypes.object,
 };
 
 export default Chat;
 
-// <ul className="chatbox"></ul>
+// <ul lassName="chatbox"></ul>
 // <form onSubmit={handleSubmit}>
-//   <input
-//     type="text"
-//     placeholder="New Message"
-//     value={'Hi.'}
-//     className="newMessage"
-//   />
-//   <input type="submit" value="Post" />
+  // <input
+    // type="text"
+    // placeholder="New Message"
+    // value={'Hi.'}
+    // className="newMessage"
+  // />
+  // <input type="submit" value="Post" />
 // </form>
 // const handleSubmit = (e) => {
-//   e.preventDefault();
-//   // let author, text;
-//   // this.props.onMessageSubmit({ text });
+  // e.preventDefault();
+  // let author, text;
+  // this.props.onMessageSubmit({ text });
 // };

@@ -119,6 +119,11 @@ export default function startListeners(socket) {
     dispatch(actions.setTournState(data));
   });
 
+  socket.on('tourn_started', () => {
+    console.log('Socket event: tourn_started');
+    // Disable invite btn
+    // Disable organizer's start btn
+  });
   //
   // Roster
   //

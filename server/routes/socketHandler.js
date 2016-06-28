@@ -200,7 +200,7 @@ module.exports.socket = function socketAttachment(io) {
         })
         .catch((err) => {
           console.log('Start tourn error: ', err);
-          socket.emite('start_tourn_fail');
+          socket.emit('start_tourn_fail');
         });
       });
 
@@ -214,7 +214,7 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.timeStamp)
         .then(() => {
           socket.emit('submit_chat_success');
-          io.to(data.to).emit('chat_message', {
+          io.to(data.to).emit('update_chat', {
             authorId: socket.request.user._id,
             authorName: socket.request.user.name,
             message: data.entry.message,
