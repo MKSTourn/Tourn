@@ -5,8 +5,6 @@ import Chat from './chat/Chat.jsx';
 
 
 function mapStateToProps(state) {
-  console.log('CHAT STATE!', state.getIn('tournament'));
-
   return {
     chat: state.getIn(['tournament', 'chat']).toJS(),
     tournId: state.getIn(['tournament', 'info', 'tournId']),
