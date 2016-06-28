@@ -12,15 +12,15 @@ function handleSubmit(state) {
 }
 
 function handleAddTourn(state, tournId, tournName) {
-  console.log('Header reducer: handleSubmit');
-  // User's new tourn info has been submitted to server.
-  // Nothing to render in the meantime, so don't change state.
-  const newTourn = {
+  console.log('handleAddTourn');
+  const newUserTourns = state.getIn(['userData', 'userTourns']).toJS();
+
+  newUserTourns.push({
     tournName,
     tournId,
-  };
+  });
 
-  return state;
+  return state.setIn(['userData', 'userTourns'], fromJS(newUserTourns));
 }
 
 function handleSelectTourn(state) {

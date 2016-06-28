@@ -29,6 +29,14 @@ export function submitNewTourn(info) {
   };
 }
 
+export function addNewTourn(tournId, tournName) {
+  return {
+    type: 'ADD_NEW_TOURN',
+    tournId,
+    tournName,
+  };
+}
+
 export function selectTourn(tournId) {
   return {
     type: 'SELECT_TOURN',
