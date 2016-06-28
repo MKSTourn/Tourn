@@ -137,7 +137,7 @@ export default function startListeners(socket) {
     dispatch(actions.updateRoster(data));
   });
 
-  // Update user's alert list as a result of another player sending an invite
+  // Server sends back an OK after user sends an invite to another user
   socket.on('update_alert', (data) => {
     console.log('Socket event: update_alert:', data);
     dispatch(actions.addAlert(data));

@@ -51,6 +51,13 @@ export function selectTourn(tournId) {
   };
 }
 
+export function addAlert(alert) {
+  return {
+    type: 'ADD_ALERT',
+    alert,
+  };
+}
+
 export function deleteAlert(alertId) {
   return {
     type: 'DELETE_ALERT',

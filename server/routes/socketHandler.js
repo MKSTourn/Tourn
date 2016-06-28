@@ -183,17 +183,22 @@ module.exports.socket = function socketAttachment(io) {
 
         users.createAlert(data.entry.facebookId, data.entry.tournId, true, data.entry.message)
         .then((result) => {
+          console.log('send_invite: result =', result);
           if (!result.tournId) {
             io.to(data.entry.userId).emit('update_alert',
               {
+                // alertId: result._id,
                 tournId: data.entry.tournId,
+                tournName: data.entry.tournName,
                 message: 'Invited to a tournament!',
                 isInvite: true,
               });
           }
+          console.log('send_invite_success', data);
           socket.emit('send_invite_success');
         })
         .catch(() => {
+          console.log('send_invite_fail', data);
           socket.emit('send_invite_fail');
         });
       });
@@ -203,6 +208,7 @@ module.exports.socket = function socketAttachment(io) {
         // Flip a switch on the tourn, if user is the organized
         tournaments.startTourn(data.entry.tournId)
         .then(() => {
+          console.log('Start tourn success: ', err);
           socket.emit('start_tourn_success');
           io.to(data.to).emit('tourn_started');
         })

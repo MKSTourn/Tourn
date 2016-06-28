@@ -33,6 +33,15 @@ function handleSelectTourn(state) {
   return state;
 }
 
+function handleAddAlert(state, alert) {
+  console.log('handleAddAlert');
+  const newAlerts = state.getIn(['userData', 'alerts']).toJS();
+
+  newAlerts.push(alert);
+
+  return state.setIn(['userData', 'alerts'], fromJS(newAlerts));
+}
+
 function handleDeleteAlert(state, alertId) {
   console.log('Header reducer: handleDeleteAlert');
   console.log('Header reducer: alertId =', alertId);
@@ -87,6 +96,8 @@ export default function header(state, action) {
       return handleAddTourn(state, action.tournId, action.tournName);
     case 'SELECT_TOURN':
       return handleSelectTourn(state);
+    case 'ADD_ALERT':
+      return handleAddAlert(state, action.alert);
     case 'DELETE_ALERT':
       return handleDeleteAlert(state, action.alertId);
     case 'ACCEPT_INVITE':

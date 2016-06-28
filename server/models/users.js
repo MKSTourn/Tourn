@@ -58,6 +58,14 @@ Users.findByFacebookId = (facebookid) => new Promise((resolve, reject) => {
   });
 });
 
+Users.findByName = (userName) => new Promise((resolve, reject) => {
+  UsersSchema.findOne({ name: userName }, (err, result) => {
+    if (err) reject(err);
+    resolve(result);
+  });
+});
+
+
 Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
   UsersSchema.findOne({ sessions: { token: sessiontoken } }, (err, result) => {
     if (err) reject(err);
@@ -66,21 +74,30 @@ Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
 });
 
 Users.createAlert = (
-  facebookId, tournId, tournName, isInvite, message
+  invitee, tournId, tournName, isInvite, message
 ) => new Promise((resolve, reject) => {
-  Users.findByFacebookId(facebookId)
+  console.log('Users.createAlert');
+  Users.findByName(invitee)
     .then((result) => {
+    console.log('Users.createAlert: findByName result: ', result);
       if (!result) {
-        UnclaimedInvites.createUnclaimedInvite(facebookId, tournId, tournName);
+        console.log('Users.createAlert: findByName result: ', result);
+        UnclaimedInvites.createUnclaimedInvite(invitee, tournId, tournName);
 
         return;
       }
 
-
       result.alerts.push({
-        tournId,
-        isInvite,
         message,
+        tournId,
+        tournName,
+        isInvite,
+      });
+
+      result.save((err, saveResult) => {
+        if (err) reject(err);
+        console.log('Users.createAlert: result alert =', result.alerts[0]);
+        resolve(result.alerts[0]);
       });
     });
 });
