@@ -57,9 +57,12 @@ const generateUserState = (userId, tournId) => {
         };
 
         if (tourn) {
-          console.log('Shouldnt fire');
           resultObject.tournament = generateTournamentData(user, tourn);
         }
+
+        console.log('The user object were using', user);
+        console.log('The tourn object were using', tourn);
+        console.log('The state we are trying to send back.', resultObject);
         return resultObject;
       })
       .catch((err) => {

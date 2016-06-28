@@ -7,6 +7,7 @@ const users = require('./users.js');
 const Tournaments = module.exports;
 
 Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) => {
+  console.log(organizerid, name, type);
   TournamentSchema.create({
     organizerid,
     name,
@@ -16,6 +17,8 @@ Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) 
     roster: [{
       playerId: organizerid,
     }],
+    start: false,
+    invite: true,
   }, (err, result) => {
     if (err) reject(err);
 
@@ -61,11 +64,13 @@ Tournaments.addChatMessage =
         reject('Tournament doesnt exist!');
         return;
       }
-
-      console.log('addChatMessage meat');
       result.chatHistory.push({ authorId, authorName, message, timeStamp });
       result.save((saveErr, saveResult) => {
-        if (saveErr) reject(saveErr);
+        if (saveErr) {
+          console.log('Chat Message save error', saveErr);
+          reject(saveErr);
+          return;
+        }
         resolve(saveResult);
       });
     });

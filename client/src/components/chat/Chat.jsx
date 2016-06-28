@@ -17,9 +17,10 @@ const Chat = (props) => {
   return (<section>
     <div className="messages">
       {props.chat.history.map((message, key) => {
+        console.log('Chat message', message);
         const messageElement = (<Message
           key={key}
-          sender={message.author}
+          sender={message.authorName}
           timestamp={message.timeStamp}
           message={message.message}
         />);
