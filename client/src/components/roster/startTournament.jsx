@@ -3,10 +3,8 @@ import '../../styles/header_styles.css';
 
 const StartTournament = (props) => {
 	const initTourn = () => (
-		props.startTourn(props.tournamentId)
+		props.startTourn(props.tournId)
 	);
-
-
 
 	return (
 		props.invite && props.isOrganizer ?
@@ -16,5 +14,5 @@ const StartTournament = (props) => {
 		:
 		null
 	);
-}
+};
 export default StartTournament;

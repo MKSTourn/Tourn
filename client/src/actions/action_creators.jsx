@@ -267,8 +267,6 @@ export function sendInvite(tournId, invitee) {
         invitee,
       },
     },
-    message,
-    invitee,
   };
 }
 
