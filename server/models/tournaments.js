@@ -78,7 +78,15 @@ Tournaments.addChatMessage =
 
 Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
-    if (err) reject(err);
+    if (err) {
+      reject(err);
+      return;
+    }
+
+    if (!result) {
+      reject('tournament not found');
+      return;
+    }
 
     const endResult = result;
 
