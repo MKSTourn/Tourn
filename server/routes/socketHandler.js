@@ -81,10 +81,11 @@ module.exports.socket = function socketAttachment(io) {
         socket.join(data.entry.tournId);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
-            console.log('tourn result', result);
+            const tournResult = stateGenerator.generateTournamentData(socket.request.user, result);
+            console.log('tourn result', tournResult);
             if (result) {
               socket.emit('select_tourn_success',
-                stateGenerator.generateTournamentData(socket.request.user, result));
+                tournResult);
             } else {
               socket.emit('select_tourn_fail', 'doesnt exist');
             }

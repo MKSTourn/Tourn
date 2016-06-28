@@ -294,6 +294,9 @@ export function setUserState(state) {
 
 // Server sends a tournament state update
 export function setTournState(state) {
+
+  console.log('SET_TOURN_STATE', state);
+
   return {
     type: 'SET_TOURN_STATE',
     state,

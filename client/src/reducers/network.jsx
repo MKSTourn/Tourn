@@ -22,6 +22,9 @@ function handleSetUserState(state, newState) {
 }
 
 function handleSetTournState(state, newState) {
+
+  console.log('Handle set Tourn state', state, newState);
+
   console.log('handleSetTournState');
   console.log('Initial state =', state.toJS());
   const nextState = state.set('tournament', state.get('tournament').mergeDeep(fromJS(newState)));
