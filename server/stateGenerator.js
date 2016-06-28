@@ -15,10 +15,14 @@ const generateTournamentData = (userObject, tournObject) => ({
     tournId: tournObject._id,
     tournName: tournObject.name,
     tournType: tournObject.type,
+    rules: tournObject.rules,
     isOrganizer: tournObject.organizerid.toString() === userObject._id.toString(), // Change based on requesting user
   },
 
-  chat: tournObject.chatHistory,
+  chat: {
+    history: tournObject.chatHistory,
+    message: '',
+  },
 
   start: tournObject.start,
   invite: tournObject.invite,

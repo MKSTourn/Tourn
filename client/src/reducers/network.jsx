@@ -27,6 +27,7 @@ function handleSetTournState(state, newState) {
 
   console.log('handleSetTournState');
   console.log('Initial state =', state.toJS());
+  console.log('Immutable newState', fromJS(newState));
   const nextState = state.set('tournament', state.get('tournament').mergeDeep(fromJS(newState)));
   console.log('Next state =', nextState.toJS());
   return nextState;
