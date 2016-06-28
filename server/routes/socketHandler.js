@@ -181,7 +181,7 @@ module.exports.socket = function socketAttachment(io) {
       socket.on('send_invite', (data) => {
         console.log('send_invite', data);
 
-        users.createAlert(data.entry.facebookId, data.entry.tournId, true, data.entry.message)
+        users.createAlert(data.entry.invitee, data.entry.tournId, true, data.entry.message)
         .then((result) => {
           console.log('send_invite: result =', result);
           if (!result.tournId) {

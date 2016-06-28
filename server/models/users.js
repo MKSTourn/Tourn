@@ -58,8 +58,11 @@ Users.findByFacebookId = (facebookid) => new Promise((resolve, reject) => {
   });
 });
 
-Users.findByName = (userName) => new Promise((resolve, reject) => {
-  UsersSchema.findOne({ name: userName }, (err, result) => {
+Users.findByName = (name) => new Promise((resolve, reject) => {
+  const search = { name: { $regex: name } };
+  UsersSchema.findOne(search, (err, result) => {
+    console.log('FindByName result and search', result, search);
+
     if (err) reject(err);
     resolve(result);
   });

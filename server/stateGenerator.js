@@ -39,14 +39,14 @@ const generateTournamentData = (userObject, tournObject) => ({
 });
 
 const generateUserState = (userId, tournId) => {
-  console.log('Generating User State');
+  // console.log('Generating User State');
   return users.findById(userId)
     .then((user) => {
       if (!user) {
         throw new Error('User not found');
       }
 
-      console.log('Searching for tournaments');
+      // console.log('Searching for tournaments');
       return tournaments.findById(tournId)
       .then((tourn) => {
         const resultObject = {
@@ -63,10 +63,10 @@ const generateUserState = (userId, tournId) => {
           resultObject.tournament = generateTournamentData(user, tourn);
         }
 
-        console.log('The user object were using', user);
-        console.log('The tourn object were using', tourn);
-        console.log('The state we are trying to send back.', resultObject);
-        console.log('The chat history.', resultObject.tournament.chat);
+        // console.log('The user object were using', user);
+        // console.log('The tourn object were using', tourn);
+        // console.log('The state we are trying to send back.', resultObject);
+        // console.log('The chat history.', resultObject.tournament.chat);
         return resultObject;
       })
       .catch((err) => {
