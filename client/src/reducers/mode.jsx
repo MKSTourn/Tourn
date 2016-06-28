@@ -12,6 +12,7 @@ function handleChangeMode(state, mode) {
 }
 
 export default function mode(state = {}, action) {
+  console.log('Mode Reducer State', state);
   switch (action.type) {
     case 'CHANGE_MODE':
       return handleChangeMode(state, action.mode);

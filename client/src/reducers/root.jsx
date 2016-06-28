@@ -7,12 +7,12 @@ import header from './header.jsx';
 import tournament from './tournament.jsx';
 import mode from './mode.jsx';
 import network from './network.jsx';
+import { fromJS } from 'immutable';
 
 const rootReducer = combineReducers({
   mode,
   header,
   tournament,
-  network,
 });
 
-export default rootReducer;
+export default (state, action) => rootReducer(network(state, action), action);

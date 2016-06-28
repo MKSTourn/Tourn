@@ -16,7 +16,7 @@ function handleSetState(state, newState) {
 function handleSetUserState(state, newState) {
   console.log('handleSetUserState');
   console.log('Initial state =', state.toJS());
-  const nextState = state.mergeDeep(fromJS(newTournState));
+  const nextState = state.mergeDeep(fromJS(newState));
   console.log('Next state =', nextState.toJS());
   return nextState;
 }
@@ -30,6 +30,7 @@ function handleSetTournState(state, newState) {
 }
 
 export default function network(state = fromJS(INITIAL_STATE), action) {
+  console.log('Network Reducer State', state);
   switch (action.type) {
     case 'SET_STATE':
       console.log(action);

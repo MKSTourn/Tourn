@@ -11,8 +11,8 @@ import { Grid, Row, Col } from 'react-bootstrap';
 const Roster = (props) => (
 
   <section>
-  	<div className="roster-box">
-  		<RosterPlayers 
+    <div className="roster-box">
+      <RosterPlayers
          roster={props.roster}
       />
       <AddPlayer
@@ -26,7 +26,7 @@ const Roster = (props) => (
         startTourn={props.startTourn}
         tournamentId={props.tournamentId}
       />
-  	</div>
+    </div>
   </section>
 );
 

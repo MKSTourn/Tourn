@@ -21,7 +21,8 @@ function handleUpdateRules(state, rules) {
 }
 
 export default function info(state = {}, action) {
-  switch (action.type) {
+  console.log('Network Reducer State', state);
+  switch (action.Info) {
     case 'UPDATE_ID':
       return handleUpdateId(state, action.tournId);
     case 'UPDATE_TYPE':

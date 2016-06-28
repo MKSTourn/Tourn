@@ -67,6 +67,7 @@ function handleToggleAlerts(state) {
 }
 
 export default function header(state, action) {
+  console.log('Header Reducer State', state);
   switch (action.type) {
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state);

@@ -61,6 +61,7 @@ function handleUpdateSize(state, bracketSize) {
 }
 
 export default function bracket(state = {}, action) {
+  console.log('Bracket Reducer State', state);
   switch (action.type) {
     case 'SUBMIT_ADVANCE':
       return handleSubmitAdvance(state, action.bracket);
