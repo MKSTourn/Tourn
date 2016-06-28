@@ -6,12 +6,11 @@ const users = require('./users.js');
 
 const Tournaments = module.exports;
 
-Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, reject) => {
+Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) => {
   TournamentSchema.create({
     organizerid,
     name,
     type,
-    rules,
     bracketSize: 1,
     registrationOpen: true,
     roster: [{
@@ -52,10 +51,16 @@ Tournaments.addChatMessage =
   (tournid, authorId, authorName, message, timeStamp) => new Promise((resolve, reject) => {
     TournamentSchema.findById(tournid, (err, result) => {
       console.log('addChatMessage error gate');
-      if (err) reject(err);
+      if (err) {
+        reject(err);
+        return;
+      }
 
       console.log('addChatMessage null gate');
-      if (!result) throw new Error('Tournament not found');
+      if (!result) {
+        reject('Tournament doesnt exist!');
+        return;
+      }
 
       console.log('addChatMessage meat');
       result.chatHistory.push({ authorId, authorName, message, timeStamp });
