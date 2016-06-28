@@ -11,7 +11,6 @@ export default function startListeners(socket) {
   // Update user's tourn ID after submitting new tourn info
   socket.on('new_tourn_success', (data) => {
     console.log('Socket event: new_tourn_success:', data);
-    dispatch(actions.changeMode('LoggedIn'));
     dispatch(actions.setTournState(data));
     dispatch(actions.toggleInviteBtn());
   });

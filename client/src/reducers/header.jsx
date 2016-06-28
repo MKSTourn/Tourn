@@ -11,6 +11,18 @@ function handleSubmit(state) {
   return state;
 }
 
+function handleAddTourn(state, tournId, tournName) {
+  console.log('Header reducer: handleSubmit');
+  // User's new tourn info has been submitted to server.
+  // Nothing to render in the meantime, so don't change state.
+  const newTourn = {
+    tournName,
+    tournId,
+  };
+
+  return state;
+}
+
 function handleSelectTourn(state) {
   console.log('Header reducer: handleSelectTourn');
   // User's new tourn info has been submitted to server.
@@ -67,10 +79,12 @@ function handleToggleAlerts(state) {
 }
 
 export default function header(state, action) {
-  console.log('Header Reducer State', state);
+  // console.log('Header Reducer State', state.toJS());
   switch (action.type) {
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state);
+    case 'ADD_NEW_TOURN':
+      return handleAddTourn(state, action.tournId, action.tournName);
     case 'SELECT_TOURN':
       return handleSelectTourn(state);
     case 'DELETE_ALERT':

@@ -23,7 +23,7 @@ function handleChatUpdate(state, message) {
 }
 
 export default function chat(state = {}, action) {
-  console.log('Chat Reducer State', state);
+  // console.log('Chat Reducer State', state.toJS());
   switch (action.type) {
     case 'SUBMIT_CHAT':
       return handleSubmitChat(state);

@@ -19,7 +19,7 @@ const Main = () => (
     <ChatContainer />
     <RulesContainer />
   </div>
-)
+);
 
         //{React.cloneElement(this.props.children, this.props)}
 

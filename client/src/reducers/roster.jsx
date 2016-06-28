@@ -8,7 +8,7 @@ function handleUpdateRoster(state, newRoster) {
 }
 
 export default function roster(state = {}, action) {
-  console.log('Roster Reducer State', state);
+  // console.log('Roster Reducer State', state.toJS());
   switch (action.type) {
     case 'UPDATE_ROSTER':
       return handleUpdateRoster(state, action.newRoster);

@@ -17,15 +17,15 @@ export function changeMode(mode) {
 // Header
 //
 
-export function submitNewTourn(tourn) {
+export function submitNewTourn(info) {
   return {
     type: 'SUBMIT_NEW_TOURN',
     meta: {
       event: 'new_tourn',
       to: null,
-      entry: tourn,
+      entry: info.toJS(),
     },
-    tourn,
+    info,
   };
 }
 
@@ -115,10 +115,10 @@ export function updateName(tournName) {
   };
 }
 
-export function updateRules(tournRules) {
+export function updateRules(rules) {
   return {
     type: 'UPDATE_RULES',
-    tournRules,
+    rules,
   };
 }
 

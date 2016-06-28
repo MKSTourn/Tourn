@@ -12,7 +12,7 @@ function handleChangeMode(state, mode) {
 }
 
 export default function mode(state = {}, action) {
-  console.log('Mode Reducer State', state);
+  // console.log('Mode Reducer State', state.toJS());
   switch (action.type) {
     case 'CHANGE_MODE':
       return handleChangeMode(state, action.mode);

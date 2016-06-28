@@ -16,7 +16,7 @@ function handleSendInvite(state) {
 }
 
 export default function invite(state = {}, action) {
-  console.log('Invite Reducer State', state);
+  // console.log('Invite Reducer State', state.toJS());
   switch (action.type) {
     case 'TOGGLE_INVITE':
       return handleToggleInvite(state);

@@ -16,7 +16,7 @@ function handleStartTourn(state) {
 }
 
 export default function start(state = {}, action) {
-  console.log('Start Reducer State', state);
+  // console.log('Start Reducer State', state.toJS());
   switch (action.type) {
     case 'TOGGLE_START':
       return handleToggleStart(state.get(['tournament']));
