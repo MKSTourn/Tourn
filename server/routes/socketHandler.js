@@ -13,7 +13,9 @@ module.exports.socket = function socketAttachment(io) {
     // Server will push down LoggedIn initial state when this
     // happens
       // console.log('Socket attached user object', socket.request.user);
-      socket.join(socket.request.user._id);
+      
+      console.log('JOINING OWN ROOM', socket.request.user._id.toString());
+      socket.join(socket.request.user._id.toString());
       users.findById(socket.request.user._id)
         .then((resultUser) => {
           // console.log('Database fresh user object', resultUser);
@@ -37,7 +39,7 @@ module.exports.socket = function socketAttachment(io) {
       //   User's isOrganizer property set to TRUE,
       //   User's tournament object updated with new tourn ID
       socket.on('new_tourn', (data) => {
-        console.log('new_tourn', data);
+        // console.log('new_tourn', data);
         tournaments.create(
           socket.request.user._id,
           data.entry.tournName,
@@ -62,7 +64,7 @@ module.exports.socket = function socketAttachment(io) {
           socket.join(result._id);
         })
         .catch((err) => {
-          console.log('Tournament creation error: ', err);
+          // console.log('Tournament creation error: ', err);
           socket.emit('new_tourn_fail');
         });
       });
@@ -71,18 +73,17 @@ module.exports.socket = function socketAttachment(io) {
       // Server retrieves latest state of that tournament from db
       // Server sends back new tournament object
       socket.on('select_tourn', (data) => {
-        console.log('select_tourn', data);
+        // console.log('select_tourn', data);
 
         for (let key in socket.rooms) {
           socket.leave(key);
         }
 
-        socket.join(socket.request.user._id);
         socket.join(data.entry.tournId);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
             const tournResult = stateGenerator.generateTournamentData(socket.request.user, result);
-            console.log('tourn result', tournResult);
+            // console.log('tourn result', tournResult);
             if (result) {
               socket.emit('select_tourn_success',
                 tournResult);
@@ -97,7 +98,7 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new user data with alert list updated
 
       socket.on('create_alert', data => {
-        console.log('create_alert', data);
+        // console.log('create_alert', data);
         users.createAlert(
           data.entry.facebookId,
           data.entry.tournId,
@@ -113,13 +114,13 @@ module.exports.socket = function socketAttachment(io) {
           });
         })
         .catch((err) => {
-          console.log('create_alert error', err);
+          // console.log('create_alert error', err);
           socket.emit('create_alert_fail');
         });
       });
 
       socket.on('delete_alert', (data) => {
-        console.log('delete_alert', data);
+        // console.log('delete_alert', data);
         users.deleteAlert(socket.request.user._id, data.entry.alertid)
           .then(() => {
             socket.emit('delete_alert_success');
@@ -135,7 +136,7 @@ module.exports.socket = function socketAttachment(io) {
       //   Updates bracket for that tournament in db
       // Server sends back new tournament state to all users
       socket.on('update_bracket', (data) => {
-        console.log('update_bracket', data);
+        // console.log('update_bracket', data);
         tournaments.advancePlayer(data.entry.tournId, data.entry.winner, data.entry.matchIndex)
         .then(() => {
           socket.emit('update_bracket_success');
@@ -159,7 +160,7 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends all users in that tournament a chat message noting the user accepted
       // Server sends new roster to all users in that tournament
       socket.on('accept_invite', (data) => {
-        console.log('accept_invite', data);
+        // console.log('accept_invite', data);
         users.acceptInvite(socket.request.user._id, data.entry.alertid)
           .then((result) => {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
@@ -181,26 +182,30 @@ module.exports.socket = function socketAttachment(io) {
       socket.on('send_invite', (data) => {
         console.log('send_invite', data);
 
-        users.createAlert(data.entry.invitee, data.entry.tournId, true, data.entry.message)
-        .then((result) => {
-          console.log('send_invite: result =', result);
-          if (!result.tournId) {
-            io.to(data.entry.userId).emit('update_alert',
-              {
-                // alertId: result._id,
-                tournId: data.entry.tournId,
-                tournName: data.entry.tournName,
-                message: 'Invited to a tournament!',
-                isInvite: true,
-              });
-          }
-          console.log('send_invite_success', data);
-          socket.emit('send_invite_success');
-        })
-        .catch(() => {
-          console.log('send_invite_fail', data);
-          socket.emit('send_invite_fail');
-        });
+        tournaments.findById(data.entry.tournId)
+          .then((tournament) => {
+            users.createAlert(
+              data.entry.invitee,
+              tournament._id,
+              tournament.name,
+              true)
+            .then((result) => {
+              console.log('send_invite: result =', result);
+              if (result.tournId) {
+                console.log('alert object', result);
+
+                console.log('socket rooms', socket.rooms);
+
+                io.to(data.entry.userId).emit('update_alert', result);
+              }
+              console.log('send_invite_success', data);
+              socket.emit('send_invite_success');
+            })
+            .catch(() => {
+              console.log('send_invite_fail', data);
+              socket.emit('send_invite_fail');
+            });
+          });
       });
 
       socket.on('start_tourn', (data) => {

@@ -90,17 +90,18 @@ Users.createAlert = (
         return;
       }
 
+      console.log('All previous alerts', result.alerts);
+
       result.alerts.push({
-        message,
         tournId,
         tournName,
         isInvite,
       });
 
-      result.save((err, saveResult) => {
+      result.save((err) => {
         if (err) reject(err);
         console.log('Users.createAlert: result alert =', result.alerts[0]);
-        resolve(result.alerts[0]);
+        resolve(result.alerts[result.alerts.length - 1]);
       });
     });
 });
