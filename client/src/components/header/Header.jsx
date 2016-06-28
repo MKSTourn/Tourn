@@ -42,7 +42,7 @@ const Header = ({
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
     />
-    <a href="/auth/facebook" className="facebookLogin">Login </a>
+  <a href='/auth/facebook'><button>Login with Facebook</button></a>
   </header>
 ) :
 (
@@ -67,9 +67,13 @@ const Header = ({
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
     />
+<<<<<<< 281fe7056c0f89f883f0a0f66731c9cf2084edcc
     <Logout
       changeMode={changeMode}
     />
+=======
+  <a href=''><button>Logout</button></a>
+>>>>>>> Fixed chat method bug, Implemented selecting tournaments from tournament list
   </header>
 );
 

@@ -46,7 +46,10 @@ const TournListItem = (props) => {
   );
   return (
     <li onClick={onTournClick}>
-      {props.tournament.get('tournName')}
+      <button>
+        {props.tournament.get('tournName')}
+        &nbsp;>
+      </button>
     </li>
   );
 };
