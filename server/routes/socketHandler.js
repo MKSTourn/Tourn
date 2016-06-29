@@ -118,8 +118,8 @@ module.exports.socket = function socketAttachment(io) {
       });
 
       socket.on('delete_alert', (data) => {
-        // console.log('delete_alert', data);
-        users.deleteAlert(socket.request.user._id, data.entry.alertid)
+        console.log('delete_alert', data);
+        users.deleteAlert(socket.request.user._id, data.entry.alertId)
           .then(() => {
             socket.emit('delete_alert_success');
           })
