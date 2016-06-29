@@ -158,8 +158,8 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends all users in that tournament a chat message noting the user accepted
       // Server sends new roster to all users in that tournament
       socket.on('accept_invite', (data) => {
-        // console.log('accept_invite', data);
-        users.acceptInvite(socket.request.user._id, data.entry.alertid)
+        console.log('accept_invite', data);
+        users.acceptInvite(socket.request.user._id, data.entry.alertId)
           .then((result) => {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
               .then(() => {
