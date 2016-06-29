@@ -12,6 +12,13 @@ function handleUpdateBracket(state, newBracket) {
   return state.set('bracket', newBracket);
 }
 
+function handleUpdateStatus(state, status) {
+  // TODO: Submit player advancement request to server
+  // provide matchIndex, userId of winner
+  console.log('handleUpdateStatus: new status =', status);
+  return state.set('tournStatus', status);
+}
+
 function handleSubmitAdvance(state, tournId, matchIndex, winner) {
   const newBracket = state.toJS();
 
@@ -57,7 +64,7 @@ function handleSubmitAdvance(state, tournId, matchIndex, winner) {
 }
 
 function handleUpdateSize(state, bracketSize) {
-  return state.set('rules', bracketSize);
+  return state.set('bracketSize', bracketSize);
 }
 
 export default function bracket(state = {}, action) {
@@ -65,10 +72,12 @@ export default function bracket(state = {}, action) {
   switch (action.type) {
     case 'SUBMIT_ADVANCE':
       return handleSubmitAdvance(state, action.bracket);
-    case 'ADVANCE_PLAYER':
-      return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
+    // case 'ADVANCE_PLAYER':
+    //   return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
     case 'UPDATE_BRACKET':
       return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
+    case 'UPDATE_TOURN_STATUS':
+      return handleUpdateStatus(state, action.status);
     case 'UPDATE_BRACKET_SIZE':
       return handleUpdateSize(state.tournInfo, action.bracketSize);
     default:

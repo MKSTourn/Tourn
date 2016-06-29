@@ -190,6 +190,14 @@ export function updateSize(bracketSize) {
   };
 }
 
+export function updateTournStatus(status) {
+  return {
+    type: 'UPDATE_TOURN_STATUS',
+    status,
+  };
+}
+
+
 // Tournament organizer requests to advance a player to next match
 // State is updated locally and OK'ed by server
 export function submitAdvance(tournId, matchIndex, winner) {
@@ -234,9 +242,10 @@ export function updateRoster(newRoster) {
 // Start
 //
 
-export function toggleStartBtn() {
+export function setStart(start) {
   return {
-    type: 'TOGGLE_START',
+    type: 'SET_START',
+    start,
   };
 }
 
@@ -257,9 +266,10 @@ export function startTourn(tournId) {
 // Invite
 //
 
-export function toggleInviteBtn() {
+export function allowInvites(invite) {
   return {
-    type: 'TOGGLE_INVITE',
+    type: 'ALLOW_INVITES',
+    invite,
   };
 }
 
