@@ -13,7 +13,7 @@ const Alerts = (props) => (
       <ul className="alertDropdownList">
         {props.userAlerts.map(alert =>
           <AlertListItem
-            key={alert.get('alertId')}
+            key={alert.get('_id')}
             alert={alert}
             onAlertCancel={props.deleteAlert}
             onInviteAccept={props.acceptInvite}
@@ -40,27 +40,25 @@ Alerts.propTypes = {
   userAlerts: PropTypes.object,
 };
 
-export default Alerts;
-
 const AlertListItem = (props) => {
   const onDeleteClick = () => (
-    props.onAlertCancel(props.alert.get('alertId'))
+    props.onAlertCancel(props.alert.get('_id'))
   );
   const onAcceptClick = () => (
     props.onInviteAccept(props.alert.get('tournId'),
-                         props.alert.get('alertId'))
+                         props.alert.get('_id'))
   );
   return props.alert.get('isInvite') ?
   (
     <li>
-      {props.alert.get('text')}
+      {props.alert.get('message')}
       <button onClick={onAcceptClick}>A</button>
       <button onClick={onDeleteClick}>X</button>
     </li>
   ) :
   (
     <li>
-      {props.alert.get('text')}
+      {props.alert.get('message')}
       <button onClick={onDeleteClick}>X</button>
     </li>
   );
@@ -70,3 +68,5 @@ AlertListItem.propTypes = {
   onInviteAccept: PropTypes.func,
   alert: PropTypes.object,
 };
+
+export default Alerts;

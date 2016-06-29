@@ -20,7 +20,7 @@ const userSchema = new Schema({
     tournId: Schema.ObjectId,
     tournName: String,
     isInvite: Boolean,
-    text: String,
+    message: String,
   }],
 });
 

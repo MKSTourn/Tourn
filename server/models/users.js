@@ -96,6 +96,7 @@ Users.createAlert = (
         tournId,
         tournName,
         isInvite,
+        message,
       });
 
       result.save((err) => {
