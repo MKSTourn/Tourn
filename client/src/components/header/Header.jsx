@@ -2,7 +2,7 @@ import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 import UserTournaments from './userTournaments.jsx';
 import Alerts from './alerts.jsx';
-import Login from './login.jsx';
+import Logout from './Logout.jsx';
 import CreateTournament from './createTournament.jsx';
 
 const Header = ({
@@ -42,7 +42,7 @@ const Header = ({
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
     />
-    <Login />
+    <a href="/auth/facebook" className="facebookLogin">Login </a>
   </header>
 ) :
 (
@@ -67,6 +67,7 @@ const Header = ({
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
     />
+    <Logout />
   </header>
 );
 
