@@ -13,9 +13,7 @@ module.exports.socket = function socketAttachment(io) {
     // Server will push down LoggedIn initial state when this
     // happens
       // console.log('Socket attached user object', socket.request.user);
-      
-      console.log('JOINING OWN ROOM', socket.request.user._id.toString());
-      socket.join(socket.request.user._id.toString());
+      // console.log('JOINING OWN ROOM', socket.request.user._id.toString());
       users.findById(socket.request.user._id)
         .then((resultUser) => {
           // console.log('Database fresh user object', resultUser);
@@ -26,9 +24,12 @@ module.exports.socket = function socketAttachment(io) {
             .then((state) => {
               // console.log('State sent to client:', state);
               socket.emit('set_state', state);
+              socket.join(socket.request.user.name,
+                (...args) => console.log('Joined self room, ', socket.request.user.name, args));
+              // io.to(socket.request.user._id).emit('select_tourn_fail');
             });
         })
-        .catch((err) => {
+        .catch(() => {
           // console.log('Error while searching for user, ', err);
         });
 
@@ -61,7 +62,7 @@ module.exports.socket = function socketAttachment(io) {
               matches: result.matches,
             },
           });
-          socket.join(result._id);
+          socket.join(result._id.toString());
         })
         .catch((err) => {
           // console.log('Tournament creation error: ', err);
@@ -74,16 +75,11 @@ module.exports.socket = function socketAttachment(io) {
       // Server sends back new tournament object
       socket.on('select_tourn', (data) => {
         // console.log('select_tourn', data);
-
-        for (let key in socket.rooms) {
-          socket.leave(key);
-        }
-
-        socket.join(data.entry.tournId);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
             const tournResult = stateGenerator.generateTournamentData(socket.request.user, result);
-            // console.log('tourn result', tournResult);
+            socket.join(result._id.toString(),
+                (...args) => console.log('Joined tourn room, ', args));
             if (result) {
               socket.emit('select_tourn_success',
                 tournResult);
@@ -107,11 +103,12 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.message)
         .then((result) => {
           socket.emit('create_alert_success');
-          io.to(result._id).emit('alert', {
+
+          socket.to(result._id).emit('alert', {
             tournId: data.entry.tournId,
             tournName: data.entry.tournName,
             messsage: data.entry.message,
-          });
+          }, (...args) => console.log(args));
         })
         .catch((err) => {
           // console.log('create_alert error', err);
@@ -166,15 +163,16 @@ module.exports.socket = function socketAttachment(io) {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
               .then(() => {
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-                io.to(data.to).emit('set_tourn_state', result);
+
+                sendToRoom(data.to, 'set_tourn_state', result);
               })
               .catch((err) => {
-                console.log('accept_invited tournament update error', err);
+                // console.log('accept_invited tournament update error', err);
                 socket.emit('accept_invite_fail');
               });
           })
           .catch((err) => {
-            console.log('accept_invited user accept error', err);
+            // console.log('accept_invited user accept error', err);
             socket.emit('accept_invite_fail');
           });
       });
@@ -184,47 +182,46 @@ module.exports.socket = function socketAttachment(io) {
 
         tournaments.findById(data.entry.tournId)
           .then((tournament) => {
-            users.createAlert(
-              data.entry.invitee,
-              tournament._id,
-              tournament.name,
-              true)
-            .then((result) => {
-              console.log('send_invite: result =', result);
-              if (result.tournId) {
-                console.log('alert object', result);
-
-                console.log('socket rooms', socket.rooms);
-
-                io.to(data.entry.userId).emit('update_alert', result);
-              }
-              console.log('send_invite_success', data);
-              socket.emit('send_invite_success');
-            })
-            .catch(() => {
-              console.log('send_invite_fail', data);
-              socket.emit('send_invite_fail');
+            users.findByName(data.entry.invitee)
+            .then((user) => {
+              users.createAlert(
+                data.entry.invitee,
+                tournament._id,
+                tournament.name,
+                true)
+              .then((result) => {
+                // console.log('User result', user);
+                // console.log('Alert result', result);
+                io.to(user.name).emit('alert', result);
+                socket.emit('send_invite_success', user.name);
+              })
+              .catch(() => {
+                // console.log('send_invite_fail', data);
+                socket.emit('send_invite_fail');
+              });
             });
           });
       });
 
       socket.on('start_tourn', (data) => {
-        console.log('start_tourn', data);
+        // console.log('start_tourn', data);
         // Flip a switch on the tourn, if user is the organized
         tournaments.startTourn(data.entry.tournId)
         .then(() => {
-          console.log('Start tourn success: ', err);
+          // console.log('Start tourn success: ', err);
+        
           socket.emit('start_tourn_success');
+          console.log('Tourn Started', data.to);
           io.to(data.to).emit('tourn_started');
         })
         .catch((err) => {
-          console.log('Start tourn error: ', err);
+          // console.log('Start tourn error: ', err);
           socket.emit('start_tourn_fail');
         });
       });
 
       socket.on('submit_chat', (data) => {
-        console.log('submit_chat', data);
+        // console.log('submit_chat', data);
         tournaments.addChatMessage(
           data.entry.tournId,
           socket.request.user._id,
@@ -233,7 +230,7 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.timeStamp)
         .then(() => {
           socket.emit('submit_chat_success');
-          io.to(data.to).emit('update_chat', {
+          sendToRoom(data.to, 'update_chat', {
             authorId: socket.request.user._id,
             authorName: socket.request.user.name,
             message: data.entry.message,
@@ -241,7 +238,7 @@ module.exports.socket = function socketAttachment(io) {
           });
         })
         .catch((err) => {
-          console.log('Submit chat error', err);
+          // console.log('Submit chat error', err);
           socket.emit('submit_chat_fail');
         });
       });

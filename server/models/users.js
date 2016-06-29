@@ -61,7 +61,7 @@ Users.findByFacebookId = (facebookid) => new Promise((resolve, reject) => {
 Users.findByName = (name) => new Promise((resolve, reject) => {
   const search = { name: { $regex: name } };
   UsersSchema.findOne(search, (err, result) => {
-    console.log('FindByName result and search', result, search);
+    // console.log('FindByName result and search', result, search);
 
     if (err) reject(err);
     resolve(result);
@@ -79,18 +79,18 @@ Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
 Users.createAlert = (
   invitee, tournId, tournName, isInvite, message
 ) => new Promise((resolve, reject) => {
-  console.log('Users.createAlert');
+  // console.log('Users.createAlert');
   Users.findByName(invitee)
     .then((result) => {
-    console.log('Users.createAlert: findByName result: ', result);
+    // console.log('Users.createAlert: findByName result: ', result);
       if (!result) {
-        console.log('Users.createAlert: findByName result: ', result);
+        // console.log('Users.createAlert: findByName result: ', result);
         UnclaimedInvites.createUnclaimedInvite(invitee, tournId, tournName);
 
         return;
       }
 
-      console.log('All previous alerts', result.alerts);
+      // console.log('All previous alerts', result.alerts);
 
       result.alerts.push({
         tournId,
@@ -100,7 +100,7 @@ Users.createAlert = (
 
       result.save((err) => {
         if (err) reject(err);
-        console.log('Users.createAlert: result alert =', result.alerts[0]);
+        // console.log('Users.createAlert: result alert =', result.alerts[0]);
         resolve(result.alerts[result.alerts.length - 1]);
       });
     });
@@ -127,7 +127,7 @@ Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
   Users.findById(userid)
     .then((result) => {
       if (!result) {
-        console.log('Woe is me. Our user doesn\'t exist', userid);
+        // console.log('Woe is me. Our user doesn\'t exist', userid);
         reject();
       }
 
