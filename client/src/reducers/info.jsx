@@ -3,24 +3,27 @@
 //
 
 function handleUpdateId(state, tournId) {
+  console.log('handleUpdateId: tournId =', tournId);
   return state.set('tournId', tournId);
 }
 
 function handleUpdateType(state, tournType) {
+  console.log('handleUpdateType: tournType =', tournType);
   return state.set('tournType', tournType);
 }
 
 function handleUpdateName(state, tournName) {
-  console.log('Info reducer: handleUpdateName');
   console.log('handleUpdateName: tournName =', tournName);
   return state.set('tournName', tournName);
 }
 
 function handleUpdateRules(state, rules) {
+  console.log('handleUpdateRules: rules =', rules);
   return state.set('rules', rules);
 }
 
 export default function info(state = {}, action) {
+  // console.log('Info Reducer State', state.toJS());
   switch (action.type) {
     case 'UPDATE_ID':
       return handleUpdateId(state, action.tournId);

@@ -17,9 +17,10 @@ const Chat = (props) => {
   return (<section>
     <div className="messages">
       {props.chat.history.map((message, key) => {
+        console.log('Chat message', message);
         const messageElement = (<Message
           key={key}
-          sender={message.author}
+          sender={message.authorName}
           timestamp={message.timeStamp}
           message={message.message}
         />);
@@ -47,23 +48,10 @@ const Chat = (props) => {
 };
 
 Chat.propTypes = {
+  submitChat: PropTypes.func,
   chat: PropTypes.object,
+  tournId: PropTypes.string,
 };
 
 export default Chat;
 
-// <ul lassName="chatbox"></ul>
-// <form onSubmit={handleSubmit}>
-  // <input
-    // type="text"
-    // placeholder="New Message"
-    // value={'Hi.'}
-    // className="newMessage"
-  // />
-  // <input type="submit" value="Post" />
-// </form>
-// const handleSubmit = (e) => {
-  // e.preventDefault();
-  // let author, text;
-  // this.props.onMessageSubmit({ text });
-// };

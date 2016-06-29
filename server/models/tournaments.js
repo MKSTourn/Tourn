@@ -6,17 +6,19 @@ const users = require('./users.js');
 
 const Tournaments = module.exports;
 
-Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, reject) => {
+Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) => {
+  console.log(organizerid, name, type);
   TournamentSchema.create({
     organizerid,
     name,
     type,
-    rules,
     bracketSize: 1,
     registrationOpen: true,
     roster: [{
       playerId: organizerid,
     }],
+    start: false,
+    invite: true,
   }, (err, result) => {
     if (err) reject(err);
 
@@ -52,15 +54,23 @@ Tournaments.addChatMessage =
   (tournid, authorId, authorName, message, timeStamp) => new Promise((resolve, reject) => {
     TournamentSchema.findById(tournid, (err, result) => {
       console.log('addChatMessage error gate');
-      if (err) reject(err);
+      if (err) {
+        reject(err);
+        return;
+      }
 
       console.log('addChatMessage null gate');
-      if (!result) throw new Error('Tournament not found');
-
-      console.log('addChatMessage meat');
+      if (!result) {
+        reject('Tournament doesnt exist!');
+        return;
+      }
       result.chatHistory.push({ authorId, authorName, message, timeStamp });
       result.save((saveErr, saveResult) => {
-        if (saveErr) reject(saveErr);
+        if (saveErr) {
+          console.log('Chat Message save error', saveErr);
+          reject(saveErr);
+          return;
+        }
         resolve(saveResult);
       });
     });
@@ -68,13 +78,27 @@ Tournaments.addChatMessage =
 
 Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournid, (err, result) => {
-    if (err) reject(err);
+    console.log('startTourn');
+    if (err) {
+      console.log('startTourn: err =', err);
+      reject(err);
+      return;
+    }
+
+    if (!result) {
+      console.log('startTourn: tournament not found!');
+      reject('tournament not found');
+      return;
+    }
 
     const endResult = result;
 
     endResult.start = true;
     endResult.invite = false;
+    console.log('startTourn: saving...!');
     endResult.save((saveErr, saveResult) => {
+      console.log('startTourn: saveResult =', saveResult);
+      console.log('startTourn: saveErr =', saveErr);
       if (saveErr) reject(saveErr);
       resolve(saveResult);
     });

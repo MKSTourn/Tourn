@@ -17,15 +17,23 @@ export function changeMode(mode) {
 // Header
 //
 
-export function submitNewTourn(tourn) {
+export function submitNewTourn(info) {
   return {
     type: 'SUBMIT_NEW_TOURN',
     meta: {
       event: 'new_tourn',
       to: null,
-      entry: tourn,
+      entry: info.toJS(),
     },
-    tourn,
+    info,
+  };
+}
+
+export function addNewTourn(tournId, tournName) {
+  return {
+    type: 'ADD_NEW_TOURN',
+    tournId,
+    tournName,
   };
 }
 
@@ -40,6 +48,13 @@ export function selectTourn(tournId) {
       },
       tournId,
     },
+  };
+}
+
+export function addAlert(alert) {
+  return {
+    type: 'ADD_ALERT',
+    alert,
   };
 }
 
@@ -115,10 +130,10 @@ export function updateName(tournName) {
   };
 }
 
-export function updateRules(tournRules) {
+export function updateRules(rules) {
   return {
     type: 'UPDATE_RULES',
-    tournRules,
+    rules,
   };
 }
 
@@ -259,8 +274,6 @@ export function sendInvite(tournId, invitee) {
         invitee,
       },
     },
-    message,
-    invitee,
   };
 }
 
@@ -286,6 +299,9 @@ export function setUserState(state) {
 
 // Server sends a tournament state update
 export function setTournState(state) {
+
+  console.log('SET_TOURN_STATE', state);
+
   return {
     type: 'SET_TOURN_STATE',
     state,

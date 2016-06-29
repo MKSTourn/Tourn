@@ -15,12 +15,19 @@ const RosterPlayers = (props) => (
   </div>
 );
 
+RosterPlayers.propTypes = {
+  roster: PropTypes.object,
+};
+
 export default RosterPlayers;
 
-const PlayerListItem = (props) => {
-  return (
-    <li>
-      {props.player.get('playerName')}
-    </li>
-  );
+const PlayerListItem = (props) =>
+(
+  <li>
+    {props.player.get('playerName')}
+  </li>
+);
+
+PlayerListItem.propTypes = {
+  player: PropTypes.object,
 };

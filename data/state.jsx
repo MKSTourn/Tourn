@@ -15,7 +15,7 @@ const INITIAL_STATE = {
       alerts: [
         // {
         //   alertId: null,
-        //   text: '', // alert text string
+        //   message: '', // alert text string
         //   tournId: null, // associated tourn id
         //   tournName: '', // associated tourn name
         //   isInvite: false, // true if the alert is an invite

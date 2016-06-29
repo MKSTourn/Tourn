@@ -11,6 +11,18 @@ function handleSubmit(state) {
   return state;
 }
 
+function handleAddTourn(state, tournId, tournName) {
+  console.log('handleAddTourn');
+  const newUserTourns = state.getIn(['userData', 'userTourns']).toJS();
+
+  newUserTourns.push({
+    tournName,
+    tournId,
+  });
+
+  return state.setIn(['userData', 'userTourns'], fromJS(newUserTourns));
+}
+
 function handleSelectTourn(state) {
   console.log('Header reducer: handleSelectTourn');
   // User's new tourn info has been submitted to server.
@@ -19,6 +31,15 @@ function handleSelectTourn(state) {
   // of the newly selected one (even though the server hasn't
   // given us the tournament state yet)
   return state;
+}
+
+function handleAddAlert(state, alert) {
+  console.log('handleAddAlert');
+  const newAlerts = state.getIn(['userData', 'alerts']).toJS();
+
+  newAlerts.push(alert);
+
+  return state.setIn(['userData', 'alerts'], fromJS(newAlerts));
 }
 
 function handleDeleteAlert(state, alertId) {
@@ -67,11 +88,16 @@ function handleToggleAlerts(state) {
 }
 
 export default function header(state, action) {
+  // console.log('Header Reducer State', state.toJS());
   switch (action.type) {
     case 'SUBMIT_NEW_TOURN':
       return handleSubmit(state);
+    case 'ADD_NEW_TOURN':
+      return handleAddTourn(state, action.tournId, action.tournName);
     case 'SELECT_TOURN':
       return handleSelectTourn(state);
+    case 'ADD_ALERT':
+      return handleAddAlert(state, action.alert);
     case 'DELETE_ALERT':
       return handleDeleteAlert(state, action.alertId);
     case 'ACCEPT_INVITE':

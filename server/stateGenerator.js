@@ -15,10 +15,14 @@ const generateTournamentData = (userObject, tournObject) => ({
     tournId: tournObject._id,
     tournName: tournObject.name,
     tournType: tournObject.type,
-    isOrganizer: tournObject.organizedid === userObject._id, // Change based on requesting user
+    rules: tournObject.rules,
+    isOrganizer: tournObject.organizerid.toString() === userObject._id.toString(), // Change based on requesting user
   },
 
-  chat: tournObject.chatHistory,
+  chat: {
+    history: tournObject.chatHistory,
+    message: '',
+  },
 
   start: tournObject.start,
   invite: tournObject.invite,
@@ -35,17 +39,16 @@ const generateTournamentData = (userObject, tournObject) => ({
 });
 
 const generateUserState = (userId, tournId) => {
-  console.log('Generating User State');
+  // console.log('Generating User State');
   return users.findById(userId)
     .then((user) => {
       if (!user) {
         throw new Error('User not found');
       }
 
-      console.log('Searching for tournaments');
+      // console.log('Searching for tournaments');
       return tournaments.findById(tournId)
       .then((tourn) => {
-        console.log(tourn);
         const resultObject = {
           mode: 'LoggedIn',
         };
@@ -57,9 +60,13 @@ const generateUserState = (userId, tournId) => {
         };
 
         if (tourn) {
-          console.log('Shouldnt fire');
           resultObject.tournament = generateTournamentData(user, tourn);
         }
+
+        // console.log('The user object were using', user);
+        // console.log('The tourn object were using', tourn);
+        // console.log('The state we are trying to send back.', resultObject);
+        // console.log('The chat history.', resultObject.tournament.chat);
         return resultObject;
       })
       .catch((err) => {

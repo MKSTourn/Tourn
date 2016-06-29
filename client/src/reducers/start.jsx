@@ -3,9 +3,8 @@
 //
 
 function handleToggleStart(state) {
-  console.log('Start reducer: handleToggleStart');
-  const toggledStartBtn = !state.get('start');
-  return state.set('start', toggledStartBtn);
+  console.log('handleToggleStart: toggled state =', !state);
+  return !state;
 }
 
 function handleStartTourn(state) {
@@ -16,11 +15,12 @@ function handleStartTourn(state) {
 }
 
 export default function start(state = {}, action) {
+  // console.log('Start Reducer State', state.toJS());
   switch (action.type) {
     case 'TOGGLE_START':
-      return handleToggleStart(state.get(['tournament']));
+      return handleToggleStart(state);
     case 'START_TOURN':
-      return handleStartTourn(state.get(['tournament']));
+      return handleStartTourn(state);
     default:
       return state;
   }

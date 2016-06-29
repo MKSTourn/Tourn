@@ -21,7 +21,7 @@ Invites.createPendingInvite = (facebookId, tournId, tournName) => new Promise((r
   });
 });
 
-Invites.findAllWithFBId = (fbid) => new Promise((resolve, reject) => {
+Invites.findAllWithFacebookId = (fbid) => new Promise((resolve, reject) => {
   InviteSchema.find({ facebookId: fbid }, (err, result) => {
     if (err) {
       reject(err);

@@ -32,6 +32,14 @@ const Alerts = (props) => (
     </div>
 );
 
+Alerts.propTypes = {
+  showAlertList: PropTypes.bool,
+  toggleAlerts: PropTypes.func,
+  deleteAlert: PropTypes.func,
+  acceptInvite: PropTypes.func,
+  userAlerts: PropTypes.object,
+};
+
 export default Alerts;
 
 const AlertListItem = (props) => {
@@ -56,4 +64,9 @@ const AlertListItem = (props) => {
       <button onClick={onDeleteClick}>X</button>
     </li>
   );
+};
+
+AlertListItem.propTypes = {
+  onInviteAccept: PropTypes.func,
+  alert: PropTypes.object,
 };

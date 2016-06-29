@@ -11,8 +11,8 @@ const UnclaimedInvites = require('./unclaimedInvites.js');
 
 // Instantiation functions
 
-Users.create = (name, fbid) => new Promise((resolve, reject) => {
-  UsersSchema.create({ name, fbid }, (err, user) => {
+Users.create = (name, fbid, picture) => new Promise((resolve, reject) => {
+  UsersSchema.create({ name, fbid, picture }, (err, user) => {
     if (err) { reject(err); return; }
 
     UnclaimedInvites.findAllWithFacebookId(fbid)
@@ -58,6 +58,17 @@ Users.findByFacebookId = (facebookid) => new Promise((resolve, reject) => {
   });
 });
 
+Users.findByName = (name) => new Promise((resolve, reject) => {
+  const search = { name: { $regex: name } };
+  UsersSchema.findOne(search, (err, result) => {
+    console.log('FindByName result and search', result, search);
+
+    if (err) reject(err);
+    resolve(result);
+  });
+});
+
+
 Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
   UsersSchema.findOne({ sessions: { token: sessiontoken } }, (err, result) => {
     if (err) reject(err);
@@ -66,21 +77,31 @@ Users.findByToken = (sessiontoken) => new Promise((resolve, reject) => {
 });
 
 Users.createAlert = (
-  facebookId, tournId, tournName, isInvite, message
+  invitee, tournId, tournName, isInvite, message
 ) => new Promise((resolve, reject) => {
-  Users.findByFacebookId(facebookId)
+  console.log('Users.createAlert');
+  Users.findByName(invitee)
     .then((result) => {
+    console.log('Users.createAlert: findByName result: ', result);
       if (!result) {
-        UnclaimedInvites.createUnclaimedInvite(facebookId, tournId, tournName);
+        console.log('Users.createAlert: findByName result: ', result);
+        UnclaimedInvites.createUnclaimedInvite(invitee, tournId, tournName);
 
         return;
       }
 
+      console.log('All previous alerts', result.alerts);
 
       result.alerts.push({
         tournId,
+        tournName,
         isInvite,
-        message,
+      });
+
+      result.save((err) => {
+        if (err) reject(err);
+        console.log('Users.createAlert: result alert =', result.alerts[0]);
+        resolve(result.alerts[result.alerts.length - 1]);
       });
     });
 });

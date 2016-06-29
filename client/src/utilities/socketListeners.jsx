@@ -13,6 +13,8 @@ export default function startListeners(socket) {
     console.log('Socket event: new_tourn_success:', data);
     dispatch(actions.changeMode('LoggedIn'));
     dispatch(actions.setTournState(data));
+    dispatch(actions.addNewTourn(data.info.tournId,
+                                 data.info.tournName));
     dispatch(actions.toggleInviteBtn());
   });
 
@@ -121,9 +123,13 @@ export default function startListeners(socket) {
 
   socket.on('tourn_started', () => {
     console.log('Socket event: tourn_started');
-    // Disable invite btn
-    // Disable organizer's start btn
+    // set tournament.start = true
+    // set tournament.invite = false
+    // set tournament.showStart = false
+    // set tournament.showInvite = false
+    // set tournament.bracket.tournStatus = 'In Progress'
   });
+
   //
   // Roster
   //
@@ -132,6 +138,12 @@ export default function startListeners(socket) {
   socket.on('update_roster', (data) => {
     console.log('Socket event: update_roster:', data);
     dispatch(actions.updateRoster(data));
+  });
+
+  // Update user's alert list as a result of another player sending an invite
+  socket.on('update_alert', (data) => {
+    console.log('Socket event: update_alert:', data);
+    dispatch(actions.addAlert(data));
   });
 
   // Server sends back an OK after user sends an invite to another user

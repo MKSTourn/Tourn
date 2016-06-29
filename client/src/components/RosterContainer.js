@@ -4,18 +4,16 @@ import * as actionCreators from '../actions/action_creators.jsx';
 import Roster from './roster/Roster.jsx';
 
 
-function mapStateToProps(state){
-  console.log(state.get('tournament').get('roster').toJS());
-  console.log(state.getIn(['tournament', 'roster']).toJS());
+function mapStateToProps(state) {
   return {
-  	invite: state.getIn(['tournament', 'invite']),
-  	isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']),
-  	roster: state.getIn(['tournament', 'roster']),
-  	tournamentId: state.getIn(['tournament', 'info', 'tournamentId'])
-  }
+    invite: state.getIn(['tournament', 'invite']),
+    isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']),
+    roster: state.getIn(['tournament', 'roster']),
+    tournId: state.getIn(['tournament', 'info', 'tournId']),
+  };
 }
 
-function mapDispatchToProps(dispatch){
+function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
 }
 
