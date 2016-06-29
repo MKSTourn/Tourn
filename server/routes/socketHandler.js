@@ -79,7 +79,7 @@ module.exports.socket = function socketAttachment(io) {
           .then((result) => {
             const tournResult = stateGenerator.generateTournamentData(socket.request.user, result);
             socket.join(result._id.toString(),
-                (...args) => console.log('Joined tourn room, ', args));
+                (...args) => console.log('Joined tourn room, ', result._id.toString()));
             if (result) {
               socket.emit('select_tourn_success',
                 tournResult);
@@ -103,7 +103,7 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.message)
         .then((result) => {
           socket.emit('create_alert_success');
-
+          console.log('create_alert: result =', result);
           socket.to(result._id).emit('alert', {
             tournId: data.entry.tournId,
             tournName: data.entry.tournName,
@@ -191,7 +191,7 @@ module.exports.socket = function socketAttachment(io) {
                 true)
               .then((result) => {
                 // console.log('User result', user);
-                // console.log('Alert result', result);
+                console.log('send_invite - alert result', result);
                 io.to(user.name).emit('alert', result);
                 socket.emit('send_invite_success', user.name);
               })
@@ -209,7 +209,7 @@ module.exports.socket = function socketAttachment(io) {
         tournaments.startTourn(data.entry.tournId)
         .then(() => {
           // console.log('Start tourn success: ', err);
-        
+
           socket.emit('start_tourn_success');
           console.log('Tourn Started', data.to);
           io.to(data.to).emit('tourn_started');

@@ -138,8 +138,8 @@ export default function startListeners(socket) {
   });
 
   // Update user's alert list as a result of another player sending an invite
-  socket.on('update_alert', (data) => {
-    console.log('Socket event: update_alert:', data);
+  socket.on('alert', (data) => {
+    console.log('Socket event: alert:', data);
     dispatch(actions.addAlert(data));
   });
 
