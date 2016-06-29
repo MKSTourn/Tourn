@@ -110,14 +110,8 @@ Users.createAlert = (
 Users.deleteAlert = (userid, alertid) => new Promise((resolve, reject) => {
   Users.findById(userid)
     .then((result) => {
-      const newResult = result;
-      newResult.alert = result.alert.map((alert) => {
-        if (alert._id.toString() === alertid) {
-          return null;
-        }
-        return alert;
-      });
-      newResult.save((err, saveResult) => {
+      result.alerts.pull({ _id: alertid });
+      result.save((err, saveResult) => {
         if (err) reject(err);
         resolve(saveResult);
       });
