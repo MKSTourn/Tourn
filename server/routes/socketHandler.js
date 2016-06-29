@@ -25,7 +25,8 @@ module.exports.socket = function socketAttachment(io) {
               // console.log('State sent to client:', state);
               socket.emit('set_state', state);
               socket.join(socket.request.user.name,
-                (...args) => console.log('Joined self room, ', socket.request.user.name, args));
+                (...args) => console.log('Joined self room,', socket.request.user.name, args));
+              console.log(socket.rooms);
               // io.to(socket.request.user._id).emit('select_tourn_fail');
             });
         })
@@ -188,15 +189,17 @@ module.exports.socket = function socketAttachment(io) {
                 data.entry.invitee,
                 tournament._id,
                 tournament.name,
-                true)
+                true,
+                `You've been invited to join ${tournament.name}`)
               .then((result) => {
                 // console.log('User result', user);
                 // console.log('Alert result', result);
+                console.log('Sending to,', user.name);
                 io.to(user.name).emit('alert', result);
                 socket.emit('send_invite_success', user.name);
               })
-              .catch(() => {
-                // console.log('send_invite_fail', data);
+              .catch((err) => {
+                console.log('send_invite_fail', err);
                 socket.emit('send_invite_fail');
               });
             });
