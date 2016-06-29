@@ -163,9 +163,9 @@ module.exports.socket = function socketAttachment(io) {
           .then((result) => {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
               .then(() => {
+                console.log('test);');
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-
-                sendToRoom(data.to, 'set_tourn_state', result);
+                io.to(data.to).emit('set_tourn_state', result);
               })
               .catch((err) => {
                 // console.log('accept_invited tournament update error', err);
