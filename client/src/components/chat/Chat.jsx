@@ -48,23 +48,10 @@ const Chat = (props) => {
 };
 
 Chat.propTypes = {
+  submitChat: PropTypes.func,
   chat: PropTypes.object,
+  tournId: PropTypes.string,
 };
 
 export default Chat;
 
-// <ul lassName="chatbox"></ul>
-// <form onSubmit={handleSubmit}>
-  // <input
-    // type="text"
-    // placeholder="New Message"
-    // value={'Hi.'}
-    // className="newMessage"
-  // />
-  // <input type="submit" value="Post" />
-// </form>
-// const handleSubmit = (e) => {
-  // e.preventDefault();
-  // let author, text;
-  // this.props.onMessageSubmit({ text });
-// };

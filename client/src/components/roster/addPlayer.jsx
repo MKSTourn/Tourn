@@ -10,7 +10,7 @@ const AddPlayer = (props) => {
 		props.sendInvite(props.tournId, invitee)
 	);
 
-	return (props.invite ?
+	return (props.invite && !props.start ?
     <div>
 			<input type="text" onChange={inviteeName}></input><br />
 			<button onClick={sendPropInvite}>Add Player</button>

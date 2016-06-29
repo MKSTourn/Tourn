@@ -15,7 +15,8 @@ export default function startListeners(socket) {
     dispatch(actions.setTournState(data));
     dispatch(actions.addNewTourn(data.info.tournId,
                                  data.info.tournName));
-    dispatch(actions.toggleInviteBtn());
+    dispatch(actions.allowInvites(true));
+    dispatch(actions.setStart(false));
   });
 
   // TODO: Revert state and display error
@@ -110,9 +111,6 @@ export default function startListeners(socket) {
   // and set mode to 'View'
   socket.on('start_tourn_success', (data) => {
     console.log('Socket event: start_tourn_success:', data);
-    dispatch(actions.changeMode('View'));
-    dispatch(actions.toggleTournStart());
-    dispatch(actions.toggleStartBtn());
   });
 
   // TODO: Revert state and display error
@@ -123,8 +121,10 @@ export default function startListeners(socket) {
 
   socket.on('tourn_started', () => {
     console.log('Socket event: tourn_started');
-    // Disable invite btn
-    // Disable organizer's start btn
+    // set tournament.bracket.tournStatus = 'In Progress'
+    dispatch(actions.allowInvites(false));
+    dispatch(actions.setStart(true));
+    dispatch(actions.updateTournStatus('In Progress'));
   });
 
   //

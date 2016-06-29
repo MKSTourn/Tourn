@@ -2,9 +2,9 @@
 // Invite button reducer
 //
 
-function handleToggleInvite(state) {
-  console.log('handleToggleInvite: toggled state =', !state);
-  return !state;
+function handleAllowInvites(state, allowInvites) {
+  console.log('handleAllowInvites: new invite state =', allowInvites);
+  return allowInvites;
 }
 
 function handleSendInvite(state) {
@@ -17,8 +17,8 @@ function handleSendInvite(state) {
 export default function invite(state = {}, action) {
   // console.log('Invite Reducer State', state.toJS());
   switch (action.type) {
-    case 'TOGGLE_INVITE':
-      return handleToggleInvite(state);
+    case 'ALLOW_INVITES':
+      return handleAllowInvites(state, action.invite);
     case 'SEND_INVITE':
       return handleSendInvite(state);
     default:
