@@ -126,7 +126,11 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           2;
 
         const match = {
-          playerA: { playerName: playerObject.name, playerId: playerObject._id },
+          playerA: {
+            playerName: playerObject.name,
+            playerPic: playerObject.picture,
+            playerId: playerObject._id,
+          },
           playerB: null,
           winner: null,
         };
@@ -134,7 +138,12 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
         if (!endResult.bracket[Math.floor(endResult.roster.length / 2)]) {
           endResult.bracket[Math.floor(endResult.roster.length / 2)] = match;
         } else {
-          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerB = { playerName: playerObject.name, playerId: playerObject._id };
+          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerB =
+          {
+            playerName: playerObject.name,
+            playerPic: playerObject.picture,
+            playerId: playerObject._id,
+          };
         }
 
         endResult.save((saveErr, saveResult) => {
