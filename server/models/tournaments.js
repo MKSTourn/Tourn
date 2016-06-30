@@ -126,26 +126,34 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
         endResult.bracketSize = result.bracketSize ?
           BracketHelper.getBracketSize(endResult.roster.length) :
           2;
+        endResult.save(() => {
+          Tournaments.fillOutBracket(tournid)
+            .then((finalResult) => {
+              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA) {
+                finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA =
+                {
+                  playerName: playerObject.name,
+                  playerPic: playerObject.picture,
+                  playerId: playerObject._id,
+                };
+              } else {
+                finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB =
+                {
+                  playerName: playerObject.name,
+                  playerPic: playerObject.picture,
+                  playerId: playerObject._id,
+                };
+              }
 
-        if (!endResult.bracket[Math.floor(endResult.roster.length / 2)].playerA) {
-          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerA =
-          {
-            playerName: playerObject.name,
-            playerPic: playerObject.picture,
-            playerId: playerObject._id,
-          };
-        } else {
-          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerB =
-          {
-            playerName: playerObject.name,
-            playerPic: playerObject.picture,
-            playerId: playerObject._id,
-          };
-        }
-
-        endResult.save((saveErr, saveResult) => {
-          if (saveErr) reject(saveErr);
-          resolve(Tournaments.fillOutBracket(tournid));
+              finalResult.save((saveErr, saveResult) => {
+                if (saveErr) {
+                  reject(saveErr);
+                  return;
+                }
+                
+                resolve(saveResult);
+              });
+            });
         });
       });
     });
