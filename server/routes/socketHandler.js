@@ -83,7 +83,7 @@ module.exports.socket = function socketAttachment(io) {
         // console.log('select_tourn', data);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
-            const tournResult = stateGenerator.generateTournamentData(socket.request.user, result);
+            const tournResult = stateGenerator.generateTournamentData(result);
             socket.join(result._id.toString(),
                 (...args) => console.log('Joined tourn room, ', result._id.toString()));
             if (result) {
@@ -167,9 +167,13 @@ module.exports.socket = function socketAttachment(io) {
         users.acceptInvite(socket.request.user._id, data.entry.alertId)
           .then((result) => {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
-              .then(() => {
+              .then((tourn) => {
+                console.log('User result', result);
+                console.log('Tourn result', tourn);
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-                io.to(data.to).emit('set_tourn_state', result);  // TODO - generate tourn state and send to all players in tourn
+                io.to(data.to)
+                  .emit('set_tourn_state', stateGenerator.generateTournamentData(tourn));
+                  // TODO - generate tourn state and send to all players in tourn
               })
               .catch((err) => {
                 console.log('accept_invited tournament update error', err);

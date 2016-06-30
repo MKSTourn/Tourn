@@ -40,7 +40,6 @@ Alerts.propTypes = {
   userAlerts: PropTypes.object,
 };
 
-
 const AlertListItem = (props) => {
   const onDeleteClick = () => (
     props.onAlertCancel(props.alert.get('_id'))

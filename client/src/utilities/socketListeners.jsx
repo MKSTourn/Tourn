@@ -125,7 +125,6 @@ export default function startListeners(socket) {
     dispatch(actions.allowInvites(false));
     dispatch(actions.setStart(true));
     dispatch(actions.updateTournStatus('In Progress'));
-    // set tournament.bracket.tournStatus = 'In Progress'
   });
 
   //

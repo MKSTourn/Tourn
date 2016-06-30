@@ -10,13 +10,15 @@ const generateUserData = (userObject) => ({
   userTourns: userObject.tournamentIds,  // array of tournaments this user is apart of
 });
 
-const generateTournamentData = (userObject, tournObject) => ({
+const generateTournamentData = (tournObject) => ({
   info: {
     tournId: tournObject._id,
+    tournOrganizer: tournObject.organizerid,
     tournName: tournObject.name,
     tournType: tournObject.type,
     rules: tournObject.rules,
-    isOrganizer: tournObject.organizerid.toString() === userObject._id.toString(), // Change based on requesting user
+    // isOrganizer: tournObject.organizerid.toString() === userObject._id.toString(),
+    // Change based on requesting user
   },
 
   chat: {
@@ -60,7 +62,7 @@ const generateUserState = (userId, tournId) => {
         };
 
         if (tourn) {
-          resultObject.tournament = generateTournamentData(user, tourn);
+          resultObject.tournament = generateTournamentData(tourn);
         }
 
         // console.log('The user object were using', user);
