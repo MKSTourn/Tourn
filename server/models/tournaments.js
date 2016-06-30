@@ -127,18 +127,13 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           BracketHelper.getBracketSize(endResult.roster.length) :
           2;
 
-        const match = {
-          playerA: {
+        if (!endResult.bracket[Math.floor(endResult.roster.length / 2)].playerA) {
+          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerA =
+          {
             playerName: playerObject.name,
             playerPic: playerObject.picture,
             playerId: playerObject._id,
-          },
-          playerB: null,
-          winner: null,
-        };
-
-        if (!endResult.bracket[Math.floor(endResult.roster.length / 2)]) {
-          endResult.bracket[Math.floor(endResult.roster.length / 2)] = match;
+          };
         } else {
           endResult.bracket[Math.floor(endResult.roster.length / 2)].playerB =
           {
@@ -150,8 +145,30 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
 
         endResult.save((saveErr, saveResult) => {
           if (saveErr) reject(saveErr);
-          resolve(saveResult);
+          resolve(Tournaments.fillOutBracket(tournid));
         });
+      });
+    });
+});
+
+Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
+  tournaments.findById(tournid)
+    .then((tourn) => {
+      while (tourn.bracket.length < tourn.bracketSize - 1) {
+        tourn.bracket.push({
+          playerA: null,
+          playerB: null,
+          winner: null,
+        });
+      }
+
+      tourn.save((err, res) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        resolve(res);
       });
     });
 });
