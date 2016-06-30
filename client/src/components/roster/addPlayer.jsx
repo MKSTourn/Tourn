@@ -19,4 +19,12 @@ const AddPlayer = (props) => {
 	null);
 };
 
+AddPlayer.propTypes = {
+  sendInvite: PropTypes.func,
+  tournId: PropTypes.string,
+  invite: PropTypes.bool,
+  start: PropTypes.bool,
+};
+
 export default AddPlayer;
+s
