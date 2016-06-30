@@ -27,4 +27,3 @@ AddPlayer.propTypes = {
 };
 
 export default AddPlayer;
-s
