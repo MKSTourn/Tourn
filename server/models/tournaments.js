@@ -145,7 +145,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
 
         endResult.save((saveErr, saveResult) => {
           if (saveErr) reject(saveErr);
-          resolve(saveResult);
+          resolve(Tournaments.fillOutBracket(tournid));
         });
       });
     });
