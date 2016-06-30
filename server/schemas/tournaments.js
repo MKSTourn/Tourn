@@ -36,6 +36,8 @@ const tournamentSchema = new Schema({
   // All players regardless of current status
   roster: [{
     playerId: Schema.ObjectId,
+    playerName: String,
+    playerPic: String,
   }],
 
   // All current and previous rounds

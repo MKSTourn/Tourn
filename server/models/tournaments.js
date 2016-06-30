@@ -8,32 +8,37 @@ const Tournaments = module.exports;
 
 Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) => {
   console.log(organizerid, name, type);
-  TournamentSchema.create({
-    organizerid,
-    name,
-    type,
-    bracketSize: 1,
-    registrationOpen: true,
-    roster: [{
-      playerId: organizerid,
-    }],
-    start: false,
-    invite: true,
-  }, (err, result) => {
-    if (err) reject(err);
+  users.findById(organizerid)
+    .then((userObject) => {
+      TournamentSchema.create({
+        organizerid,
+        name,
+        type,
+        bracketSize: 1,
+        registrationOpen: true,
+        roster: [{
+          playerId: organizerid,
+          playerName: userObject.name,
+          playerPic: userObject.pic,
+        }],
+        start: false,
+        invite: true,
+      }, (err, result) => {
+        if (err) reject(err);
 
-    users.findById(organizerid)
-      .then((user) => {
-        user.tournamentIds.push({
-          tournId: result._id,
-          tournName: result.name,
-        });
-        user.save((saveErr) => {
-          if (saveErr) reject(saveErr);
-          resolve(result);
-        });
+        users.findById(organizerid)
+          .then((user) => {
+            user.tournamentIds.push({
+              tournId: result._id,
+              tournName: result.name,
+            });
+            user.save((saveErr) => {
+              if (saveErr) reject(saveErr);
+              resolve(result);
+            });
+          });
       });
-  });
+    });
 });
 
 Tournaments.findById = (tournamentid) => new Promise((resolve, reject) => {
@@ -117,6 +122,14 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           return;
         }
         const endResult = result;
+
+        console.log('Player data', playerObject);
+
+        console.log('Attempt to add player', {
+          playerId: playerObject._id,
+          playerName: playerObject.name,
+          playerPic: playerObject.picture,
+        });
 
         endResult.roster.push({
           playerId: playerObject._id,
