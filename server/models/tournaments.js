@@ -135,6 +135,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           playerName: playerObject.name,
           playerPic: playerObject.picture,
         });
+
         endResult.bracketSize = result.bracketSize ?
           BracketHelper.getBracketSize(endResult.roster.length) :
           2;
@@ -159,7 +160,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                   playerId: playerObject._id,
                 };
               } else {
-                console.log('Player B?');
+                console.log('Player B?', finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB);
                 finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB =
                 {
                   playerName: playerObject.name,
@@ -168,7 +169,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                 };
               }
 
-              console.log('Final Save!');
+              console.log('Final Save!', finalResult);
               finalResult.save((saveErr, saveResult) => {
                 if (saveErr) {
                   console.log('Save Error!');
@@ -188,7 +189,8 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
   Tournaments.findById(tournid)
     .then((tourn) => {
       console.log('Filling out...');
-      while (tourn.bracket.length < tourn.bracketSize - 1) {
+
+      while (tourn.bracket.length <= tourn.bracketSize - 1) {
         tourn.bracket.push({
           playerA: null,
           playerB: null,
@@ -222,10 +224,10 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
         endResult.bracket[match].winner = playerObject;
         if (!endResult.bracket[someFurtherMatch]) {
           endResult.bracket[someFurtherMatch] = {};
-          endResult.bracket[someFurtherMatch].playerA = 
+          endResult.bracket[someFurtherMatch].playerA =
             { playerName: playerObject.name, playerId: playerObject._id };
         } else {
-          endResult.bracket[someFurtherMatch].playerB = 
+          endResult.bracket[someFurtherMatch].playerB =
             { playerName: playerObject.name, playerId: playerObject._id };
         }
 
