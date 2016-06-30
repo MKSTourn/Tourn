@@ -4,7 +4,7 @@ const BracketPlayer = (props) => (<div>
   <img
     style={{ float: 'left', width: 50, height: 50 }}
     src={props.player.playerPic}
-    alt="Player 1"
+    alt="A player"
     title={props.player.playerName}
     onClick={props.updateBracket.bind(null, props.player)}
   />

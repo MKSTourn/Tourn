@@ -15,7 +15,8 @@ export default function startListeners(socket) {
     dispatch(actions.setTournState(data));
     dispatch(actions.addNewTourn(data.info.tournId,
                                  data.info.tournName));
-    dispatch(actions.toggleInviteBtn());
+    dispatch(actions.allowInvites(true));
+    dispatch(actions.setStart(false));
   });
 
   // TODO: Revert state and display error
@@ -110,9 +111,6 @@ export default function startListeners(socket) {
   // and set mode to 'View'
   socket.on('start_tourn_success', (data) => {
     console.log('Socket event: start_tourn_success:', data);
-    dispatch(actions.changeMode('View'));
-    dispatch(actions.toggleTournStart());
-    dispatch(actions.toggleStartBtn());
   });
 
   // TODO: Revert state and display error
@@ -123,11 +121,10 @@ export default function startListeners(socket) {
 
   socket.on('tourn_started', () => {
     console.log('Socket event: tourn_started');
-    // set tournament.start = true
-    // set tournament.invite = false
-    // set tournament.showStart = false
-    // set tournament.showInvite = false
     // set tournament.bracket.tournStatus = 'In Progress'
+    dispatch(actions.allowInvites(false));
+    dispatch(actions.setStart(true));
+    dispatch(actions.updateTournStatus('In Progress'));
   });
 
   //
@@ -141,8 +138,8 @@ export default function startListeners(socket) {
   });
 
   // Update user's alert list as a result of another player sending an invite
-  socket.on('update_alert', (data) => {
-    console.log('Socket event: update_alert:', data);
+  socket.on('alert', (data) => {
+    console.log('Socket event: alert:', data);
     dispatch(actions.addAlert(data));
   });
 
@@ -169,12 +166,12 @@ export default function startListeners(socket) {
   // Update header state
   socket.on('set_user_state', (data) => {
     console.log('Socket event: set_user_state:', data);
-    dispatch(actions.setState(data));
+    dispatch(actions.setUserState(data));
   });
 
   // Update tourn state
   socket.on('set_tourn_state', (data) => {
     console.log('Socket event: set_tourn_state:', data);
-    dispatch(actions.setState(data));
+    dispatch(actions.setTournState(data));
   });
 }

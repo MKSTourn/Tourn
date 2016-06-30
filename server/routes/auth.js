@@ -33,24 +33,24 @@ passport.use(new FacebookStrategy({
 },
   (accessToken, refreshToken, profile, done) => {
     const id = profile.id;
-    console.log('accessToken:', accessToken);
+    // console.log('accessToken:', accessToken);
     // console.log('refreshToken:', refreshToken);
-    console.log('profile:', profile);
-    console.log('profile picture:', profile._json.picture.url);
-    console.log('done:', done);
-    console.log('id:', id);
+    // console.log('profile:', profile);
+    console.log('profile picture:', profile.photos[0].value);
+    // console.log('done:', done);
+    // console.log('id:', id);
 
     // Interface with our defined user model to retrieve information and validate/initialize a user
     Users.findByFacebookId(id)
       .then((result) => {
         if (!result) {
-          Users.create(profile.displayName, id, profile._json.picture.url)
+          Users.create(profile.displayName, id, profile.photos[0].value)
             .then((user) => {
               // User didn't exist, so we created one and passed it back.
               done(null, user, 'login worked');
             })
             .catch((err) => {
-              console.log(err);
+              // console.log(err);
             });
         } else {
           // User exists, so we pass what we got back.
@@ -58,7 +58,7 @@ passport.use(new FacebookStrategy({
         }
       })
       .catch((err) => {
-        console.log('Users findByFacebookId error in facebook auth: ', err);
+        // console.log('Users findByFacebookId error in facebook auth: ', err);
         done(err, 'attempted to log in.');
       });
   }
@@ -87,7 +87,7 @@ router.get('/auth/facebook/callback',
 
 router.get('/auth/test', (req, res) => {
   if (req.user) {
-    console.log(req.user);
+    // console.log(req.user);
     res.send('Hello authed user!');
   } else {
     res.send('Auth failed.');

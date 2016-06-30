@@ -6,16 +6,16 @@ const AddPlayer = (props) => {
   const inviteeName = (e) => (
 		invitee = e.target.value
 	);
-  const submitInvite = () => (
+  const sendPropInvite = () => (
 		props.sendInvite(props.tournId, invitee)
 	);
 
-  return (props.invite && !props.start ?
-    <form>
-      <input type="text" onChange={inviteeName}></input><br />
-      <button type="submit" onClick={submitInvite}>Add Player</button>
-    </form>
-	:
+	return (props.invite && !props.start ?
+    <div>
+			<input type="text" onChange={inviteeName}></input><br />
+			<button onClick={sendPropInvite}>Add Player</button>
+    </div>
+  :
 	null);
 };
 

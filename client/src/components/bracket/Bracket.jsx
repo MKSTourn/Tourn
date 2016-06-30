@@ -34,39 +34,40 @@ const Bracket = ({ size, updateName, players, matches, updateBracket, tournName,
           let winner;
 
           if (matches[index]) {
-            player1 = matches[index].player1;
-            player2 = matches[index].player2;
+            console.log(matches[index])
+            player1 = matches[index].playerA;
+            player2 = matches[index].playerB;
             winner = matches[index].winner ? matches[index].winner : { _id: null };
-          }
 
-          return (<g>
-            <polyline
-              points={
-                `${start.x},${start.y} ${end.x},${end.y}`
+            return (<g>
+              <polyline
+                points={
+                  `${start.x},${start.y} ${end.x},${end.y}`
+                }
+                key={index}
+              />
+              {flag && !!player1.playerName ?
+                <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
+                  {player1._id === winner._id ?
+                    <BracketWinner player={player1} won /> :
+                    winner._id ?
+                      <BracketWinner player={player1} /> :
+                      <BracketPlayer player={player1} updateBracket={updateBracket} />
+                    }
+                </foreignObject> : null
               }
-              key={index}
-            />
-            {flag && !!player1.playerName ?
-              <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
-                {player1._id === winner._id ?
-                  <BracketWinner player={player1} won /> :
-                  winner._id ?
-                    <BracketWinner player={player1} /> :
-                    <BracketPlayer player={player1} updateBracket={updateBracket} />
-                  }
-              </foreignObject> : null
-            }
-            {flag && !!player2.playerName ?
-              <foreignObject x={start.x} y={start.y + 4} width={200} height={40}>
-                {player2._id === winner._id ?
-                  <BracketWinner player={player2} won /> :
-                  winner._id ?
-                    <BracketWinner player={player2} /> :
-                    <BracketPlayer player={player2} updateBracket={updateBracket} />
-                  }
-              </foreignObject> : null
-            }
-          </g>);
+              {flag && player2 && !!player2.playerName ?
+                <foreignObject x={start.x} y={start.y + 4} width={200} height={40}>
+                  {player2._id === winner._id ?
+                    <BracketWinner player={player2} won /> :
+                    winner._id ?
+                      <BracketWinner player={player2} /> :
+                      <BracketPlayer player={player2} updateBracket={updateBracket} />
+                    }
+                </foreignObject> : null
+              }
+            </g>);
+          }
         })
       }
       </svg>

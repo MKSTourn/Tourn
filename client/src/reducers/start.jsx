@@ -2,9 +2,9 @@
 // Start button reducer
 //
 
-function handleToggleStart(state) {
-  console.log('handleToggleStart: toggled state =', !state);
-  return !state;
+function handleSetStart(state, started) {
+  console.log('handleSetStart: new start state =', started);
+  return started;
 }
 
 function handleStartTourn(state) {
@@ -17,8 +17,8 @@ function handleStartTourn(state) {
 export default function start(state = {}, action) {
   // console.log('Start Reducer State', state.toJS());
   switch (action.type) {
-    case 'TOGGLE_START':
-      return handleToggleStart(state);
+    case 'SET_START':
+      return handleSetStart(state, action.start);
     case 'START_TOURN':
       return handleStartTourn(state);
     default:

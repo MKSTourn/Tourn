@@ -36,8 +36,14 @@ function handleSelectTourn(state) {
 function handleAddAlert(state, alert) {
   console.log('handleAddAlert');
   const newAlerts = state.getIn(['userData', 'alerts']).toJS();
+  const newAlert = alert;
+//  if (alert.isInvite) {
+//    newAlert.message = `You\'ve been invited to ${newAlert.tournName} tournament!`;
+//  } else {
+//    newAlert.message = 'Generic alert message!';
+//  }
 
-  newAlerts.push(alert);
+  newAlerts.push(newAlert);
 
   return state.setIn(['userData', 'alerts'], fromJS(newAlerts));
 }
@@ -48,7 +54,7 @@ function handleDeleteAlert(state, alertId) {
   // Optimistic next state:
   // Delete alertId obj from userData.alerts
   const alerts = state.getIn(['userData', 'alerts']).toJS();
-  const delIndex = alerts.findIndex(alert => alert.alertId === alertId);
+  const delIndex = alerts.findIndex(alert => alert._id === alertId);
   alerts.splice(delIndex, 1);
   return ~delIndex ? state.setIn(['userData', 'alerts'], fromJS(alerts)) :
                      state;
@@ -61,7 +67,7 @@ function handleAcceptInvite(state, tournId, alertId) {
   // Add new tourn to userData.userTourns
   const alerts = state.getIn(['userData', 'alerts']).toJS();
   const tourns = state.getIn(['userData', 'userTourns']).toJS();
-  const delIndex = alerts.findIndex(alert => alert.alertId === alertId);
+  const delIndex = alerts.findIndex(alert => alert._id === alertId);
   const newTourn = {
     tournName: alerts[delIndex].tournName,
     tournId,
