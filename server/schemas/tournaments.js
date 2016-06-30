@@ -26,6 +26,7 @@ const tournamentSchema = new Schema({
   chatHistory: [{
     authorId: Schema.ObjectId,
     authorName: String,
+    authorPic: String,
     message: String,
     timeStamp: String,
   }],
