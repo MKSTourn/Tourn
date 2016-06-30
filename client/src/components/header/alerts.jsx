@@ -40,6 +40,7 @@ Alerts.propTypes = {
   userAlerts: PropTypes.object,
 };
 
+
 const AlertListItem = (props) => {
   const onDeleteClick = () => (
     props.onAlertCancel(props.alert.get('_id'))
@@ -62,6 +63,11 @@ const AlertListItem = (props) => {
       <button onClick={onDeleteClick}>X</button>
     </li>
   );
+};
+
+AlertListItem.propTypes = {
+  onInviteAccept: PropTypes.func,
+  alert: PropTypes.object,
 };
 
 AlertListItem.propTypes = {
