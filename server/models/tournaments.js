@@ -149,11 +149,11 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           console.log('Fillout!');
           Tournaments.fillOutBracket(tournid)
             .then((finalResult) => {
-              console.log('Final Result!', finalResult.bracket[Math.floor(finalResult.roster.length / 2)]);
-              console.log('Final Result!', !!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName);
-              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName) {
+              console.log('Final Result!', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)]);
+              console.log('Final Result!', !!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName);
+              if (!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName) {
                 console.log('Player A?');
-                finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA =
+                finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA =
                 {
                   playerName: playerObject.name,
                   playerPic: playerObject.picture,
@@ -161,7 +161,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                 };
               } else {
                 console.log('Player B?', finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB);
-                finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB =
+                finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB =
                 {
                   playerName: playerObject.name,
                   playerPic: playerObject.picture,
