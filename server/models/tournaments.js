@@ -14,13 +14,9 @@ Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) 
         organizerid,
         name,
         type,
-        bracketSize: 1,
+        bracketSize: 0,
         registrationOpen: true,
-        roster: [{
-          playerId: organizerid,
-          playerName: userObject.name,
-          playerPic: userObject.pic,
-        }],
+        roster: [],
         start: false,
         invite: true,
       }, (err, result) => {
@@ -34,7 +30,10 @@ Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) 
             });
             user.save((saveErr) => {
               if (saveErr) reject(saveErr);
-              resolve(result);
+              Tournaments.addRosterPlayer(result, organizerid)
+                .then(() => {
+                  resolve(result);
+                });
             });
           });
       });
@@ -149,8 +148,10 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           console.log('Fillout!');
           Tournaments.fillOutBracket(tournid)
             .then((finalResult) => {
-              console.log('Final Reult!', finalResult.roster);
-              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA) {
+              console.log('Final Result!', finalResult.bracket[Math.floor(finalResult.roster.length / 2)]);
+              console.log('Final Result!', !!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName);
+              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName) {
+                console.log('Player A?');
                 finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA =
                 {
                   playerName: playerObject.name,
@@ -158,6 +159,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                   playerId: playerObject._id,
                 };
               } else {
+                console.log('Player B?');
                 finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB =
                 {
                   playerName: playerObject.name,
