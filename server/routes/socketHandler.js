@@ -17,6 +17,11 @@ module.exports.socket = function socketAttachment(io) {
       users.findById(socket.request.user._id)
         .then((resultUser) => {
           // console.log('Database fresh user object', resultUser);
+          if (resultUser.tournamentIds[0]) {
+            console.log('connection: joining tournId =', resultUser.tournamentIds[0].tournId);
+            socket.join(resultUser.tournamentIds[0].tournId);
+          }
+
           stateGenerator.generateUserState(
             resultUser._id,
             resultUser.tournamentIds[0] ? resultUser.tournamentIds[0].tournId : null
@@ -164,7 +169,7 @@ module.exports.socket = function socketAttachment(io) {
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
               .then(() => {
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-                io.to(data.to).emit('set_tourn_state', result);
+                io.to(data.to).emit('set_tourn_state', result);  // TODO - generate tourn state and send to all players in tourn
               })
               .catch((err) => {
                 console.log('accept_invited tournament update error', err);
@@ -213,7 +218,7 @@ module.exports.socket = function socketAttachment(io) {
           // console.log('Start tourn success: ', err);
 
           socket.emit('start_tourn_success');
-          console.log('Tourn Started', data.to);
+          console.log('Sending tourn_started to:', data.to);
           io.to(data.to).emit('tourn_started');
         })
         .catch((err) => {
@@ -230,9 +235,10 @@ module.exports.socket = function socketAttachment(io) {
           socket.request.user.name,
           data.entry.message,
           data.entry.timeStamp)
-        .then(() => {
+        .then((result) => {
           socket.emit('submit_chat_success');
-          sendToRoom(data.to, 'update_chat', {
+          console.log('Sending udpate_chat to:', data.to);
+          io.to(data.to).emit('update_chat', {
             authorId: socket.request.user._id,
             authorName: socket.request.user.name,
             message: data.entry.message,
@@ -241,6 +247,7 @@ module.exports.socket = function socketAttachment(io) {
         })
         .catch((err) => {
           // console.log('Submit chat error', err);
+          console.log('submit chat fail: err =', err);
           socket.emit('submit_chat_fail');
         });
       });

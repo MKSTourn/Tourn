@@ -67,7 +67,9 @@ const Header = ({
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
     />
-    <Logout />
+    <Logout
+      changeMode={changeMode}
+    />
   </header>
 );
 

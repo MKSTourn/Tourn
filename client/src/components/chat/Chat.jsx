@@ -8,16 +8,17 @@ const Chat = (props) => {
     e.preventDefault();
     props.updateMessage(e.target.value);
   };
+
   const onSubmitClick = (e) => {
     e.preventDefault();
     props.submitChat(props.tournId,
                      props.chat.message,
                      moment().format('ddd, h:mmA'));
   };
+
   return (<section>
     <div className="messages">
       {props.chat.history.map((message, key) => {
-        console.log('Chat message', message);
         const messageElement = (<Message
           key={key}
           sender={message.authorName}

@@ -1,13 +1,18 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import Cookies from 'js-cookie';
 
-const Logout = () => {
+const Logout = (props) => {
   const onLogoutClick = () => {
+    props.changeMode('LoggedOut');
     console.log('cookies =', Cookies.get());
   };
   return (<button onClick={onLogoutClick}>
     Logout
   </button>);
+};
+
+Logout.propTypes = {
+  changeMode: PropTypes.func,
 };
 
 export default Logout;
