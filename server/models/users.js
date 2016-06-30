@@ -97,12 +97,7 @@ Users.createAlert = (
         tournId,
         tournName,
         isInvite,
-      });
-
-      result.save((err) => {
-        if (err) reject(err);
-        console.log('Users.createAlert: result alert =', result.alerts[0]);
-        resolve(result.alerts[result.alerts.length - 1]);
+        message,
       });
 
       result.save((err) => {

@@ -167,12 +167,12 @@ export default function startListeners(socket) {
   // Update header state
   socket.on('set_user_state', (data) => {
     console.log('Socket event: set_user_state:', data);
-    dispatch(actions.setState(data));
+    dispatch(actions.setUserState(data));
   });
 
   // Update tourn state
   socket.on('set_tourn_state', (data) => {
     console.log('Socket event: set_tourn_state:', data);
-    dispatch(actions.setState(data));
+    dispatch(actions.setTournState(data));
   });
 }

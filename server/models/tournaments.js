@@ -53,18 +53,20 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
 Tournaments.addChatMessage =
   (tournid, authorId, authorName, message, timeStamp) => new Promise((resolve, reject) => {
     TournamentSchema.findById(tournid, (err, result) => {
-      console.log('addChatMessage error gate');
       if (err) {
+        console.log('addChatMessage error');
         reject(err);
         return;
       }
 
-      console.log('addChatMessage null gate');
       if (!result) {
+        console.log('Tournament doesnt exist');
         reject('Tournament doesnt exist!');
         return;
       }
+
       result.chatHistory.push({ authorId, authorName, message, timeStamp });
+
       result.save((saveErr, saveResult) => {
         if (saveErr) {
           console.log('Chat Message save error', saveErr);
