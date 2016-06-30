@@ -237,6 +237,7 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.tournId,
           socket.request.user._id,
           socket.request.user.name,
+          socket.request.user.picture,
           data.entry.message,
           data.entry.timeStamp)
         .then((result) => {
