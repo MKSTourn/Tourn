@@ -133,6 +133,9 @@ Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
         alert._id.toString() === alertid ? resAlert = alert : null;
       });
 
+      result.alerts.pull({ _id: alertid });
+      result.save();
+
       console.log('Returning if anything', resAlert);
       resolve(resAlert);
     });

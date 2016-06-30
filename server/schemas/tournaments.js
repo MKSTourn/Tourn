@@ -39,9 +39,9 @@ const tournamentSchema = new Schema({
 
   // All current and previous rounds
   bracket: [{
-    playerA: Number,
-    playerB: Number,
-    winner: Schema.ObjectId,
+    playerA: { playerName: String, playerId: Schema.ObjectId },
+    playerB: { playerName: String, playerId: Schema.ObjectId },
+    winner: { playerName: String, playerId: Schema.ObjectId },
     status: String,
   }],
 });

@@ -106,48 +106,69 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, reject) => {
-  TournamentSchema.findById(tournid, (err, result) => {
-    if (err) {
-      reject(err);
-      return;
-    }
+  users.findById(playerId)
+    .then((playerObject) => {
+      TournamentSchema.findById(tournid, (err, result) => {
+        if (err) {
+          reject(err);
+          return;
+        }
 
-    if (!result) {
-      reject('Couldnt find tournament!');
-      return;
-    }
-    const endResult = result;
+        if (!result) {
+          reject('Couldnt find tournament!');
+          return;
+        }
+        const endResult = result;
 
-    endResult.roster.push({ playerId });
-    endResult.bracketSize = result.bracketSize ?
-      BracketHelper.getBracketSize(endResult.roster.length) :
-      2;
-    endResult.save((saveErr, saveResult) => {
-      if (saveErr) reject(saveErr);
-      resolve(saveResult);
+        endResult.roster.push({ playerId });
+        endResult.bracketSize = result.bracketSize ?
+          BracketHelper.getBracketSize(endResult.roster.length) :
+          2;
+
+        const match = {
+          playerA: { playerName: playerObject.name, playerId: playerObject._id },
+          playerB: null,
+          winner: null,
+        };
+
+        if (!endResult.bracket[Math.floor(endResult.roster.length / 2)]) {
+          endResult.bracket[Math.floor(endResult.roster.length / 2)] = match;
+        } else {
+          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerB = { playerName: playerObject.name, playerId: playerObject._id };
+        }
+
+        endResult.save((saveErr, saveResult) => {
+          if (saveErr) reject(saveErr);
+          resolve(saveResult);
+        });
+      });
     });
-  });
 });
 
 Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, reject) => {
-  TournamentSchema.findById(tournid, (err, result) => {
-    if (err) reject(err);
+  users.findById(playerId)
+    .then((playerObject) => {
+      TournamentSchema.findById(tournid, (err, result) => {
+        if (err) reject(err);
 
-    const endResult = result;
+        const endResult = result;
 
-    const someFurtherMatch = BracketHelper.getNextMatch(match, result.bracketSize);
+        const someFurtherMatch = BracketHelper.getNextMatch(match, result.bracketSize);
 
-    endResult.bracket[match].winner = playerId;
-    if (!endResult.bracket[someFurtherMatch]) {
-      endResult.bracket[someFurtherMatch] = {};
-      endResult.bracket[someFurtherMatch].playerA = playerId;
-    } else {
-      endResult.bracket[someFurtherMatch].playerB = playerId;
-    }
+        endResult.bracket[match].winner = playerObject;
+        if (!endResult.bracket[someFurtherMatch]) {
+          endResult.bracket[someFurtherMatch] = {};
+          endResult.bracket[someFurtherMatch].playerA = 
+            { playerName: playerObject.name, playerId: playerObject._id };
+        } else {
+          endResult.bracket[someFurtherMatch].playerB = 
+            { playerName: playerObject.name, playerId: playerObject._id };
+        }
 
-    endResult.save((saveErr, saveResult) => {
-      if (saveErr) reject(saveErr);
-      resolve(saveResult);
+        endResult.save((saveErr, saveResult) => {
+          if (saveErr) reject(saveErr);
+          resolve(saveResult);
+        });
+      });
     });
-  });
 });

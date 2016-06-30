@@ -168,12 +168,12 @@ module.exports.socket = function socketAttachment(io) {
                 io.to(data.to).emit('set_tourn_state', result);
               })
               .catch((err) => {
-                // console.log('accept_invited tournament update error', err);
+                console.log('accept_invited tournament update error', err);
                 socket.emit('accept_invite_fail');
               });
           })
           .catch((err) => {
-            // console.log('accept_invited user accept error', err);
+            console.log('accept_invited user accept error', err);
             socket.emit('accept_invite_fail');
           });
       });
