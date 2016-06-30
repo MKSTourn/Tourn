@@ -12,6 +12,7 @@ const UnclaimedInvites = require('./unclaimedInvites.js');
 // Instantiation functions
 
 Users.create = (name, fbid, picture) => new Promise((resolve, reject) => {
+  console.log(name, fbid, picture);
   UsersSchema.create({ name, fbid, picture }, (err, user) => {
     if (err) { reject(err); return; }
 
@@ -132,6 +133,9 @@ Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
       result.alerts.forEach((alert) => {
         alert._id.toString() === alertid ? resAlert = alert : null;
       });
+
+      result.alerts.pull({ _id: alertid });
+      result.save();
 
       console.log('Returning if anything', resAlert);
       resolve(resAlert);
