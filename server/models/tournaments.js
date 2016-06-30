@@ -38,7 +38,7 @@ Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) 
 
 Tournaments.findById = (tournamentid) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournamentid, (err, result) => {
-    if (err) reject(err);
+    if (err) { console.log('Tourn Not Found'); reject(err); return; }
     resolve(result);
   });
 });
@@ -110,25 +110,33 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, reject) => {
   users.findById(playerId)
     .then((playerObject) => {
-      TournamentSchema.findById(tournid, (err, result) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
+      TournamentSchema.findById(tournid).then((result) => {
         if (!result) {
+          console.log('Not found error');
           reject('Couldnt find tournament!');
           return;
         }
         const endResult = result;
 
-        endResult.roster.push({ playerId });
+        endResult.roster.push({
+          playerId: playerObject._id,
+          playerName: playerObject.name,
+          playerPic: playerObject.picture,
+        });
         endResult.bracketSize = result.bracketSize ?
           BracketHelper.getBracketSize(endResult.roster.length) :
           2;
-        endResult.save(() => {
+        endResult.save((savErr) => {
+          if (savErr) {
+            console.log('Save Error!');
+            reject(savErr);
+            return;
+          }
+
+          console.log('Fillout!');
           Tournaments.fillOutBracket(tournid)
             .then((finalResult) => {
+              console.log('Final Reult!', finalResult.roster);
               if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA) {
                 finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA =
                 {
@@ -145,12 +153,13 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                 };
               }
 
+              console.log('Final Save!');
               finalResult.save((saveErr, saveResult) => {
                 if (saveErr) {
+                  console.log('Save Error!');
                   reject(saveErr);
                   return;
                 }
-                
                 resolve(saveResult);
               });
             });
@@ -160,8 +169,10 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
 });
 
 Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
-  tournaments.findById(tournid)
+  console.log('Tourn ID', tournid);
+  Tournaments.findById(tournid)
     .then((tourn) => {
+      console.log('Filling out...');
       while (tourn.bracket.length < tourn.bracketSize - 1) {
         tourn.bracket.push({
           playerA: null,
@@ -172,10 +183,12 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
 
       tourn.save((err, res) => {
         if (err) {
+          console.log('Error hit');
           reject(err);
           return;
         }
 
+        console.log('Resolving...');
         resolve(res);
       });
     });

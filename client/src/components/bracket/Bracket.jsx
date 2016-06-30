@@ -34,7 +34,6 @@ const Bracket = ({ size, updateName, players, matches, updateBracket, tournName,
           let winner;
 
           if (matches[index]) {
-            console.log(matches[index])
             player1 = matches[index].playerA;
             player2 = matches[index].playerB;
             winner = matches[index].winner ? matches[index].winner : { _id: null };
@@ -46,7 +45,7 @@ const Bracket = ({ size, updateName, players, matches, updateBracket, tournName,
                 }
                 key={index}
               />
-              {flag && !!player1.playerName ?
+              {flag && player1 && !!player1.playerName ?
                 <foreignObject x={start.x} y={start.y - 54} width={200} height={40}>
                   {player1._id === winner._id ?
                     <BracketWinner player={player1} won /> :
@@ -68,6 +67,13 @@ const Bracket = ({ size, updateName, players, matches, updateBracket, tournName,
               }
             </g>);
           }
+
+          return (<g><polyline
+            points={
+              `${start.x},${start.y} ${end.x},${end.y}`
+            }
+            key={index}
+          /></g>);
         })
       }
       </svg>
