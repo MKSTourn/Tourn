@@ -242,7 +242,6 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
         }
 
         if (someFurtherMatch === -1) {
-          resolve(playerObject);
 
           endResult.status = 'Concluded';
           endResult.bracket[match].status = 'Concluded';
@@ -257,6 +256,13 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
             playerPic: playerObject.picture,
           };
 
+          endResult.save((saveErr, saveResult) => {
+            if (saveErr) { reject(saveErr); return; }
+            console.log('Saved result', saveResult.bracket[match]);
+            resolve(playerObject);
+          });
+
+          resolve(playerObject);
           return;
         }
 
