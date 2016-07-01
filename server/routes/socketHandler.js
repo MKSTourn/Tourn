@@ -170,14 +170,21 @@ module.exports.socket = function socketAttachment(io) {
         console.log('accept_invite', data);
         users.acceptInvite(socket.request.user._id, data.entry.alertId)
           .then((result) => {
+            console.log('Accepted invite');
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
               .then((tourn) => {
                 console.log('User result', result);
                 console.log('Tourn result', tourn);
+
+                console.log(typeof socket.rooms);
+
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-                io.to(data.to)
-                  .emit('set_tourn_state', stateGenerator.generateTournamentData(tourn));
-                  // TODO - generate tourn state and send to all players in tourn
+
+                socket.join(socket.request.user.name);
+                socket.join(data.to, () => {
+                  io.to(data.to)
+                    .emit('set_tourn_state', stateGenerator.generateTournamentData(tourn));
+                });
               })
               .catch((err) => {
                 console.log('accept_invited tournament update error', err);

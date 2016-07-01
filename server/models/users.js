@@ -122,22 +122,43 @@ Users.deleteAlert = (userid, alertid) => new Promise((resolve, reject) => {
 Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
   Users.findById(userid)
     .then((result) => {
+      let resAlert = null;
+      
+      console.log('Erasing alert');
+      result.alerts.forEach((alert) => {
+        if (alert._id.toString() === alertid) {
+          resAlert = alert;
+        }
+      });
+
+      result.alerts.pull({ _id: alertid });
+
+      console.log('User found');
       if (!result) {
         // console.log('Woe is me. Our user doesn\'t exist', userid);
         reject('User doesnt exist.');
         return;
       }
 
-      var resAlert = null;
+      Tournaments.findById(resAlert.tournId)
+        .then((tourn) => {
+          console.log('Tourn found');
 
-      result.alerts.forEach((alert) => {
-        alert._id.toString() === alertid ? resAlert = alert : null;
-      });
+          console.log('Pushing tourn');
+          result.tournamentIds.push({
+            tournId: tourn._id,
+            tournName: tourn.name,
+          });
 
-      result.alerts.pull({ _id: alertid });
-      result.save();
 
-      console.log('Returning if anything', resAlert);
-      resolve(resAlert);
+          console.log('Saving...');
+          result.save(() => {
+            console.log('Returning if anything', resAlert);
+            resolve(resAlert);
+          });
+        })
+        .catch((err) => {
+          console.log('What the fuck?', err);
+        });
     });
 });
