@@ -17,7 +17,7 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
         rules,
         bracketSize: 0,
         registrationOpen: true,
-        status: 'Non-started',
+        status: 'Not started',
         roster: [],
         start: false,
         invite: true,
