@@ -198,7 +198,7 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
     .then((tourn) => {
       console.log('Filling out...');
 
-      while (tourn.bracket.length < tourn.bracketSize - 1) {
+      while (tourn.bracket.length <= tourn.bracketSize - 2) {
         tourn.bracket.push({
           playerA: null,
           playerB: null,
