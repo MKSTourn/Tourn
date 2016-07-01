@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 
 const BracketPlayer = (props) => {
-  if (props.userId === props.tournOrganizer && props.start) {
+  if (props.userId === props.tournOrganizer &&
+                       props.start &&
+                       props.matches[props.matchIndex].status !== 'Concluded') {
     return (
       <div>
         <img
@@ -27,6 +29,7 @@ const BracketPlayer = (props) => {
 
 BracketPlayer.propTypes = {
   player: PropTypes.object,
+  matches: PropTypes.array,
   submitAdvance: PropTypes.func,
   tournId: PropTypes.string,
   matchIndex: PropTypes.number,

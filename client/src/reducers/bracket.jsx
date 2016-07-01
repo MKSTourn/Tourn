@@ -5,11 +5,11 @@
 import { fromJS } from 'immutable';
 import { getNextMatch } from '../utilities/bracket_helpers.jsx';
 
-function handleUpdateBracket(state, newBracket) {
+function handleSubmitAdvance(state) {
   // TODO: Submit player advancement request to server
   // provide matchIndex, userId of winner
-  console.log('handleUpdateBracket');
-  return state.set('bracket', newBracket);
+  console.log('handleSubmitAdvance: initial =', state);
+  return state;
 }
 
 function handleUpdateStatus(state, status) {
@@ -19,7 +19,7 @@ function handleUpdateStatus(state, status) {
   return state.set('tournStatus', status);
 }
 
-function handleSubmitAdvance(state, tournId, matchIndex, winner) {
+function handleUpdateBracket(state, tournId, matchIndex, winner) {
   const newBracket = state.toJS();
   // console.log('handleSubmitAdvance: newBracket before =', newBracket);
   // console.log('handleSubmitAdvance: matches =', newBracket.matches);
@@ -77,7 +77,7 @@ export default function bracket(state = {}, action) {
   // console.log('Bracket Reducer State', state.toJS());
   switch (action.type) {
     case 'SUBMIT_ADVANCE':
-      return handleSubmitAdvance(state, action.tournId, action.matchIndex, action.winner);
+      return handleSubmitAdvance(state);
     // case 'ADVANCE_PLAYER':
     //   return handleUpdateBracket(state, action.tournId, action.matchIndex, action.winner);
     case 'UPDATE_BRACKET':
