@@ -84,7 +84,7 @@ export default function startListeners(socket) {
   // Server sends back an OK after advancing a player in the tournament
   socket.on('update_bracket', (data) => {
     console.log('Socket event: update_bracket:', data);
-    dispatch(actions.updateBracket(data));
+    dispatch(actions.updateBracket(data.tournId, data.matchIndex, data.winner));
   });
 
   // Server sends back an OK after advancing a player in the tournament

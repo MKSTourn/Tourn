@@ -13,6 +13,8 @@ function mapStateToProps(state) {
     tournId: state.getIn(['tournament', 'info', 'tournId']),
     tournName: state.getIn(['tournament', 'info', 'tournName']),
     bracketSize: state.getIn(['tournament', 'bracket', 'bracketSize']),
+    tournStatus: state.getIn(['tournament', 'bracket', 'tournStatus']),
+    tournWinner: state.getIn(['tournament', 'bracket', 'tournWinner']),
     userId: state.getIn(['header', 'userData', 'userId']),
     tournOrganizer: state.getIn(['tournament', 'info', 'tournOrganizer']),
     start: state.getIn(['tournament', 'start']),

@@ -176,10 +176,12 @@ export function submitChat(tournId, message, timeStamp) {
 // Bracket
 //
 
-export function updateBracket(newBracket) {
+export function updateBracket(tournId, matchIndex, winner) {
   return {
     type: 'UPDATE_BRACKET',
-    newBracket,
+    tournId,
+    matchIndex,
+    winner,
   };
 }
 
@@ -212,9 +214,9 @@ export function submitAdvance(tournId, matchIndex, winner) {
         playerId: winner.playerId,
       },
     },
-    tournId,
-    matchIndex,
-    winner,
+    // tournId,
+    // matchIndex,
+    // winner,
   };
 }
 
