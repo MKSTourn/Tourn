@@ -6,7 +6,20 @@ import TournName from './TournName.jsx';
 import BracketPlayer from './BracketPlayer.jsx';
 import BracketWinner from './BracketWinner.jsx';
 
-const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvance, tournName, tournId, mode }) => {
+const Bracket = ({
+  size,
+  updateName,
+  bracketSize,
+  // players,
+  matches,
+  submitAdvance,
+  tournName,
+  tournId,
+  userId,
+  tournOrganizer,
+  start,
+  mode,
+}) => {
   const points = generateBracketPoints(bracketSize, size.x, size.y);
 
   return (
@@ -24,7 +37,7 @@ const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvanc
       >
       {
         points.map((line, index) => {
-          const start = line[0];
+          const lineStart = line[0];
           const end = line[1];
           const flag = line[2];
 
@@ -40,11 +53,11 @@ const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvanc
             return (<g key={index}>
               <polyline
                 points={
-                  `${start.x},${start.y} ${end.x},${end.y}`
+                  `${lineStart.x},${lineStart.y} ${end.x},${end.y}`
                 }
               />
               {flag && player1 && !!player1.playerName ?
-                <foreignObject x={start.x} y={start.y - 54} width={200} height={40}  >
+                <foreignObject x={lineStart.x} y={lineStart.y - 54} width={200} height={40}  >
                   {player1._id === winner._id ?
                     <BracketWinner player={player1} won /> :
                     winner._id ?
@@ -54,12 +67,15 @@ const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvanc
                         submitAdvance={submitAdvance}
                         matchIndex={index}
                         tournId={tournId}
+                        userId={userId}
+                        tournOrganizer={tournOrganizer}
+                        start={start}
                       />
                     }
                 </foreignObject> : null
               }
               {flag && player2 && !!player2.playerName ?
-                <foreignObject x={start.x} y={start.y + 4} width={200} height={40} >
+                <foreignObject x={lineStart.x} y={lineStart.y + 4} width={200} height={40} >
                   {player2._id === winner._id ?
                     <BracketWinner player={player2} won /> :
                     winner._id ?
@@ -69,6 +85,9 @@ const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvanc
                         submitAdvance={submitAdvance}
                         matchIndex={index}
                         tournId={tournId}
+                        userId={userId}
+                        tournOrganizer={tournOrganizer}
+                        start={start}
                       />
                     }
                 </foreignObject> : null
@@ -78,7 +97,7 @@ const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvanc
 
           return (<g key={index}><polyline
             points={
-              `${start.x},${start.y} ${end.x},${end.y}`
+              `${lineStart.x},${lineStart.y} ${end.x},${end.y}`
             }
           /></g>);
         })
@@ -89,15 +108,19 @@ const Bracket = ({ size, updateName, bracketSize, players, matches, submitAdvanc
 };
 
 Bracket.propTypes = {
+  bracketSize: PropTypes.number,
   size: PropTypes.object,
-  players: PropTypes.array,
+  // players: PropTypes.array,
   matches: PropTypes.array,
   submitAdvance: PropTypes.func,
   tournName: PropTypes.string,
+  tournId: PropTypes.string,
+  userId: PropTypes.string,
   mode: PropTypes.string,
   updateName: PropTypes.func,
+  tournOrganizer: PropTypes.string,
+  start: PropTypes.bool,
 };
-
 // <svg
 //   width={size.x}
 //   height={size.y}
