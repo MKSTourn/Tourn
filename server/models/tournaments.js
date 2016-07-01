@@ -17,6 +17,7 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
         rules,
         bracketSize: 0,
         registrationOpen: true,
+        status: 'Non-started',
         roster: [],
         start: false,
         invite: true,
@@ -132,6 +133,11 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           playerPic: playerObject.picture,
         });
 
+        if (endResult.roster.length >= 8) {
+          reject('Max player size reached');
+          return;
+        }
+
         endResult.roster.push({
           playerId: playerObject._id,
           playerName: playerObject.name,
@@ -241,6 +247,11 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
           endResult.status = 'Concluded';
           endResult.bracket[match].status = 'Concluded';
           endResult.bracket[match].winner = {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
+          endResult.tournWinner = {
             playerName: playerObject.name,
             playerId: playerObject._id,
             playerPic: playerObject.picture,
