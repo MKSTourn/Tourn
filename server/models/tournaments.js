@@ -228,8 +228,20 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
 
         const someFurtherMatch = BracketHelper.getNextMatch(match, result.bracketSize);
 
-        if (someFurtherMatch === null || someFurtherMatch === -1) {
+        if (someFurtherMatch === null) {
           reject('Attempt to advance a non-existent or invalid match', someFurtherMatch);
+          return;
+        }
+
+        if (someFurtherMatch === -1) {
+          resolve(playerObject);
+
+          endResult.bracket[match].winner = {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
+
           return;
         }
 
