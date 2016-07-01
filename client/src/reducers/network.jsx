@@ -27,8 +27,8 @@ function handleSetTournState(state, newState) {
 
   console.log('handleSetTournState');
   console.log('handleSetTournState: initial =', state.toJS());
-  const nextState = state.set('tournament', state.get('tournament').mergeDeep(fromJS(newState)));
-  // const nextState = state.set('tournament', fromJS(newState));
+  // const nextState = state.set('tournament', state.get('tournament').mergeDeep(fromJS(newState)));
+  const nextState = state.set('tournament', fromJS(newState));
 
   console.log('handleSetTournState: next =', nextState.toJS());
   return nextState;

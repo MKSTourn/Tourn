@@ -5,9 +5,9 @@ const RosterPlayers = (props) => (
   <div>
     <h2>Roster</h2>
     <ul className="roster-players">
-      {props.roster.map(player =>
+      {props.roster.map((player, key) =>
         <PlayerListItem
-          key={player.get('playerId')}
+          key={key}
           player={player}
         />
       )}

@@ -195,6 +195,7 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
           playerA: null,
           playerB: null,
           winner: null,
+          status: '',
         });
       }
 

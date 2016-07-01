@@ -11,9 +11,9 @@ const UserTournaments = (props) => (
         Tournaments List
       </button>
       <ul className="tournDropdownList">
-        {props.userTourns.map(tournament =>
+        {props.userTourns.map((tournament, key) =>
           <TournListItem
-            key={tournament.get('tournId')}
+            key={key}
             tournament={tournament}
             onTournamentClick={props.selectTourn}
           />
