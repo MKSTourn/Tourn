@@ -233,7 +233,11 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
           return;
         }
 
-        endResult.bracket[match].winner = playerObject;
+        endResult.bracket[match].winner = {
+          playerName: playerObject.name,
+          playerId: playerObject._id,
+          playerPic: playerObject.picture,
+        };
         if (!endResult.bracket[someFurtherMatch].playerA.playerName) {
           endResult.bracket[someFurtherMatch] = {};
           endResult.bracket[someFurtherMatch].playerA =
@@ -252,7 +256,8 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
         }
 
         endResult.save((saveErr, saveResult) => {
-          if (saveErr) reject(saveErr);
+          if (saveErr) { reject(saveErr); return; }
+          console.log('Saved result', saveResult.bracket[match]);
           resolve(playerObject);
         });
       });
