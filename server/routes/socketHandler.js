@@ -139,14 +139,18 @@ module.exports.socket = function socketAttachment(io) {
       //   Updates bracket for that tournament in db
       // Server sends back new tournament state to all users
       socket.on('advance_player', (data) => {
-        // console.log('update_bracket', data);
-        tournaments.advancePlayer(data.entry.tournId, data.entry.winner, data.entry.matchIndex)
-        .then(() => {
+        console.log('update_bracket', data);
+        tournaments.advancePlayer(data.entry.tournId, data.entry.playerId, data.entry.matchIndex)
+        .then((player) => {
           socket.emit('update_bracket_success');
           io.to(data.to).emit('update_bracket',
             {
               tournId: data.entry.tournId,
-              winner: data.entry.playerId,
+              winner: {
+                playerId: player._id,
+                playerName: player.name,
+                playerPic: player.picture,
+              },
               matchIndex: data.entry.matchIndex,
             });
         })

@@ -28,7 +28,7 @@ const uuid = require('uuid');
 passport.use(new FacebookStrategy({
   clientID: '986354861484992',
   clientSecret: '7966d7fab2fd294004fd28622a1aaad8',
-  callbackURL: 'http://localhost:4000/auth/facebook/callback',
+  callbackURL: 'http://192.168.144.245:4000/auth/facebook/callback',
   profileFields: ['id', 'displayName', 'name', 'gender', 'emails', 'photos'],
 },
   (accessToken, refreshToken, profile, done) => {

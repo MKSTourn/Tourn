@@ -213,8 +213,14 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, reject) => {
+  console.log('Model Advanced!', tournid, playerId, match);
   users.findById(playerId)
     .then((playerObject) => {
+      if (!playerObject) {
+        reject('Player not found!');
+        return;
+      }
+
       TournamentSchema.findById(tournid, (err, result) => {
         if (err) reject(err);
 
@@ -234,7 +240,7 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
 
         endResult.save((saveErr, saveResult) => {
           if (saveErr) reject(saveErr);
-          resolve(saveResult);
+          resolve(playerObject);
         });
       });
     });
