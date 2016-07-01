@@ -20,7 +20,7 @@ const tournamentSchema = new Schema({
   // Litterally all it exists to be.
   tournStatus: String,
 
-  tournWinner: Schema.ObjectId,
+  tournWinner: { playerName: String, playerPic: String, playerId: Schema.ObjectId },
 
   // All messages for a given tournament
   chatHistory: [{
