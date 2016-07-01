@@ -11,9 +11,9 @@ const Alerts = (props) => (
         Alerts
       </button>
       <ul className="alertDropdownList">
-        {props.userAlerts.map(alert =>
+        {props.userAlerts.map((alert, key) =>
           <AlertListItem
-            key={alert.get('_id')}
+            key={key}
             alert={alert}
             onAlertCancel={props.deleteAlert}
             onInviteAccept={props.acceptInvite}
@@ -39,6 +39,7 @@ Alerts.propTypes = {
   acceptInvite: PropTypes.func,
   userAlerts: PropTypes.object,
 };
+
 
 const AlertListItem = (props) => {
   const onDeleteClick = () => (

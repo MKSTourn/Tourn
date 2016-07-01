@@ -6,13 +6,15 @@ const BracketPlayer = (props) => (<div>
     src={props.player.playerPic}
     alt="A player"
     title={props.player.playerName}
-    onClick={props.updateBracket.bind(null, props.player)}
+    onClick={props.submitAdvance.bind(null, props.tournId, props.matchIndex, props.player)}
   />
 </div>);
 
 BracketPlayer.propTypes = {
   player: PropTypes.object,
-  updateBracket: PropTypes.func,
+  submitAdvance: PropTypes.func,
+  tournId: PropTypes.string,
+  matchIndex: PropTypes.number,
 };
 
 export default BracketPlayer;

@@ -13,15 +13,16 @@ const Roster = (props) => (
       />
       <AddPlayer
         invite={props.invite}
-        isOrganizer={props.isOrganizer}
+        tournOrganizer={props.tournOrganizer}
         sendInvite={props.sendInvite}
         tournId={props.tournId}
       />
       <StartTournament
         invite={props.invite}
-        isOrganizer={props.isOrganizer}
+        tournOrganizer={props.tournOrganizer}
         startTourn={props.startTourn}
         tournId={props.tournId}
+        userId={props.userId}
       />
     </div>
   </section>
@@ -30,10 +31,11 @@ const Roster = (props) => (
 Roster.propTypes = {
   roster: PropTypes.object,
   invite: PropTypes.bool,
-  isOrganizer: PropTypes.bool,
+  tournOrganizer: PropTypes.string,
   sendInvite: PropTypes.func,
   startTourn: PropTypes.func,
   tournId: PropTypes.string,
+  userId: PropTypes.string,
 };
 
 export default Roster;

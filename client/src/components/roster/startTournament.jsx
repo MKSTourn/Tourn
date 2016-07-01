@@ -6,7 +6,8 @@ const StartTournament = (props) => {
 		props.startTourn(props.tournId)
 	);
 
-  return (props.invite && props.isOrganizer ?
+  return (props.invite &&
+          props.tournOrganizer === props.userId ?
     <button onClick={initTourn}>
 			Start Tournament
     </button> : null
@@ -16,7 +17,8 @@ const StartTournament = (props) => {
 StartTournament.propTypes = {
   tournId: PropTypes.string,
   startTourn: PropTypes.func,
-  isOrganizer: PropTypes.bool,
+  tournOrganizer: PropTypes.string,
+  userId: PropTypes.string,
   invite: PropTypes.bool,
 };
 

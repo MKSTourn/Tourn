@@ -204,12 +204,12 @@ export function submitAdvance(tournId, matchIndex, winner) {
   return {
     type: 'SUBMIT_ADVANCE',
     meta: {
-      event: 'update_bracket',
+      event: 'advance_player',
       to: tournId,
       entry: {
         tournId,
         matchIndex,
-        winner,
+        playerId: winner.playerId,
       },
     },
     tournId,
@@ -218,14 +218,6 @@ export function submitAdvance(tournId, matchIndex, winner) {
   };
 }
 
-export function advancePlayer(advance) {
-  return {
-    type: 'ADVANCE_PLAYER',
-    tournId: advance.tournId,
-    matchIndex: advance.matchIndex,
-    winner: advance.winner,
-  };
-}
 
 //
 // Roster

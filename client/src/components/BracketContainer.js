@@ -10,8 +10,9 @@ function mapStateToProps(state) {
     size: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
     players: state.getIn(['tournament', 'roster']).toJS(),
     matches: state.getIn(['tournament', 'bracket', 'matches']).toJS(),
-    tournamentId: state.getIn(['tournament', 'info', 'tournId']),
+    tournId: state.getIn(['tournament', 'info', 'tournId']),
     tournName: state.getIn(['tournament', 'info', 'tournName']),
+    bracketSize: state.getIn(['tournament', 'bracket', 'bracketSize']),
     mode: state.get('mode'),
   };
 }

@@ -55,32 +55,31 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.addChatMessage =
-  (tournid, authorId, authorName, authorPic, message, timeStamp) =>
-    new Promise((resolve, reject) => {
-      TournamentSchema.findById(tournid, (err, result) => {
-        if (err) {
-          console.log('addChatMessage error');
-          reject(err);
+  (tournid, authorId, authorName, authorPic, message, timeStamp) => new Promise((resolve, reject) => {
+    TournamentSchema.findById(tournid, (err, result) => {
+      if (err) {
+        console.log('addChatMessage error');
+        reject(err);
+        return;
+      }
+
+      if (!result) {
+        console.log('Tournament doesnt exist');
+        reject('Tournament doesnt exist!');
+        return;
+      }
+
+      result.chatHistory.push({ authorId, authorName, authorPic, message, timeStamp });
+
+      result.save((saveErr, saveResult) => {
+        if (saveErr) {
+          console.log('Chat Message save error', saveErr);
+          reject(saveErr);
           return;
         }
-
-        if (!result) {
-          console.log('Tournament doesnt exist');
-          reject('Tournament doesnt exist!');
-          return;
-        }
-
-        result.chatHistory.push({ authorId, authorName, authorPic, message, timeStamp });
-
-        result.save((saveErr, saveResult) => {
-          if (saveErr) {
-            console.log('Chat Message save error', saveErr);
-            reject(saveErr);
-            return;
-          }
-          resolve(saveResult);
-        });
+        resolve(saveResult);
       });
+    });
   });
 
 Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
@@ -136,6 +135,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           playerName: playerObject.name,
           playerPic: playerObject.picture,
         });
+
         endResult.bracketSize = result.bracketSize ?
           BracketHelper.getBracketSize(endResult.roster.length) :
           2;
@@ -149,22 +149,19 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           console.log('Fillout!');
           Tournaments.fillOutBracket(tournid)
             .then((finalResult) => {
-              console.log('Final Result!',
-                finalResult.bracket[Math.floor(finalResult.roster.length / 2)]);
-              console.log('Final Result!',
-                !!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName);
-              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)]
-                .playerA.playerName) {
+              console.log('Final Result!', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)]);
+              console.log('Final Result!', !!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName);
+              if (!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName) {
                 console.log('Player A?');
-                finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA =
+                finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA =
                 {
                   playerName: playerObject.name,
                   playerPic: playerObject.picture,
                   playerId: playerObject._id,
                 };
               } else {
-                console.log('Player B?');
-                finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB =
+                console.log('Player B?', finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB);
+                finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB =
                 {
                   playerName: playerObject.name,
                   playerPic: playerObject.picture,
@@ -172,7 +169,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                 };
               }
 
-              console.log('Final Save!');
+              console.log('Final Save!', finalResult);
               finalResult.save((saveErr, saveResult) => {
                 if (saveErr) {
                   console.log('Save Error!');
@@ -192,11 +189,13 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
   Tournaments.findById(tournid)
     .then((tourn) => {
       console.log('Filling out...');
-      while (tourn.bracket.length < tourn.bracketSize - 1) {
+
+      while (tourn.bracket.length <= tourn.bracketSize - 1) {
         tourn.bracket.push({
           playerA: null,
           playerB: null,
           winner: null,
+          status: '',
         });
       }
 
