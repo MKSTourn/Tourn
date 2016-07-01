@@ -14,7 +14,7 @@ const BracketPlayer = (props) => (<div>
 
 BracketPlayer.propTypes = {
   player: PropTypes.object,
-  won: PropTypes.boolean,
+  won: PropTypes.bool,
 };
 
 export default BracketPlayer;
