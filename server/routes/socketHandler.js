@@ -50,7 +50,8 @@ module.exports.socket = function socketAttachment(io) {
         tournaments.create(
           socket.request.user._id,
           data.entry.tournName,
-          data.entry.tournType
+          data.entry.tournType,
+          data.entry.rules
         )
         .then((result) => {
           socket.emit('new_tourn_success', {

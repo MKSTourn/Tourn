@@ -6,7 +6,7 @@ const users = require('./users.js');
 
 const Tournaments = module.exports;
 
-Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) => {
+Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, reject) => {
   console.log(organizerid, name, type);
   users.findById(organizerid)
     .then((userObject) => {
@@ -14,6 +14,7 @@ Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) 
         organizerid,
         name,
         type,
+        rules,
         bracketSize: 0,
         registrationOpen: true,
         roster: [],
