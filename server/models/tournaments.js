@@ -22,22 +22,19 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
         start: false,
         invite: true,
       }, (err, result) => {
-        if (err) reject(err);
+        if (err) { reject(err); return; }
 
-        users.findById(organizerid)
-          .then((user) => {
-            user.tournamentIds.push({
-              tournId: result._id,
-              tournName: result.name,
+        userObject.tournamentIds.push({
+          tournId: result._id,
+          tournName: result.name,
+        });
+        userObject.save((saveErr) => {
+          if (saveErr) reject(saveErr);
+          Tournaments.addRosterPlayer(result, organizerid)
+            .then(() => {
+              resolve(result);
             });
-            user.save((saveErr) => {
-              if (saveErr) reject(saveErr);
-              Tournaments.addRosterPlayer(result, organizerid)
-                .then(() => {
-                  resolve(result);
-                });
-            });
-          });
+        });
       });
     });
 });
