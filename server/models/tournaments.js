@@ -237,6 +237,7 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
         if (someFurtherMatch === -1) {
           resolve(playerObject);
 
+          endResult.bracket[match].status = 'Concluded';
           endResult.bracket[match].winner = {
             playerName: playerObject.name,
             playerId: playerObject._id,
@@ -246,13 +247,13 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
           return;
         }
 
+        endResult.bracket[match].status = 'Concluded';
         endResult.bracket[match].winner = {
           playerName: playerObject.name,
           playerId: playerObject._id,
           playerPic: playerObject.picture,
         };
         if (!endResult.bracket[someFurtherMatch].playerA.playerName) {
-          endResult.bracket[someFurtherMatch] = {};
           endResult.bracket[someFurtherMatch].playerA =
           {
             playerName: playerObject.name,
@@ -260,6 +261,7 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
             playerPic: playerObject.picture,
           };
         } else {
+          endResult.bracket[someFurtherMatch].status = 'In progress';
           endResult.bracket[someFurtherMatch].playerB =
           {
             playerName: playerObject.name,
