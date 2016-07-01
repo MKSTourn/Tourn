@@ -102,6 +102,7 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 
     endResult.start = true;
     endResult.invite = false;
+    endResult.status = 'In progress';
     console.log('startTourn: saving...!');
     endResult.save((saveErr, saveResult) => {
       console.log('startTourn: saveResult =', saveResult);
@@ -237,6 +238,7 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
         if (someFurtherMatch === -1) {
           resolve(playerObject);
 
+          endResult.status = 'Concluded';
           endResult.bracket[match].status = 'Concluded';
           endResult.bracket[match].winner = {
             playerName: playerObject.name,
