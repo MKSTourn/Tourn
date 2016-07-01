@@ -55,31 +55,32 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.addChatMessage =
-  (tournid, authorId, authorName, authorPic, message, timeStamp) => new Promise((resolve, reject) => {
-    TournamentSchema.findById(tournid, (err, result) => {
-      if (err) {
-        console.log('addChatMessage error');
-        reject(err);
-        return;
-      }
-
-      if (!result) {
-        console.log('Tournament doesnt exist');
-        reject('Tournament doesnt exist!');
-        return;
-      }
-
-      result.chatHistory.push({ authorId, authorName, authorPic, message, timeStamp });
-
-      result.save((saveErr, saveResult) => {
-        if (saveErr) {
-          console.log('Chat Message save error', saveErr);
-          reject(saveErr);
+  (tournid, authorId, authorName, authorPic, message, timeStamp) =>
+    new Promise((resolve, reject) => {
+      TournamentSchema.findById(tournid, (err, result) => {
+        if (err) {
+          console.log('addChatMessage error');
+          reject(err);
           return;
         }
-        resolve(saveResult);
+
+        if (!result) {
+          console.log('Tournament doesnt exist');
+          reject('Tournament doesnt exist!');
+          return;
+        }
+
+        result.chatHistory.push({ authorId, authorName, authorPic, message, timeStamp });
+
+        result.save((saveErr, saveResult) => {
+          if (saveErr) {
+            console.log('Chat Message save error', saveErr);
+            reject(saveErr);
+            return;
+          }
+          resolve(saveResult);
+        });
       });
-    });
   });
 
 Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
@@ -148,9 +149,12 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           console.log('Fillout!');
           Tournaments.fillOutBracket(tournid)
             .then((finalResult) => {
-              console.log('Final Result!', finalResult.bracket[Math.floor(finalResult.roster.length / 2)]);
-              console.log('Final Result!', !!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName);
-              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName) {
+              console.log('Final Result!',
+                finalResult.bracket[Math.floor(finalResult.roster.length / 2)]);
+              console.log('Final Result!',
+                !!finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA.playerName);
+              if (!finalResult.bracket[Math.floor(finalResult.roster.length / 2)]
+                .playerA.playerName) {
                 console.log('Player A?');
                 finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerA =
                 {
@@ -222,10 +226,10 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
         endResult.bracket[match].winner = playerObject;
         if (!endResult.bracket[someFurtherMatch]) {
           endResult.bracket[someFurtherMatch] = {};
-          endResult.bracket[someFurtherMatch].playerA = 
+          endResult.bracket[someFurtherMatch].playerA =
             { playerName: playerObject.name, playerId: playerObject._id };
         } else {
-          endResult.bracket[someFurtherMatch].playerB = 
+          endResult.bracket[someFurtherMatch].playerB =
             { playerName: playerObject.name, playerId: playerObject._id };
         }
 
