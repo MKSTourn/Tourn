@@ -7,7 +7,7 @@ import Rules from './rules/Rules.jsx';
 function mapStateToProps(state){
   return {
     mode: state.get('mode'),
-    isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']),
+    tournOrganizer: state.getIn(['tournament', 'info', 'tournOrganizer']),
     rules: state.getIn(['tournament', 'info', 'rules']),
     tournType: state.getIn(['tournament', 'info', 'tournType']),
   };

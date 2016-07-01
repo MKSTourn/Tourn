@@ -12,7 +12,7 @@ export default function startListeners(socket) {
   socket.on('new_tourn_success', (data) => {
     console.log('Socket event: new_tourn_success:', data);
     dispatch(actions.changeMode('LoggedIn'));
-    dispatch(actions.setTournState(data));
+    dispatch(actions.selectTourn(data.info.tournId));
     dispatch(actions.addNewTourn(data.info.tournId,
                                  data.info.tournName));
     dispatch(actions.allowInvites(true));
@@ -84,7 +84,7 @@ export default function startListeners(socket) {
   // Server sends back an OK after advancing a player in the tournament
   socket.on('update_bracket', (data) => {
     console.log('Socket event: update_bracket:', data);
-    dispatch(actions.updateBracket(data));
+    dispatch(actions.updateBracket(data.tournId, data.matchIndex, data.winner));
   });
 
   // Server sends back an OK after advancing a player in the tournament
@@ -125,6 +125,7 @@ export default function startListeners(socket) {
     dispatch(actions.allowInvites(false));
     dispatch(actions.setStart(true));
     dispatch(actions.updateTournStatus('In Progress'));
+    // set tournament.bracket.tournStatus = 'In Progress'
   });
 
   //

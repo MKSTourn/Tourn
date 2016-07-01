@@ -13,7 +13,7 @@ function getMatchVerticalSpacing(currentRound, currentMatch, matchCount) {
 }
 
 function getMatchHorizontalOffset(matchCount) {
-  return 1 / Math.log2(matchCount + 1);
+  return 1 / Math.log2(matchCount * 2);
 }
 
 function getMatchHorizontalSpacing(currentRound, matchCount) {
@@ -34,12 +34,13 @@ function generateBracketPoints(playerCount, width, height) {
   // Iterate over every set of matches
   while (uncalculatedMatches >= 0.5) {
     for (let currentMatch = 1; currentMatch <= uncalculatedMatches; currentMatch++) {
+      const horizontalOffset = getMatchHorizontalOffset(matchCount);
       const horizontalSpacing = getMatchHorizontalSpacing(currentRound, matchCount);
       const verticalSpacing = getMatchVerticalSpacing(currentRound, currentMatch, matchCount);
 
       result.push([
-        { x: horizontalSpacing * width, y: verticalSpacing * height },
-        { x: horizontalSpacing * width + (width * (1 / (Math.log2(matchCount) + 1))), y: verticalSpacing * height },
+        { x: horizontalSpacing * width + horizontalSpacing * width * 0.05, y: verticalSpacing * height },
+        { x: horizontalSpacing * width + horizontalOffset * width, y: verticalSpacing * height },
         true,
       ]);
     }

@@ -7,9 +7,10 @@ import Roster from './roster/Roster.jsx';
 function mapStateToProps(state) {
   return {
     invite: state.getIn(['tournament', 'invite']),
-    isOrganizer: state.getIn(['tournament', 'info', 'isOrganizer']),
+    tournOrganizer: state.getIn(['tournament', 'info', 'tournOrganizer']),
     roster: state.getIn(['tournament', 'roster']),
     tournId: state.getIn(['tournament', 'info', 'tournId']),
+    userId: state.getIn(['header', 'userData', 'userId']),
   };
 }
 

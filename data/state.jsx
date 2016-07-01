@@ -34,7 +34,7 @@ const INITIAL_STATE = {
       tournId: null, // integer
       tournName: '', // tourn name string
       tournType: '', // tourn type string (single, double, roundrobin)
-      isOrganizer: false, // true if the current user is the organizer of this tourn
+      tournOrganizer: '', // user id of the organizer
       rules: '', // organizer defined rules text string
     },
     chat: {

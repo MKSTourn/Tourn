@@ -20,12 +20,13 @@ const tournamentSchema = new Schema({
   // Litterally all it exists to be.
   tournStatus: String,
 
-  tournWinner: Schema.ObjectId,
+  tournWinner: { playerName: String, playerPic: String, playerId: Schema.ObjectId },
 
   // All messages for a given tournament
   chatHistory: [{
     authorId: Schema.ObjectId,
     authorName: String,
+    authorPic: String,
     message: String,
     timeStamp: String,
   }],
@@ -35,6 +36,8 @@ const tournamentSchema = new Schema({
   // All players regardless of current status
   roster: [{
     playerId: Schema.ObjectId,
+    playerName: String,
+    playerPic: String,
   }],
 
   // All current and previous rounds

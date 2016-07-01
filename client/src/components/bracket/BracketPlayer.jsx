@@ -1,18 +1,41 @@
 import React, { PropTypes } from 'react';
 
-const BracketPlayer = (props) => (<div>
-  <img
-    style={{ float: 'left', width: 50, height: 50 }}
-    src={props.player.playerPic}
-    alt="A player"
-    title={props.player.playerName}
-    onClick={props.updateBracket.bind(null, props.player)}
-  />
-</div>);
+const BracketPlayer = (props) => {
+  if (props.userId === props.tournOrganizer &&
+                       props.start &&
+                       props.matches[props.matchIndex].status !== 'Concluded') {
+    return (
+      <div>
+        <img
+          style={{ float: 'left', width: 50, height: 50 }}
+          src={props.player.playerPic}
+          alt="A player"
+          title={props.player.playerName}
+          onClick={props.submitAdvance.bind(null, props.tournId, props.matchIndex, props.player)}
+        />
+      </div>);
+  }
+
+  return (
+    <div>
+      <img
+        style={{ float: 'left', width: 50, height: 50 }}
+        src={props.player.playerPic}
+        alt="A player"
+        title={props.player.playerName}
+      />
+    </div>);
+};
 
 BracketPlayer.propTypes = {
   player: PropTypes.object,
-  updateBracket: PropTypes.func,
+  matches: PropTypes.array,
+  submitAdvance: PropTypes.func,
+  tournId: PropTypes.string,
+  matchIndex: PropTypes.number,
+  userId: PropTypes.string,
+  tournOrganizer: PropTypes.string,
+  start: PropTypes.bool,
 };
 
 export default BracketPlayer;

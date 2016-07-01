@@ -6,39 +6,45 @@ const users = require('./users.js');
 
 const Tournaments = module.exports;
 
-Tournaments.create = (organizerid, name, type) => new Promise((resolve, reject) => {
+Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, reject) => {
   console.log(organizerid, name, type);
-  TournamentSchema.create({
-    organizerid,
-    name,
-    type,
-    bracketSize: 1,
-    registrationOpen: true,
-    roster: [{
-      playerId: organizerid,
-    }],
-    start: false,
-    invite: true,
-  }, (err, result) => {
-    if (err) reject(err);
+  users.findById(organizerid)
+    .then((userObject) => {
+      TournamentSchema.create({
+        organizerid,
+        name,
+        type,
+        rules,
+        bracketSize: 0,
+        registrationOpen: true,
+        status: 'Not started',
+        roster: [],
+        start: false,
+        invite: true,
+      }, (err, result) => {
+        if (err) reject(err);
 
-    users.findById(organizerid)
-      .then((user) => {
-        user.tournamentIds.push({
-          tournId: result._id,
-          tournName: result.name,
-        });
-        user.save((saveErr) => {
-          if (saveErr) reject(saveErr);
-          resolve(result);
-        });
+        users.findById(organizerid)
+          .then((user) => {
+            user.tournamentIds.push({
+              tournId: result._id,
+              tournName: result.name,
+            });
+            user.save((saveErr) => {
+              if (saveErr) reject(saveErr);
+              Tournaments.addRosterPlayer(result, organizerid)
+                .then(() => {
+                  resolve(result);
+                });
+            });
+          });
       });
-  });
+    });
 });
 
 Tournaments.findById = (tournamentid) => new Promise((resolve, reject) => {
   TournamentSchema.findById(tournamentid, (err, result) => {
-    if (err) reject(err);
+    if (err) { console.log('Tourn Not Found'); reject(err); return; }
     resolve(result);
   });
 });
@@ -51,7 +57,7 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.addChatMessage =
-  (tournid, authorId, authorName, message, timeStamp) => new Promise((resolve, reject) => {
+  (tournid, authorId, authorName, authorPic, message, timeStamp) => new Promise((resolve, reject) => {
     TournamentSchema.findById(tournid, (err, result) => {
       if (err) {
         console.log('addChatMessage error');
@@ -65,7 +71,7 @@ Tournaments.addChatMessage =
         return;
       }
 
-      result.chatHistory.push({ authorId, authorName, message, timeStamp });
+      result.chatHistory.push({ authorId, authorName, authorPic, message, timeStamp });
 
       result.save((saveErr, saveResult) => {
         if (saveErr) {
@@ -97,6 +103,7 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 
     endResult.start = true;
     endResult.invite = false;
+    endResult.status = 'In progress';
     console.log('startTourn: saving...!');
     endResult.save((saveErr, saveResult) => {
       console.log('startTourn: saveResult =', saveResult);
@@ -110,55 +117,118 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, reject) => {
   users.findById(playerId)
     .then((playerObject) => {
-      TournamentSchema.findById(tournid, (err, result) => {
-        if (err) {
-          reject(err);
-          return;
-        }
-
+      TournamentSchema.findById(tournid).then((result) => {
         if (!result) {
+          console.log('Not found error');
           reject('Couldnt find tournament!');
           return;
         }
         const endResult = result;
 
-        endResult.roster.push({ playerId });
+        console.log('Player data', playerObject);
+
+        console.log('Attempt to add player', {
+          playerId: playerObject._id,
+          playerName: playerObject.name,
+          playerPic: playerObject.picture,
+        });
+
+        if (endResult.roster.length >= 8) {
+          reject('Max player size reached');
+          return;
+        }
+
+        endResult.roster.push({
+          playerId: playerObject._id,
+          playerName: playerObject.name,
+          playerPic: playerObject.picture,
+        });
+
         endResult.bracketSize = result.bracketSize ?
           BracketHelper.getBracketSize(endResult.roster.length) :
           2;
+        endResult.save((savErr) => {
+          if (savErr) {
+            console.log('Save Error!');
+            reject(savErr);
+            return;
+          }
 
-        const match = {
-          playerA: {
-            playerName: playerObject.name,
-            playerPic: playerObject.picture,
-            playerId: playerObject._id,
-          },
-          playerB: null,
-          winner: null,
-        };
+          console.log('Fillout!');
+          Tournaments.fillOutBracket(tournid)
+            .then((finalResult) => {
+              console.log('Final Result!', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)]);
+              console.log('Final Result!', !!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName);
+              if (!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName) {
+                console.log('Player A?');
+                finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA =
+                {
+                  playerName: playerObject.name,
+                  playerPic: playerObject.picture,
+                  playerId: playerObject._id,
+                };
+              } else {
+                console.log('Player B?', finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB);
+                finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB =
+                {
+                  playerName: playerObject.name,
+                  playerPic: playerObject.picture,
+                  playerId: playerObject._id,
+                };
+              }
 
-        if (!endResult.bracket[Math.floor(endResult.roster.length / 2)]) {
-          endResult.bracket[Math.floor(endResult.roster.length / 2)] = match;
-        } else {
-          endResult.bracket[Math.floor(endResult.roster.length / 2)].playerB =
-          {
-            playerName: playerObject.name,
-            playerPic: playerObject.picture,
-            playerId: playerObject._id,
-          };
-        }
-
-        endResult.save((saveErr, saveResult) => {
-          if (saveErr) reject(saveErr);
-          resolve(saveResult);
+              console.log('Final Save!', finalResult);
+              finalResult.save((saveErr, saveResult) => {
+                if (saveErr) {
+                  console.log('Save Error!');
+                  reject(saveErr);
+                  return;
+                }
+                resolve(saveResult);
+              });
+            });
         });
       });
     });
 });
 
+Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
+  console.log('Tourn ID', tournid);
+  Tournaments.findById(tournid)
+    .then((tourn) => {
+      console.log('Filling out...');
+
+      while (tourn.bracket.length <= tourn.bracketSize - 2) {
+        tourn.bracket.push({
+          playerA: null,
+          playerB: null,
+          winner: null,
+          status: 'Not Started',
+        });
+      }
+
+      tourn.save((err, res) => {
+        if (err) {
+          console.log('Error hit');
+          reject(err);
+          return;
+        }
+
+        console.log('Resolving...');
+        resolve(res);
+      });
+    });
+});
+
 Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, reject) => {
+  console.log('Model Advanced!', tournid, playerId, match);
   users.findById(playerId)
     .then((playerObject) => {
+      if (!playerObject) {
+        reject('Player not found!');
+        return;
+      }
+
       TournamentSchema.findById(tournid, (err, result) => {
         if (err) reject(err);
 
@@ -166,20 +236,61 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
 
         const someFurtherMatch = BracketHelper.getNextMatch(match, result.bracketSize);
 
-        endResult.bracket[match].winner = playerObject;
-        if (!endResult.bracket[someFurtherMatch]) {
-          endResult.bracket[someFurtherMatch] = {};
-          endResult.bracket[someFurtherMatch].playerA = 
-            { playerName: playerObject.name, playerId: playerObject._id };
-        } else {
-          endResult.bracket[someFurtherMatch].playerB = 
-            { playerName: playerObject.name, playerId: playerObject._id };
+        if (someFurtherMatch === null) {
+          reject('Attempt to advance a non-existent or invalid match', someFurtherMatch);
+          return;
         }
 
-        endResult.save((saveErr, saveResult) => {
-          if (saveErr) reject(saveErr);
-          resolve(saveResult);
-        });
+        if (someFurtherMatch === -1) {
+
+          endResult.status = 'Concluded';
+          endResult.bracket[match].status = 'Concluded';
+          endResult.bracket[match].winner = {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
+          endResult.tournWinner = {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
+
+          endResult.save((saveErr, saveResult) => {
+            if (saveErr) { reject(saveErr); return; }
+            console.log('Saved result', saveResult.bracket[match]);
+            resolve(playerObject);
+          });
+        } else {
+          endResult.bracket[match].status = 'Concluded';
+          endResult.bracket[match].winner = {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
+          if (!endResult.bracket[someFurtherMatch].playerA.playerName) {
+            endResult.bracket[someFurtherMatch].playerA =
+            {
+              playerName: playerObject.name,
+              playerId: playerObject._id,
+              playerPic: playerObject.picture,
+            };
+          } else {
+            endResult.bracket[someFurtherMatch].status = 'In progress';
+            endResult.bracket[someFurtherMatch].playerB =
+            {
+              playerName: playerObject.name,
+              playerId: playerObject._id,
+              playerPic: playerObject.picture,
+            };
+          }
+
+          endResult.save((saveErr, saveResult) => {
+            if (saveErr) { reject(saveErr); return; }
+            console.log('Saved result', saveResult.bracket[match]);
+            resolve(playerObject);
+          });
+        }
       });
     });
 });

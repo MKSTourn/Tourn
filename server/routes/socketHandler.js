@@ -50,7 +50,8 @@ module.exports.socket = function socketAttachment(io) {
         tournaments.create(
           socket.request.user._id,
           data.entry.tournName,
-          data.entry.tournType
+          data.entry.tournType,
+          data.entry.rules
         )
         .then((result) => {
           socket.emit('new_tourn_success', {
@@ -83,7 +84,7 @@ module.exports.socket = function socketAttachment(io) {
         // console.log('select_tourn', data);
         tournaments.findById(data.entry.tournId)
           .then((result) => {
-            const tournResult = stateGenerator.generateTournamentData(socket.request.user, result);
+            const tournResult = stateGenerator.generateTournamentData(result);
             socket.join(result._id.toString(),
                 (...args) => console.log('Joined tourn room, ', result._id.toString()));
             if (result) {
@@ -138,15 +139,19 @@ module.exports.socket = function socketAttachment(io) {
       //   Validates that user is the organizer and calculates next match
       //   Updates bracket for that tournament in db
       // Server sends back new tournament state to all users
-      socket.on('update_bracket', (data) => {
-        // console.log('update_bracket', data);
-        tournaments.advancePlayer(data.entry.tournId, data.entry.winner, data.entry.matchIndex)
-        .then(() => {
+      socket.on('advance_player', (data) => {
+        console.log('update_bracket', data);
+        tournaments.advancePlayer(data.entry.tournId, data.entry.playerId, data.entry.matchIndex)
+        .then((player) => {
           socket.emit('update_bracket_success');
-          io.to(data.to).emit('advance_player',
+          io.to(data.to).emit('update_bracket',
             {
               tournId: data.entry.tournId,
-              winner: data.entry.playerId,
+              winner: {
+                playerId: player._id,
+                playerName: player.name,
+                playerPic: player.picture,
+              },
               matchIndex: data.entry.matchIndex,
             });
         })
@@ -166,10 +171,21 @@ module.exports.socket = function socketAttachment(io) {
         console.log('accept_invite', data);
         users.acceptInvite(socket.request.user._id, data.entry.alertId)
           .then((result) => {
+            console.log('Accepted invite');
             tournaments.addRosterPlayer(result.tournId, socket.request.user._id)
-              .then(() => {
+              .then((tourn) => {
+                console.log('User result', result);
+                console.log('Tourn result', tourn);
+
+                console.log(typeof socket.rooms);
+
                 socket.emit('accept_invite_success', { tournId: result.tournId });
-                io.to(data.to).emit('set_tourn_state', result);  // TODO - generate tourn state and send to all players in tourn
+
+                socket.join(socket.request.user.name);
+                socket.join(data.to, () => {
+                  io.to(data.to)
+                    .emit('set_tourn_state', stateGenerator.generateTournamentData(tourn));
+                });
               })
               .catch((err) => {
                 console.log('accept_invited tournament update error', err);
@@ -233,6 +249,7 @@ module.exports.socket = function socketAttachment(io) {
           data.entry.tournId,
           socket.request.user._id,
           socket.request.user.name,
+          socket.request.user.picture,
           data.entry.message,
           data.entry.timeStamp)
         .then((result) => {
