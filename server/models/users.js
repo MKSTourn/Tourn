@@ -123,7 +123,7 @@ Users.acceptInvite = (userid, alertid) => new Promise((resolve, reject) => {
   Users.findById(userid)
     .then((result) => {
       let resAlert = null;
-      
+
       console.log('Erasing alert');
       result.alerts.forEach((alert) => {
         if (alert._id.toString() === alertid) {

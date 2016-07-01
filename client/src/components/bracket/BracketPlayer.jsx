@@ -8,6 +8,7 @@ const BracketPlayer = (props) => (<div>
     title={props.player.playerName}
     onClick={props.submitAdvance.bind(null, props.tournId, props.matchIndex, props.player)}
   />
+  {console.log('WHAT THE FUCK?', props.player)}
 </div>);
 
 BracketPlayer.propTypes = {

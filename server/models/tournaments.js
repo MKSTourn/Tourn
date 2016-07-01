@@ -228,14 +228,27 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
 
         const someFurtherMatch = BracketHelper.getNextMatch(match, result.bracketSize);
 
+        if (someFurtherMatch === null || someFurtherMatch === -1) {
+          reject('Attempt to advance a non-existent or invalid match', someFurtherMatch);
+          return;
+        }
+
         endResult.bracket[match].winner = playerObject;
-        if (!endResult.bracket[someFurtherMatch]) {
+        if (!endResult.bracket[someFurtherMatch].playerA.playerName) {
           endResult.bracket[someFurtherMatch] = {};
           endResult.bracket[someFurtherMatch].playerA =
-            { playerName: playerObject.name, playerId: playerObject._id };
+          {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
         } else {
           endResult.bracket[someFurtherMatch].playerB =
-            { playerName: playerObject.name, playerId: playerObject._id };
+          {
+            playerName: playerObject.name,
+            playerId: playerObject._id,
+            playerPic: playerObject.picture,
+          };
         }
 
         endResult.save((saveErr, saveResult) => {
