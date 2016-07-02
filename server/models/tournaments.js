@@ -29,7 +29,12 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
           tournName: result.name,
         });
         userObject.save((saveErr) => {
-          if (saveErr) reject(saveErr);
+          if (saveErr) {
+            console.log('Error saving newly created tournament');
+            reject(saveErr);
+            return;
+          }
+
           Tournaments.addRosterPlayer(result, organizerid)
             .then(() => {
               resolve(result);
@@ -54,7 +59,8 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.addChatMessage =
-  (tournid, authorId, authorName, authorPic, message, timeStamp) => new Promise((resolve, reject) => {
+  (tournid, authorId, authorName, authorPic, message, timeStamp) =>
+  new Promise((resolve, reject) => {
     TournamentSchema.findById(tournid, (err, result) => {
       if (err) {
         console.log('addChatMessage error');
@@ -115,9 +121,9 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
   users.findById(playerId)
     .then((playerObject) => {
       TournamentSchema.findById(tournid).then((result) => {
-        if (!result) {
-          console.log('Not found error');
-          reject('Couldnt find tournament!');
+        if (!result || !playerObject) {
+          console.log('Not found error', !!result, result, !!playerObject, playerObject);
+          reject('Couldnt find a required piece of data!');
           return;
         }
         const endResult = result;
