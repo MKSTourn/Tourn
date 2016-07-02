@@ -1,15 +1,14 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const UserTournaments = (props) => (
   props.showTournList ?
-    <div>
-      <button
-        className="dropdownBtn"
+    <span>
+      <img
         onClick={props.toggleTournSelect}
-      >
-        Tournaments List
-      </button>
+        className="header-icons"
+        src="./assets/img/trophy.png" alt="Submit New Tournament"
+      ></img>
       <ul className="tournDropdownList">
         {props.userTourns.map((tournament, key) =>
           <TournListItem
@@ -19,17 +18,17 @@ const UserTournaments = (props) => (
           />
         )}
       </ul>
-    </div>
+    </span>
     :
-    <div>
-      <button
-        className="dropdownBtn"
+    <span>
+      <img
         onClick={props.toggleTournSelect}
-      >
-        Tournaments List
-      </button>
-    </div>
+        className="header-icons"
+        src="./assets/img/trophy.png" alt="Submit New Tournament"
+      ></img>
+    </span>
 );
+
 
 UserTournaments.propTypes = {
   showTournList: PropTypes.bool,

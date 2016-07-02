@@ -1,15 +1,15 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const Alerts = (props) => (
   props.showAlertList ?
-    <div>
-      <button
-        className="alertBtn"
+    <span>
+      <img
+        className="header-icons"
         onClick={props.toggleAlerts}
+        src="./assets/img/alerts.png" alt="Alerts List"
       >
-        Alerts
-      </button>
+      </img>
       <ul className="alertDropdownList">
         {props.userAlerts.map((alert, key) =>
           <AlertListItem
@@ -20,16 +20,16 @@ const Alerts = (props) => (
           />
         )}
       </ul>
-    </div>
+    </span>
     :
-    <div>
-      <button
-        className="alertBtn"
+    <span>
+      <img
+        className="header-icons"
         onClick={props.toggleAlerts}
+        src="./assets/img/alerts.png" alt="Alerts List"
       >
-        Alerts
-      </button>
-    </div>
+      </img>
+    </span>
 );
 
 Alerts.propTypes = {
