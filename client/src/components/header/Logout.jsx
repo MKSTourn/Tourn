@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Cookies from 'js-cookie';
+
 import '../../../public/assets/styles/main.css';
 
 const Logout = (props) => {

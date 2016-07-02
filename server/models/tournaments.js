@@ -17,27 +17,24 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
         rules,
         bracketSize: 0,
         registrationOpen: true,
-        status: 'Not started',
+        tournStatus: 'Not started',
         roster: [],
         start: false,
         invite: true,
       }, (err, result) => {
-        if (err) reject(err);
+        if (err) { reject(err); return; }
 
-        users.findById(organizerid)
-          .then((user) => {
-            user.tournamentIds.push({
-              tournId: result._id,
-              tournName: result.name,
+        userObject.tournamentIds.push({
+          tournId: result._id,
+          tournName: result.name,
+        });
+        userObject.save((saveErr) => {
+          if (saveErr) reject(saveErr);
+          Tournaments.addRosterPlayer(result, organizerid)
+            .then(() => {
+              resolve(result);
             });
-            user.save((saveErr) => {
-              if (saveErr) reject(saveErr);
-              Tournaments.addRosterPlayer(result, organizerid)
-                .then(() => {
-                  resolve(result);
-                });
-            });
-          });
+        });
       });
     });
 });
@@ -103,7 +100,7 @@ Tournaments.startTourn = (tournid) => new Promise((resolve, reject) => {
 
     endResult.start = true;
     endResult.invite = false;
-    endResult.status = 'In progress';
+    endResult.tournStatus = 'In progress';
     console.log('startTourn: saving...!');
     endResult.save((saveErr, saveResult) => {
       console.log('startTourn: saveResult =', saveResult);
@@ -168,7 +165,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                   playerId: playerObject._id,
                 };
               } else {
-                console.log('Player B?', finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB);
+                console.log('Player B?', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB);
                 finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB =
                 {
                   playerName: playerObject.name,
@@ -243,7 +240,7 @@ Tournaments.advancePlayer = (tournid, playerId, match) => new Promise((resolve, 
 
         if (someFurtherMatch === -1) {
 
-          endResult.status = 'Concluded';
+          endResult.tournStatus = 'Concluded';
           endResult.bracket[match].status = 'Concluded';
           endResult.bracket[match].winner = {
             playerName: playerObject.name,

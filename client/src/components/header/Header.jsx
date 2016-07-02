@@ -45,13 +45,13 @@ const Header = ({
       <a href="auth/facebook/">
         <img className="header-icons"
           src="./assets/img/facebook-5-32.png"
+          alt="Login with Facebook"
         >
         </img>
       </a>
     </li>
   </nav>
  :
-
   <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}

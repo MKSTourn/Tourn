@@ -22,7 +22,8 @@ const Bracket = ({
   mode,
 }) => {
   const points = generateBracketPoints(bracketSize, size.x, size.y);
-
+  console.log('Bracket: tournStatus', tournStatus);
+  console.log('Bracket: tournWinner', tournWinner);
   return (
     <section className="teaser row col-bracket-box">
       <TournName
@@ -68,7 +69,8 @@ const Bracket = ({
                     >
                     {
                       tournStatus === 'Concluded' &&
-                      player1.playerId === tournWinner.playerId ?
+                      player1.playerId === tournWinner.get('playerId') &&
+                      index === matches.length - 1 ?
                         <BracketWinner
                           player={player1}
                           won
@@ -98,7 +100,7 @@ const Bracket = ({
                   >
                   {
                     tournStatus === 'Concluded' &&
-                    player2.playerId === tournWinner.playerId ?
+                    player2.playerId === tournWinner.get('playerId') ?
                       <BracketWinner
                         player={player2}
                         won
