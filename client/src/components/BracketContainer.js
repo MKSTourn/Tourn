@@ -8,10 +8,11 @@ function mapStateToProps(state) {
   console.log(state.getIn(['tournament', 'bracket']).toJS());
   return {
     size: {
-      x: document.getElementById('bracketWidth') ?
-        document.getElementById('bracketWidth').offsetWidth : 800,
-      y: document.getElementById('bracketWidth') ?
-        document.getElementById('bracketWidth').offsetHeight - 5 : 400,
+      x: 100,
+      y: 50,
+      width: document.getElementById('bracketWidth') ?
+        document.getElementById('bracketWidth').widthOffset :
+        500,
     },
     players: state.getIn(['tournament', 'roster']).toJS(),
     matches: state.getIn(['tournament', 'bracket', 'matches']).toJS(),

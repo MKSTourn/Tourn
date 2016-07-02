@@ -71,7 +71,7 @@ body {
 svg g polyline {
   fill: white;
   stroke: #fff;
-  stroke-width: 4px;
+  stroke-width: 0.5%;
 }
 /*
   ========================================
