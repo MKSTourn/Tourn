@@ -1,5 +1,4 @@
 const InviteSchema = require('../schemas/unclaimedInvites.js');
-// const uuid = require('uuid');
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;
