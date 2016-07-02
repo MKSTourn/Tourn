@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const TournName = (props) => {
   const onNameChange = (e) => {

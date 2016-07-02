@@ -3,7 +3,7 @@ import UserTournaments from './userTournaments.jsx';
 import Alerts from './alerts.jsx';
 import Logout from './Logout.jsx';
 import CreateTournament from './createTournament.jsx';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const Header = ({
   changeMode,
@@ -19,8 +19,7 @@ const Header = ({
   selectTourn,
   deleteAlert,
   acceptInvite,
-}) => mode === 'LoggedOut' ?
-(
+}) => (mode === 'LoggedOut' ?
   <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}
@@ -42,10 +41,17 @@ const Header = ({
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
     />{/* <!--
-    --> */}<li><button className="btn-nav" src="auth/facebook/">Login With Facebook</button></li>
+    --> */}<li>
+      <a href="auth/facebook/">
+        <img className="header-icons"
+          src="./assets/img/facebook-5-32.png"
+          alt="Login with Facebook"
+        >
+        </img>
+      </a>
+    </li>
   </nav>
-) :
-(
+ :
   <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}

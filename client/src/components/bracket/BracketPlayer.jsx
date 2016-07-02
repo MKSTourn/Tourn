@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const BracketPlayer = (props) => {
   if (props.userId === props.tournOrganizer &&
@@ -20,7 +20,7 @@ const BracketPlayer = (props) => {
   return (
     <div>
       <img
-        style={{ float: 'left', width: 50, height: 50 }}
+        className="bracket-image"
         src={props.player.playerPic}
         alt="A player"
         title={props.player.playerName}

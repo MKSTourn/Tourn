@@ -1,15 +1,18 @@
 import React, { PropTypes } from 'react';
 import Cookies from 'js-cookie';
-import '../../../public/main.css';
+
+import '../../../public/assets/styles/main.css';
 
 const Logout = (props) => {
   const onLogoutClick = () => {
     props.changeMode('LoggedOut');
     console.log('cookies =', Cookies.get());
   };
-  return (<button onClick={onLogoutClick}>
-    Logout
-  </button>);
+  return (<img
+    onClick={onLogoutClick}
+    className="header-icons"
+    src="./assets/img/logout.png" alt="Logout"
+  ></img>);
 };
 
 Logout.propTypes = {

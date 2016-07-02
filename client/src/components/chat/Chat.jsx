@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 import moment from 'moment';
 import Message from './ChatMessage.jsx';
 
@@ -23,6 +23,7 @@ const Chat = (props) => {
         {props.chat.history.map((message, key) => {
           const messageElement = (<Message
             key={key}
+            img={message.authorPic}
             sender={message.authorName}
             timestamp={message.timeStamp}
             message={message.message}

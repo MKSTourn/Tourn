@@ -4,7 +4,7 @@ import RosterContainer from './RosterContainer.js';
 import BracketContainer from './BracketContainer.js';
 import ChatContainer from './ChatContainer';
 import RulesContainer from './RulesContainer.js';
-import '../../public/main.css';
+import '../../public/assets/styles/main.css';
 
 const Main = () => (
   <div>

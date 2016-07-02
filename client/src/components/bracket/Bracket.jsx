@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
 import TournName from './TournName.jsx';
 import BracketPlayer from './BracketPlayer.jsx';

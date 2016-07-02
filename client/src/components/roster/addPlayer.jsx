@@ -1,19 +1,20 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const AddPlayer = (props) => {
   let invitee = '';
   const inviteeName = (e) => (
 		invitee = e.target.value
 	);
-  const sendPropInvite = () => (
-		props.sendInvite(props.tournId, invitee)
-	);
+  const sendPropInvite = (e) => {
+    e.preventDefault();
+		props.sendInvite(props.tournId, invitee);
+	};
 
   return (props.invite && !props.start ?
     <form className="roster-chat-input-container">
       <input className="roster-chat-input" type="text" onChange={inviteeName}></input>{/* <!--
-      --> */}<button className="btn-alt" onClick={sendPropInvite}>Add Player</button>
+      --> */}<button className="btn-alt" onClick={sendPropInvite}>Submit</button>
     </form>
  :	null);
 };

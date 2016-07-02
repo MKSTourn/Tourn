@@ -1,32 +1,31 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const CreateTournament = (props) => {
   if (props.mode === 'Edit') {
-    return (<div>
-      <button
+    return (<span>
+      <img
         onClick={props.changeMode.bind(null, 'LoggedIn')}
-        className="cancelNewTournBtn"
+        className="header-icons"
+        src="./assets/img/cancel.png" alt="Cancel New Tournament"
       >
-        X
-      </button>
-      <button
+      </img>
+      <img
         onClick={props.submitNewTourn.bind(null, props.tournInfo)}
-        className="submitTournamentBtn"
+        className="header-icons"
+        src="./assets/img/check-mark-32.png" alt="Submit New Tournament"
       >
-        S
-      </button>
-    </div>);
+      </img>
+    </span>);
   }
 
-  return (<div>
-    <button
+  return (<span>
+    <img
       onClick={props.changeMode.bind(null, 'Edit')}
-      className="addTournamentButton"
-    >
-      +
-    </button>
-  </div>);
+      className="header-icons"
+      src="./assets/img/plus.png" alt="Create New Tournament"
+    ></img>
+  </span>);
 };
 
 CreateTournament.propTypes = {

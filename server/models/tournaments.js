@@ -29,7 +29,12 @@ Tournaments.create = (organizerid, name, type, rules) => new Promise((resolve, r
           tournName: result.name,
         });
         userObject.save((saveErr) => {
-          if (saveErr) reject(saveErr);
+          if (saveErr) {
+            console.log('Error saving newly created tournament');
+            reject(saveErr);
+            return;
+          }
+
           Tournaments.addRosterPlayer(result, organizerid)
             .then(() => {
               resolve(result);
@@ -54,7 +59,8 @@ Tournaments.findByUser = (userid) => new Promise((resolve, reject) => {
 });
 
 Tournaments.addChatMessage =
-  (tournid, authorId, authorName, authorPic, message, timeStamp) => new Promise((resolve, reject) => {
+  (tournid, authorId, authorName, authorPic, message, timeStamp) =>
+  new Promise((resolve, reject) => {
     TournamentSchema.findById(tournid, (err, result) => {
       if (err) {
         console.log('addChatMessage error');
@@ -115,9 +121,9 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
   users.findById(playerId)
     .then((playerObject) => {
       TournamentSchema.findById(tournid).then((result) => {
-        if (!result) {
-          console.log('Not found error');
-          reject('Couldnt find tournament!');
+        if (!result || !playerObject) {
+          console.log('Not found error', !!result, result, !!playerObject, playerObject);
+          reject('Couldnt find a required piece of data!');
           return;
         }
         const endResult = result;
@@ -141,9 +147,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
           playerPic: playerObject.picture,
         });
 
-        endResult.bracketSize = result.bracketSize ?
-          BracketHelper.getBracketSize(endResult.roster.length) :
-          2;
+        endResult.bracketSize = BracketHelper.getBracketSize(endResult.roster.length);
         endResult.save((savErr) => {
           if (savErr) {
             console.log('Save Error!');
@@ -157,7 +161,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
               console.log('Final Result!', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)]);
               console.log('Final Result!', !!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName);
               if (!finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA.playerName) {
-                console.log('Player A?');
+                console.log('Player A?', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA);
                 finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerA =
                 {
                   playerName: playerObject.name,
@@ -195,7 +199,7 @@ Tournaments.fillOutBracket = (tournid) => new Promise((resolve, reject) => {
     .then((tourn) => {
       console.log('Filling out...');
 
-      while (tourn.bracket.length <= tourn.bracketSize - 2) {
+      while (tourn.bracket.length < tourn.bracketSize) {
         tourn.bracket.push({
           playerA: null,
           playerB: null,
