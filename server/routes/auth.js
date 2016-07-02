@@ -22,7 +22,7 @@ const passportSocket = require('passport.socketio');
 const Users = require('../models/users.js');
 
 // Unique User ids
-const uuid = require('uuid-v4');
+const uuid = require('uuid');
 
 // Setup Passport
 passport.use(new FacebookStrategy({
