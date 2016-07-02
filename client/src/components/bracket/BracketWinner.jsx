@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../../public/main.css';
+import '../../../public/assets/styles/main.css';
 
 const BracketPlayer = (props) => (<div>
   <img
