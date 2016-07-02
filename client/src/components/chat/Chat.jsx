@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 import moment from 'moment';
 import Message from './ChatMessage.jsx';
 
@@ -16,35 +16,36 @@ const Chat = (props) => {
                      moment().format('ddd, h:mmA'));
   };
 
-  return (<section>
-    <div className="messages">
-      {props.chat.history.map((message, key) => {
-        const messageElement = (<Message
-          key={key}
-          sender={message.authorName}
-          timestamp={message.timeStamp}
-          message={message.message}
-        />);
+  return (<section className="teaser col-1-3">
+    <h4>Chat</h4>
+    <div className="list-padding">
+      <ul>
+        {props.chat.history.map((message, key) => {
+          const messageElement = (<Message
+            key={key}
+            sender={message.authorName}
+            timestamp={message.timeStamp}
+            message={message.message}
+          />);
 
-        if (messageElement) {
-          return messageElement;
-        }
+          if (messageElement) {
+            return messageElement;
+          }
 
-        return '';
-      })}
+          return '';
+        })}
+      </ul>
     </div>
-    <div className="controls">
-      <form onSubmit={onSubmitClick}>
-        <input
-          onChange={updateMessage}
-          type="text"
-          placeholder="Enter message..."
-          value={props.chat.message}
-          className="newMessage"
-        />
-        <button type="submit">OK</button>
-      </form>
-    </div>
+    <form className="roster-chat-input-container" onSubmit={onSubmitClick}>
+      <input
+        onChange={updateMessage}
+        type="text"
+        placeholder="Enter message..."
+        value={props.chat.message}
+        className="roster-chat-input"
+      />
+      <button className="btn-alt">Submit</button>
+    </form>
   </section>);
 };
 
@@ -55,4 +56,3 @@ Chat.propTypes = {
 };
 
 export default Chat;
-
