@@ -7,11 +7,17 @@ import RulesContainer from './RulesContainer.js';
 
 const Main = () => (
   <div>
-    <HeaderContainer />
-    <RosterContainer />
-    <BracketContainer />
-    <ChatContainer />
-    <RulesContainer />
+    <header class="primary-header container group">
+      <HeaderContainer />
+    </header>
+    <section class="main">
+      <RosterContainer /><!--
+      --><section class="col-2-3">
+        <BracketContainer />
+        <RulesContainer />
+      </section><!--
+      --><ChatContainer />
+    </section>
   </div>
 );
 

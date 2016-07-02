@@ -8,39 +8,43 @@ const Rules = (props) => {
       return props.updateRules(textValue);
     };
     return (
-      <footer>
-        <span>
-          <label>Tournament Type: <br></br>
+      <section className="teaser row col-rules-box">
+        <label>
+          <h4>Tournament Type:</h4><br />
             <button onClick={props.updateType.bind(null, 'single')}>Single Elimination</button><br></br>
             <button onClick={props.updateType.bind(null, 'double')}>Double Elimination</button><br></br>
             <button onClick={props.updateType.bind(null, 'roundRobbin')}>Round Robbin</button>
-          </label><br></br>
-          <label>
-            Rules: <br></br>
-            <input
-              onChange={onTextChange}
-              type="text"
-              placeholder="Type Your Tourn Rules Here"
-            >
-            </input>
-          </label>
-        </span>
-      </footer>
+        </label><!--
+        --><label>
+          <button>Start Tournament</button>
+        </label><!--
+        --><label>
+          <h4>Rules:</h4>
+          <input
+            onChange={onTextChange}
+            type="text"
+            placeholder="Type Your Tourn Rules Here"
+          >
+          </input>
+        </label>
+      </section>
     );
   }
 
   return (
-    <footer>
-      <span>
-        <label>Tournament Type: <br></br>
-          <span>{props.tournType}</span>
-        </label><br></br>
-        <label>
-          Rules: <br></br>
-          <span>{props.rules}</span>
-        </label>
-      </span>
-    </footer>
+    <section className="teaser row col-rules-box">
+      <label>
+        <h4>Tournament Type:</h4><br />
+        <span>{props.tournType}</span>
+      </label><!--
+      --><label>
+        <button>Start Tournament</button>
+      </label><!--
+      --><label>
+        <h4>Rules:</h4>
+        <span>{props.rules}</span>
+      </label>
+    </section>
   );
 };
 
@@ -53,3 +57,11 @@ Rules.propTypes = {
 };
 
 export default Rules;
+
+// <StartTournament
+//   invite={props.invite}
+//   tournOrganizer={props.tournOrganizer}
+//   startTourn={props.startTourn}
+//   tournId={props.tournId}
+//   userId={props.userId}
+// />

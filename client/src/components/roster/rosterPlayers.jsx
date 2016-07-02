@@ -2,8 +2,7 @@ import React, { PropTypes } from 'react';
 import '../../styles/header_styles.css';
 
 const RosterPlayers = (props) => (
-  <div>
-    <h2>Roster</h2>
+  <section className="list-padding">
     <ul className="roster-players">
       {props.roster.map((player, key) =>
         <PlayerListItem
@@ -12,7 +11,7 @@ const RosterPlayers = (props) => (
         />
       )}
     </ul>
-  </div>
+  </section>
 );
 
 RosterPlayers.propTypes = {
@@ -24,7 +23,8 @@ export default RosterPlayers;
 const PlayerListItem = (props) =>
 (
   <li>
-    {props.player.get('playerName')}
+    <img className="rounded-x" src={props.player.get('playerPic')} alt={props.player.get('playerName')}><!--
+    --><label>{props.player.get('playerName')}</label>
   </li>
 );
 

@@ -25,7 +25,7 @@ const Bracket = ({
   const points = generateBracketPoints(bracketSize, size.x, size.y);
 
   return (
-    <section className="bracket">
+    <section className="teaser row col-bracket-box">
       <TournName
         updateName={updateName}
         tournName={tournName}

@@ -21,60 +21,56 @@ const Header = ({
   acceptInvite,
 }) => mode === 'LoggedOut' ?
 (
-  <header className="topbar">
+  <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}
       changeMode={changeMode}
       submitNewTourn={submitNewTourn}
       tournInfo={tournInfo}
-    />
-    <UserTournaments
+    /><!--
+    --><UserTournaments
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    />
-    <h1>Tourn</h1>
-    <Alerts
+    /><!--
+    --><li><h2><strong>Tourn</strong></h2></li><!--
+    --><Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
-    />
-  <a href='/auth/facebook'><button>Login with Facebook</button></a>
-  </header>
+    /><!--
+  --><li><button className="btn-nav" src="auth/facebook/">Login With Facebook</button></li>
+  </nav>
 ) :
 (
-  <header className="topbar">
+  <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}
       changeMode={changeMode}
       submitNewTourn={submitNewTourn}
       tournInfo={tournInfo}
-    />
-    <UserTournaments
+    /><!--
+    --><UserTournaments
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    />
-    <h1>Tourn</h1>
-    <Alerts
+    /><!--
+    --><li><h2><strong>Tourn</strong></h2></li><!--
+    --><Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
-    />
-<<<<<<< 281fe7056c0f89f883f0a0f66731c9cf2084edcc
-    <Logout
+    /><!--
+    --><Logout
       changeMode={changeMode}
     />
-=======
-  <a href=''><button>Logout</button></a>
->>>>>>> Fixed chat method bug, Implemented selecting tournaments from tournament list
-  </header>
+  </nav>
 );
 
 Header.propTypes = {
