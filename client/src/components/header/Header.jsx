@@ -20,6 +20,11 @@ const Header = ({
   selectTourn,
   deleteAlert,
   acceptInvite,
+  invite,
+  tournOrganizer,
+  startTourn,
+  tournId,
+  userId,
 }) => (mode === 'LoggedOut' ?
   <nav className="nav primary-nav">
     <CreateTournament
@@ -44,7 +49,8 @@ const Header = ({
     />{/* <!--
     --> */}<li>
       <a href="auth/facebook/">
-        <img className="header-icons"
+        <img
+          className="header-icons"
           src="./assets/img/facebook-5-32.png"
           alt="Login with Facebook"
         >
@@ -67,11 +73,11 @@ const Header = ({
       selectTourn={selectTourn}
     />
     <StartTournament
-      invite={props.invite}
-      tournOrganizer={props.tournOrganizer}
-      startTourn={props.startTourn}
-      tournId={props.tournId}
-      userId={props.userId}
+      invite={invite}
+      tournOrganizer={tournOrganizer}
+      startTourn={startTourn}
+      tournId={tournId}
+      userId={userId}
     />
      {/* <!--
     --> */}<li><h2><strong>Tourn</strong></h2></li>{/* <!--
@@ -102,6 +108,11 @@ Header.propTypes = {
   selectTourn: PropTypes.func,
   deleteAlert: PropTypes.func,
   acceptInvite: PropTypes.func,
+  invite: PropTypes.bool,
+  tournOrganizer: PropTypes.string,
+  startTourn: PropTypes.func,
+  tournId: PropTypes.string,
+  userId: PropTypes.string,
 };
 
 export default Header;

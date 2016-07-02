@@ -5,7 +5,6 @@ import AddPlayer from './addPlayer.jsx';
 
 const Roster = (props) => (
 
-
   <section className="teaser col-1-3">
     <h4>Roster</h4>
     <RosterPlayers
@@ -22,12 +21,7 @@ const Roster = (props) => (
 
 Roster.propTypes = {
   roster: PropTypes.object,
-  invite: PropTypes.bool,
-  tournOrganizer: PropTypes.string,
   sendInvite: PropTypes.func,
-  startTourn: PropTypes.func,
-  tournId: PropTypes.string,
-  userId: PropTypes.string,
 };
 
 export default Roster;

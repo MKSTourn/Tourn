@@ -12,18 +12,13 @@ function mapStateToProps(state) {
     userTourns: state.getIn(['header', 'userData', 'userTourns']),
     showAlertList: state.getIn(['header', 'showAlertList']),
     userAlerts: state.getIn(['header', 'userData', 'alerts']),
-    invite: state.getIn(['tournament', 'start']),
+    invite: state.getIn(['tournament', 'invite']),
+    tournOrganizer: state.getIn(['tournament', 'info', 'tournOrganizer']),
     startTourn: state.getIn(['tournament', 'start']),
-    startTourn: state.getIn(['tournament', 'start']),
-    startTourn: state.getIn(['tournament', 'start']),
+    tournId: state.getIn(['tournament', 'info', 'tournId']),
+    userId: state.getIn(['header', 'userData', 'userId']),
   };
 }
-
-      invite={props.invite}
-      tournOrganizer={props.tournOrganizer}
-      startTourn={props.startTourn}
-      tournId={props.tournId}
-      userId={props.userId}
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(actionCreators, dispatch);
