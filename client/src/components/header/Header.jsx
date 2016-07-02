@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
 import UserTournaments from './userTournaments.jsx';
 import Alerts from './alerts.jsx';
 import Logout from './Logout.jsx';
 import CreateTournament from './createTournament.jsx';
+import '../../../public/main.css';
 
 const Header = ({
   changeMode,
@@ -21,56 +21,56 @@ const Header = ({
   acceptInvite,
 }) => mode === 'LoggedOut' ?
 (
-  <header className="topbar">
+  <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}
       changeMode={changeMode}
       submitNewTourn={submitNewTourn}
       tournInfo={tournInfo}
-    />
-    <UserTournaments
+    />{/* <!--
+    --> */}<UserTournaments
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    />
-    <h1>Tourn</h1>
-    <Alerts
+    />{/* <!--
+    --> */}<li><h2><strong>Tourn</strong></h2></li>{/* <!--
+    --> */}<Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
-    />
-    <a href="/auth/facebook" className="facebookLogin">Login </a>
-  </header>
+    />{/* <!--
+    --> */}<li><button className="btn-nav" src="auth/facebook/">Login With Facebook</button></li>
+  </nav>
 ) :
 (
-  <header className="topbar">
+  <nav className="nav primary-nav">
     <CreateTournament
       mode={mode}
       changeMode={changeMode}
       submitNewTourn={submitNewTourn}
       tournInfo={tournInfo}
-    />
-    <UserTournaments
+    />{/* <!--
+    --> */}<UserTournaments
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    />
-    <h1>Tourn</h1>
-    <Alerts
+    />{/* <!--
+    --> */}<li><h2><strong>Tourn</strong></h2></li>{/* <!--
+    --> */}<Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
-    />
-    <Logout
+    />{/* <!--
+    --> */}<Logout
       changeMode={changeMode}
     />
-  </header>
+  </nav>
 );
 
 Header.propTypes = {

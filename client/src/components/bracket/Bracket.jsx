@@ -1,7 +1,6 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 import { generateBracketPoints } from '../../utilities/generateBracketPoints.jsx';
-import '../../styles/bracket_styles.css';
 import TournName from './TournName.jsx';
 import BracketPlayer from './BracketPlayer.jsx';
 import BracketWinner from './BracketWinner.jsx';
@@ -26,7 +25,7 @@ const Bracket = ({
   console.log('Bracket: tournStatus', tournStatus);
   console.log('Bracket: tournWinner', tournWinner);
   return (
-    <section className="bracket">
+    <section className="teaser row col-bracket-box">
       <TournName
         updateName={updateName}
         tournName={tournName}

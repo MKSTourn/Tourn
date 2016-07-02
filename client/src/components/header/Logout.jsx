@@ -1,5 +1,6 @@
 import React, { PropTypes } from 'react';
 import Cookies from 'js-cookie';
+import '../../../public/main.css';
 
 const Logout = (props) => {
   const onLogoutClick = () => {
