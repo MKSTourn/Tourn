@@ -66,8 +66,8 @@ const Bracket = ({
                         transform="scale(0.1, 0.1)"
                         x={lineStart.x * 10}
                         y={lineStart.y * 10 - 55}
-                        width="20px"
-                        height="20px"
+                        width="200"
+                        height="200"
                       >
                       {
                         tournStatus === 'Concluded' &&
@@ -99,8 +99,8 @@ const Bracket = ({
                         transform="scale(0.1, 0.1)"
                         x={lineStart.x * 10}
                         y={lineStart.y * 10 + 5}
-                        width="20px"
-                        height="20px"
+                        width="200"
+                        height="200"
                       >
                       {
                         tournStatus === 'Concluded' &&
