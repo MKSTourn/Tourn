@@ -165,7 +165,7 @@ Tournaments.addRosterPlayer = (tournid, playerId) => new Promise((resolve, rejec
                   playerId: playerObject._id,
                 };
               } else {
-                console.log('Player B?', finalResult.bracket[Math.floor(finalResult.roster.length / 2)].playerB);
+                console.log('Player B?', finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB);
                 finalResult.bracket[Math.floor((finalResult.roster.length - 1) / 2)].playerB =
                 {
                   playerName: playerObject.name,
