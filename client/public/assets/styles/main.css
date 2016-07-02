@@ -67,6 +67,11 @@ body {
   height: 100%;
   width: 100%;
 }
+svg g polyline {
+  fill: white;
+  stroke: crimson;
+  stroke-width: 4px;
+}
 /*
   ========================================
   Grid
@@ -242,6 +247,87 @@ body {
   margin: auto;
   border-radius: 50%;
 }
+.bracket-image {
+  display:inline-block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 50px;
+  width: 50px;
+  margin: auto;
+  border-radius: 50%;
+}
+.header-icons {
+  display:inline-block;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  width: 30px;
+  margin: auto;
+}
+/*.icon-trophy {
+	font-family: 'Simple-Line-Icons';
+	speak: none;
+	font-style: normal;
+	font-weight: normal;
+	font-variant: normal;
+	text-transform: none;
+	line-height: 1;
+	-webkit-font-smoothing: antialiased;
+}
+.icon-trophy:before {
+	content: "\e006";
+}
+i.icon-custom {
+	color: #555;
+	width: 40px;
+	height: 40px;
+	font-size: 20px;
+	line-height: 40px;
+	margin-bottom: 5px;
+	text-align: center;
+	display: inline-block;
+	border: solid 1px #555;
+}
+i.icon-lg {
+	width: 60px;
+	height: 60px;
+	font-size: 31px;
+	line-height: 60px;
+	margin-bottom: 10px;
+}
+i.icon-lg.icon-line {
+	font-size: 28px;
+}
+i.icon-bg-u,
+i.icon-bg-red,
+i.icon-bg-sea,
+i.icon-bg-dark,
+i.icon-bg-darker,
+i.icon-bg-grey,
+i.icon-bg-blue,
+i.icon-bg-green,
+i.icon-bg-yellow,
+i.icon-bg-orange,
+i.icon-bg-purple,
+i.icon-bg-aqua,
+i.icon-bg-brown,
+i.icon-bg-dark-blue,
+i.icon-bg-light-grey,
+i.icon-bg-light-green {
+	color: #fff;
+	border-color: transparent;
+}
+i.icon-bg-dark {
+	background: #555;
+}
+i.icon-lg.icon-line {
+	font-size: 28px;
+}
+*/
 #confetti {
   position: absolute;
   left: 0;
