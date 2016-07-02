@@ -13,7 +13,7 @@ const BracketPlayer = (props) => {
           alt="A player"
           title={props.player.playerName}
           onClick={props.submitAdvance.bind(null, props.tournId, props.matchIndex, props.player)}
-        />
+        /></img>
       </div>);
   }
 
