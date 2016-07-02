@@ -71,12 +71,12 @@ const Bracket = ({
                       >
                       {
                         tournStatus === 'Concluded' &&
-                        player1.playerId === tournWinner.get('playerId') &&
+                        /*player1.playerId === tournWinner.get('playerId') &&
                         index === matches.length - 1 ?
                           <BracketWinner
                             player={player1}
                             won
-                          /> :
+                          /> :*/
                           // winner._id ?
                             // <BracketWinner player={player1} /> :
                           <BracketPlayer
@@ -104,13 +104,13 @@ const Bracket = ({
                       >
                       {
                         tournStatus === 'Concluded' &&
-                        player2.playerId === tournWinner.get('playerId') ?
+                        /*player2.playerId === tournWinner.get('playerId') ?
                           <BracketWinner
                             player={player2}
                             won
                           /> :
                           // winner._id ?
-                          //   <BracketWinner player={player2} /> :
+                          //   <BracketWinner player={player2} /> :*/
                           <BracketPlayer
                             player={player2}
                             submitAdvance={submitAdvance}
