@@ -4,6 +4,7 @@ import Alerts from './alerts.jsx';
 import Logout from './Logout.jsx';
 import CreateTournament from './createTournament.jsx';
 import '../../../public/assets/styles/main.css';
+import StartTournament from './startTournament.jsx';
 
 const Header = ({
   changeMode,
@@ -64,7 +65,15 @@ const Header = ({
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    />{/* <!--
+    />
+    <StartTournament
+      invite={props.invite}
+      tournOrganizer={props.tournOrganizer}
+      startTourn={props.startTourn}
+      tournId={props.tournId}
+      userId={props.userId}
+    />
+     {/* <!--
     --> */}<li><h2><strong>Tourn</strong></h2></li>{/* <!--
     --> */}<Alerts
       toggleAlerts={toggleAlerts}

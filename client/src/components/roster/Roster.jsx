@@ -2,7 +2,6 @@ import React, { PropTypes } from 'react';
 import '../../../public/assets/styles/main.css';
 import RosterPlayers from './rosterPlayers.jsx';
 import AddPlayer from './addPlayer.jsx';
-import StartTournament from './startTournament.jsx';
 
 const Roster = (props) => (
 
