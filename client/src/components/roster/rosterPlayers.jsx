@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 
 const RosterPlayers = (props) => (
   <section className="list-padding">
@@ -23,8 +23,13 @@ export default RosterPlayers;
 const PlayerListItem = (props) =>
 (
   <li>
-    <img className="rounded-x" src={props.player.get('playerPic')} alt={props.player.get('playerName')}><!--
-    --><label>{props.player.get('playerName')}</label>
+    <img
+      className="rounded-x"
+      src={props.player.get('playerPic')}
+      alt={props.player.get('playerName')}
+    >
+    </img>{/* <!--
+    --> */}<label>{props.player.get('playerName')}</label>
   </li>
 );
 

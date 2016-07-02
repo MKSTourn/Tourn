@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 import RosterPlayers from './rosterPlayers.jsx';
 import AddPlayer from './addPlayer.jsx';
 import StartTournament from './startTournament.jsx';

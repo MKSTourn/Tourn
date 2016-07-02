@@ -1,4 +1,5 @@
 import React, { PropTypes } from 'react';
+import '../../../public/main.css';
 
 const BracketPlayer = (props) => {
   if (props.userId === props.tournOrganizer &&

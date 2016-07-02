@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 
 const ChatMessage = (props) => (<li>
-  <img class="rounded-x" src="assets/img/testimonials/img1.jpg" alt={props.sender}></img>
+  <img className="rounded-x" src="assets/img/testimonials/img1.jpg" alt={props.sender}></img>
   <label> {props.message} </label>
 </li>);
 

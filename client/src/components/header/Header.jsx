@@ -1,9 +1,9 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
 import UserTournaments from './userTournaments.jsx';
 import Alerts from './alerts.jsx';
 import Logout from './Logout.jsx';
 import CreateTournament from './createTournament.jsx';
+import '../../../public/main.css';
 
 const Header = ({
   changeMode,
@@ -27,22 +27,22 @@ const Header = ({
       changeMode={changeMode}
       submitNewTourn={submitNewTourn}
       tournInfo={tournInfo}
-    /><!--
-    --><UserTournaments
+    />{/* <!--
+    --> */}<UserTournaments
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    /><!--
-    --><li><h2><strong>Tourn</strong></h2></li><!--
-    --><Alerts
+    />{/* <!--
+    --> */}<li><h2><strong>Tourn</strong></h2></li>{/* <!--
+    --> */}<Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
-    /><!--
-  --><li><button className="btn-nav" src="auth/facebook/">Login With Facebook</button></li>
+    />{/* <!--
+    --> */}<li><button className="btn-nav" src="auth/facebook/">Login With Facebook</button></li>
   </nav>
 ) :
 (
@@ -52,22 +52,22 @@ const Header = ({
       changeMode={changeMode}
       submitNewTourn={submitNewTourn}
       tournInfo={tournInfo}
-    /><!--
-    --><UserTournaments
+    />{/* <!--
+    --> */}<UserTournaments
       toggleTournSelect={toggleTournSelect}
       showTournList={showTournList}
       userTourns={userTourns}
       selectTourn={selectTourn}
-    /><!--
-    --><li><h2><strong>Tourn</strong></h2></li><!--
-    --><Alerts
+    />{/* <!--
+    --> */}<li><h2><strong>Tourn</strong></h2></li>{/* <!--
+    --> */}<Alerts
       toggleAlerts={toggleAlerts}
       showAlertList={showAlertList}
       userAlerts={userAlerts}
       deleteAlert={deleteAlert}
       acceptInvite={acceptInvite}
-    /><!--
-    --><Logout
+    />{/* <!--
+    --> */}<Logout
       changeMode={changeMode}
     />
   </nav>

@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 
 const AddPlayer = (props) => {
   let invitee = '';
@@ -12,8 +12,8 @@ const AddPlayer = (props) => {
 
   return (props.invite && !props.start ?
     <form className="roster-chat-input-container">
-      <input className="roster-chat-input" type="text" onChange={inviteeName}></input><!--
-      --><button className="btn-alt" onClick={sendPropInvite}>Add Player</button>
+      <input className="roster-chat-input" type="text" onChange={inviteeName}></input>{/* <!--
+      --> */}<button className="btn-alt" onClick={sendPropInvite}>Add Player</button>
     </form>
  :	null);
 };

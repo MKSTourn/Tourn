@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 import moment from 'moment';
 import Message from './ChatMessage.jsx';
 

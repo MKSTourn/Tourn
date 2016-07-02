@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import '../../styles/header_styles.css';
+import '../../../public/main.css';
 
 const Rules = (props) => {
   if (props.mode === 'Edit') {
@@ -14,11 +14,11 @@ const Rules = (props) => {
             <button onClick={props.updateType.bind(null, 'single')}>Single Elimination</button><br></br>
             <button onClick={props.updateType.bind(null, 'double')}>Double Elimination</button><br></br>
             <button onClick={props.updateType.bind(null, 'roundRobbin')}>Round Robbin</button>
-        </label><!--
-        --><label>
+        </label>{/* <!--
+        --> */}<label>
           <button>Start Tournament</button>
-        </label><!--
-        --><label>
+        </label>{/* <!--
+        --> */}<label>
           <h4>Rules:</h4>
           <input
             onChange={onTextChange}
@@ -36,11 +36,11 @@ const Rules = (props) => {
       <label>
         <h4>Tournament Type:</h4><br />
         <span>{props.tournType}</span>
-      </label><!--
-      --><label>
+      </label>{/* <!--
+      --> */}<label>
         <button>Start Tournament</button>
-      </label><!--
-      --><label>
+      </label>{/* <!--
+      --> */}<label>
         <h4>Rules:</h4>
         <span>{props.rules}</span>
       </label>

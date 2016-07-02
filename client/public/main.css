@@ -63,7 +63,10 @@ body {
   color: #888;
   font: 300 16px/22px "Lato", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
+#app {
+  height: 100%;
+  width: 100%;
+}
 /*
   ========================================
   Grid
