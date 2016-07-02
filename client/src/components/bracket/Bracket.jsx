@@ -25,7 +25,7 @@ const Bracket = ({
   console.log('Bracket: tournStatus', tournStatus);
   console.log('Bracket: tournWinner', tournWinner);
   return (
-    <section className="teaser row col-bracket-box">
+    <section id="bracketWidth" className="teaser row col-bracket-box">
       <TournName
         updateName={updateName}
         tournName={tournName}
