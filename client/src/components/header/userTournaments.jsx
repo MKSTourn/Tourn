@@ -26,7 +26,7 @@ const UserTournaments = (props) => (
         className="header-icons"
         src="./assets/img/trophy.png" alt="View Tournament List"
       ></img>
-  </li>
+    </li>
 );
 
 
