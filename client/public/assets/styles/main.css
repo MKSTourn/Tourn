@@ -67,6 +67,7 @@ body {
   height: 100%;
   width: 100%;
 }
+
 svg g polyline {
   fill: white;
   stroke: #fff;

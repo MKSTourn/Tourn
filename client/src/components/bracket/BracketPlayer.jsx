@@ -8,7 +8,7 @@ const BracketPlayer = (props) => {
     return (
       <div>
         <img
-          style={{ float: 'left', width: '2.5%', height: '2.5%' }}
+          className="bracket-image"
           src={props.player.playerPic}
           alt="A player"
           title={props.player.playerName}
