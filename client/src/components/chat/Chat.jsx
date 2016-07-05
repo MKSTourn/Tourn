@@ -16,8 +16,8 @@ const Chat = (props) => {
                      moment().format('ddd, h:mmA'));
   };
 
-  return (<section className="teaser col-1-3">
-    <h4>Chat</h4>
+  return (<aside className="teaser col-1-3" style={{order: 6}}>
+    <h4>CHAT</h4>
     <div className="list-padding">
       <ul>
         {props.chat.history.map((message, key) => {
@@ -27,6 +27,7 @@ const Chat = (props) => {
             sender={message.authorName}
             timestamp={message.timeStamp}
             message={message.message}
+            currentUser={props.userName}
           />);
 
           if (messageElement) {
@@ -47,7 +48,7 @@ const Chat = (props) => {
       />
       <button className="btn-alt">Submit</button>
     </form>
-  </section>);
+  </aside>);
 };
 
 Chat.propTypes = {

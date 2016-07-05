@@ -254,11 +254,40 @@ body {
 
 /*
   ========================================
-  Table/Bracket
+  Chat Messages
   ========================================
 */
 
+.testimonials-v4 .testimonials-v4-in {
+  background: #fff;
+  position: relative;
+  margin-bottom: 40px;
+  padding: 20px 20px 20px 55px;
+  box-shadow: 3px 3px 3px 0 rgba(0,0,0,0.1);
+}
 
+.testimonials-v4 .testimonials-v4-in:before {
+  color: #bbb;
+  font-size: 60px;
+  content: "\201C";
+  position: absolute;
+  margin: -25px 0 0 -40px;
+  font-family: Georgia, serif;
+}
+
+.testimonials-v4 .testimonials-v4-in:after {
+  width: 0;
+  height: 0;
+  left: 80px;
+  content: " ";
+  bottom: -30px;
+  position: absolute;
+  border-style: solid;
+  border-width: 30px 30px 0 0;
+  border-color: #fff transparent transparent transparent;
+  -webkit-filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.1));
+  filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.1));
+}
 
 /*
   ========================================

@@ -8,6 +8,7 @@ function mapStateToProps(state) {
   return {
     chat: state.getIn(['tournament', 'chat']).toJS(),
     tournId: state.getIn(['tournament', 'info', 'tournId']),
+    userName: state.getIn(['header', 'userData', 'userName']),
   };
 }
 

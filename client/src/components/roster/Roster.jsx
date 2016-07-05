@@ -5,8 +5,8 @@ import AddPlayer from './addPlayer.jsx';
 
 const Roster = (props) => (
 
-  <section className="teaser col-1-3">
-    <h4>Roster</h4>
+  <aside className="teaser col-1-3">
+    <h4>ROSTER</h4>
     <RosterPlayers
       roster={props.roster}
     />
@@ -16,7 +16,7 @@ const Roster = (props) => (
       sendInvite={props.sendInvite}
       tournId={props.tournId}
     />
-  </section>
+</aside>
 );
 
 Roster.propTypes = {

@@ -3,14 +3,14 @@ import '../../../public/assets/styles/main.css';
 
 const Alerts = (props) => (
   props.showAlertList ?
-    <span>
+    <li className="flexRight">
       <img
         className="header-icons"
         onClick={props.toggleAlerts}
         src="./assets/img/alerts.png" alt="Alerts List"
       >
       </img>
-      <ul className="alertDropdownList">
+      <ul className="dropdownList">
         {props.userAlerts.map((alert, key) =>
           <AlertListItem
             key={key}
@@ -20,16 +20,16 @@ const Alerts = (props) => (
           />
         )}
       </ul>
-    </span>
+    </li>
     :
-    <span>
+    <li className="flexRight">
       <img
         className="header-icons"
         onClick={props.toggleAlerts}
         src="./assets/img/alerts.png" alt="Alerts List"
       >
       </img>
-    </span>
+    </li>
 );
 
 Alerts.propTypes = {

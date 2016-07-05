@@ -3,13 +3,13 @@ import '../../../public/assets/styles/main.css';
 
 const UserTournaments = (props) => (
   props.showTournList ?
-    <span>
+    <li className="flexLeft">
       <img
         onClick={props.toggleTournSelect}
         className="header-icons"
-        src="./assets/img/trophy.png" alt="Submit New Tournament"
+        src="./assets/img/trophy.png" alt="Hide Tournament List"
       ></img>
-      <ul className="tournDropdownList">
+      <ul className="dropdownList">
         {props.userTourns.map((tournament, key) =>
           <TournListItem
             key={key}
@@ -18,15 +18,15 @@ const UserTournaments = (props) => (
           />
         )}
       </ul>
-    </span>
+    </li>
     :
-    <span>
+    <li className="flexLeft">
       <img
         onClick={props.toggleTournSelect}
         className="header-icons"
-        src="./assets/img/trophy.png" alt="Submit New Tournament"
+        src="./assets/img/trophy.png" alt="View Tournament List"
       ></img>
-    </span>
+  </li>
 );
 
 

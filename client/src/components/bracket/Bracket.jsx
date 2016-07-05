@@ -25,7 +25,7 @@ const Bracket = ({
   console.log('Bracket: tournStatus', tournStatus);
   console.log('Bracket: tournWinner', tournWinner);
   return (
-    <section id="bracketWidth" className="teaser row col-bracket-box">
+    <article id="bracketWidth" className="teaser row col-bracket-box" style={{order: 3}}>
       <TournName
         updateName={updateName}
         tournName={tournName}
@@ -70,17 +70,26 @@ const Bracket = ({
                         height="200"
                       >
                       {
-                        <BracketPlayer
-                          player={player1}
-                          submitAdvance={submitAdvance}
-                          matchIndex={index}
-                          tournId={tournId}
-                          userId={userId}
-                          tournOrganizer={tournOrganizer}
-                          start={start}
-                          matches={matches}
-                          matchIndex={index}
-                        />
+                        tournStatus === 'Concluded' &&
+                        player1.playerId === tournWinner.get('playerId') &&
+                        index === matches.length - 1 ?
+                          <BracketWinner
+                            player={player1}
+                            won
+                          /> :
+                          // winner._id ?
+                            // <BracketWinner player={player1} /> :
+                          <BracketPlayer
+                            player={player1}
+                            submitAdvance={submitAdvance}
+                            matchIndex={index}
+                            tournId={tournId}
+                            userId={userId}
+                            tournOrganizer={tournOrganizer}
+                            start={start}
+                            matches={matches}
+                            matchIndex={index}
+                          />
                       }
                       </foreignObject> : null
                   }
@@ -130,7 +139,7 @@ const Bracket = ({
         }
         </g>
       </svg>
-    </section>
+    </article>
   );
 };
 
