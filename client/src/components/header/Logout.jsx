@@ -8,11 +8,14 @@ const Logout = (props) => {
     props.changeMode('LoggedOut');
     console.log('cookies =', Cookies.get());
   };
-  return (<img
-    onClick={onLogoutClick}
-    className="header-icons"
-    src="./assets/img/logout.png" alt="Logout"
-  ></img>);
+  return (
+    <li className="flexRight">
+      <img
+        onClick={onLogoutClick}
+        className="header-icons"
+        src="./assets/img/logout.png" alt="Logout"
+      ></img>
+  </li>);
 };
 
 Logout.propTypes = {

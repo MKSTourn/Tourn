@@ -10,7 +10,7 @@ const Rules = (props) => {
     return (
       <section className="teaser row col-rules-box">
         <label>
-          <h4>Rules:</h4>
+          <h4>RULES:</h4>
           <input
             onChange={onTextChange}
             type="text"

@@ -25,7 +25,7 @@ const Bracket = ({
   console.log('Bracket: tournStatus', tournStatus);
   console.log('Bracket: tournWinner', tournWinner);
   return (
-    <section id="bracketWidth" className="teaser row col-bracket-box">
+    <article id="bracketWidth" className="teaser row col-bracket-box" style={{order: 3}}>
       <TournName
         updateName={updateName}
         tournName={tournName}
@@ -140,7 +140,7 @@ const Bracket = ({
         }
         </g>
       </svg>
-    </section>
+    </article>
   );
 };
 
