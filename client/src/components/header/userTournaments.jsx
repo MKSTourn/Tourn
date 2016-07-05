@@ -26,7 +26,7 @@ const UserTournaments = (props) => (
         className="header-icons"
         src="./assets/img/trophy.png" alt="View Tournament List"
       ></img>
-  </li>
+    </li>
 );
 
 
@@ -47,7 +47,6 @@ const TournListItem = (props) => {
     <li onClick={onTournClick}>
       <button>
         {props.tournament.get('tournName')}
-        &nbsp;>
       </button>
     </li>
   );

@@ -335,16 +335,11 @@ form {
   display: block;
   background: rgb(25, 41, 52);
   position: absolute;
-  top: 100%;
-  left: 0;
+  top: 60px;
   z-index: 1000;
-  display: none;
-  float: left;
-  min-width: 160px;
-  padding: 5px 0;
-  margin: 2px 0 0;
-  font-size: 14px;
+  max-width: 200px;
   text-align: left;
+  color: #fff;
   list-style: none;
   -webkit-background-clip: padding-box;
   background-clip: padding-box;
@@ -355,7 +350,7 @@ form {
   box-shadow: 0 0 3px rgba(232,160,0,.5);
 }
 .dropdownList li{
-  display: block;
+  display: inline-block;
   background: rgb(38, 58, 71);
   margin: 5px 0;
 }
