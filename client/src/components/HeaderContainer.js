@@ -7,6 +7,7 @@ import Header from './header/Header.jsx';
 function mapStateToProps(state) {
   return {
     mode: state.get('mode'),
+    tournBracket: state.getIn(['tournament', 'bracket']),
     tournInfo: state.getIn(['tournament', 'info']),
     showTournList: state.getIn(['header', 'showTournList']),
     userTourns: state.getIn(['header', 'userData', 'userTourns']),
@@ -27,4 +28,3 @@ function mapDispatchToProps(dispatch) {
 const HeaderContainer = connect(mapStateToProps, mapDispatchToProps)(Header);
 
 export default HeaderContainer;
-
