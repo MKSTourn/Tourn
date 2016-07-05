@@ -7,9 +7,9 @@ const UserTournaments = (props) => (
       <img
         onClick={props.toggleTournSelect}
         className="header-icons"
-        src="./assets/img/trophy.png" alt="Submit New Tournament"
+        src="./assets/img/trophy.png" alt="Hide Tournament List"
       ></img>
-      <ul className="tournDropdownList">
+      <ul className="dropdownList">
         {props.userTourns.map((tournament, key) =>
           <TournListItem
             key={key}
@@ -24,7 +24,7 @@ const UserTournaments = (props) => (
       <img
         onClick={props.toggleTournSelect}
         className="header-icons"
-        src="./assets/img/trophy.png" alt="Submit New Tournament"
+        src="./assets/img/trophy.png" alt="View Tournament List"
       ></img>
   </li>
 );

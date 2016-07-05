@@ -5,22 +5,22 @@ const ChatMessage = (props) => (
   props.currentUser === props.sender ?
   <li className="transparent">
     <span className="testimonials-v4">
-      <article className="testimonials-v4-in picLeft">
-        <p className=""> {props.message} <span className="testimonials-author">{props.timeStamp}</span></p>
+      <article className="testimonials-v4-in">
+        <p className="pLeft"> {props.message} <span className="testimonials-author">{props.timeStamp}</span></p>
       </article>
       <aside className="picRight">
-        <img className="rounded-x" src={props.img} alt={props.sender}></img>
+        <img className="rounded-x" src={props.img} alt={props.sender} align="right"></img>
       </aside>
     </span>
   </li>
   :
   <li className="transparent">
     <span className="testimonials-v4">
-      <article className="testimonials-v4-in picRight">
-        <p className=""> {props.message} <span className="testimonials-author">{props.timeStamp}</span></p>
+      <article className="testimonials-v4-in">
+        <p className="pRight"> {props.message} <span className="testimonials-author">{props.timeStamp}</span></p>
       </article>
       <aside className="picLeft">
-        <img className="rounded-x" src={props.img} alt={props.sender}></img>
+        <img className="rounded-x" src={props.img} alt={props.sender} align="left"></img>
       </aside>
     </span>
   </li>

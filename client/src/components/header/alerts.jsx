@@ -10,7 +10,7 @@ const Alerts = (props) => (
         src="./assets/img/alerts.png" alt="Alerts List"
       >
       </img>
-      <ul className="alertDropdownList">
+      <ul className="dropdownList">
         {props.userAlerts.map((alert, key) =>
           <AlertListItem
             key={key}
