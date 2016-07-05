@@ -13,10 +13,13 @@ const AddPlayer = (props) => {
 
   return (props.invite && !props.start ?
     <form className="roster-chat-input-container">
-      <input className="roster-chat-input" type="text" onChange={inviteeName}></input>{/* <!--
+      <input className="roster-chat-input" type="text" placeholder="Add Player/Team..." onChange={inviteeName}></input>{/* <!--
       --> */}<button className="btn-alt" onClick={sendPropInvite}>Submit</button>
     </form>
- :	null);
+ :	    <form className="roster-chat-input-container">
+       <input className="roster-chat-input" type="text" placeholder="Add Player/Team..." onChange={inviteeName}></input>{/* <!--
+       --> */}<button className="btn-alt" onClick={sendPropInvite}>Submit</button>
+     </form>);
 };
 
 AddPlayer.propTypes = {

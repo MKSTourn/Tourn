@@ -1,5 +1,4 @@
 const UsersSchema = require('../schemas/users.js');
-// const uuid = require('uuid');
 
 const mongoose = require('mongoose');
 const ObjectId = mongoose.Types.ObjectId;

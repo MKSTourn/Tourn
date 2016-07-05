@@ -258,6 +258,7 @@ module.exports.socket = function socketAttachment(io) {
           io.to(data.to).emit('update_chat', {
             authorId: socket.request.user._id,
             authorName: socket.request.user.name,
+            authorPic: socket.request.user.picture,
             message: data.entry.message,
             timeStamp: data.entry.timeStamp,
           });

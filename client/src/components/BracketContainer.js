@@ -7,7 +7,10 @@ import Bracket from './bracket/Bracket.jsx';
 function mapStateToProps(state) {
   console.log(state.getIn(['tournament', 'bracket']).toJS());
   return {
-    size: { x: window.innerWidth * 0.5, y: window.innerHeight * 0.5 },
+    size: {
+      x: 100,
+      y: 50,
+    },
     players: state.getIn(['tournament', 'roster']).toJS(),
     matches: state.getIn(['tournament', 'bracket', 'matches']).toJS(),
     tournId: state.getIn(['tournament', 'info', 'tournId']),

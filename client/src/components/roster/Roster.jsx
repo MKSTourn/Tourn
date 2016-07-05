@@ -2,13 +2,11 @@ import React, { PropTypes } from 'react';
 import '../../../public/assets/styles/main.css';
 import RosterPlayers from './rosterPlayers.jsx';
 import AddPlayer from './addPlayer.jsx';
-import StartTournament from './startTournament.jsx';
 
 const Roster = (props) => (
 
-
-  <section className="teaser col-1-3">
-    <h4>Roster</h4>
+  <aside className="teaser col-1-3">
+    <h4>ROSTER</h4>
     <RosterPlayers
       roster={props.roster}
     />
@@ -18,17 +16,12 @@ const Roster = (props) => (
       sendInvite={props.sendInvite}
       tournId={props.tournId}
     />
-  </section>
+</aside>
 );
 
 Roster.propTypes = {
   roster: PropTypes.object,
-  invite: PropTypes.bool,
-  tournOrganizer: PropTypes.string,
   sendInvite: PropTypes.func,
-  startTourn: PropTypes.func,
-  tournId: PropTypes.string,
-  userId: PropTypes.string,
 };
 
 export default Roster;

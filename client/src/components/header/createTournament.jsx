@@ -3,29 +3,30 @@ import '../../../public/assets/styles/main.css';
 
 const CreateTournament = (props) => {
   if (props.mode === 'Edit') {
-    return (<span>
+    return (<li className="flexLeft">
       <img
         onClick={props.changeMode.bind(null, 'LoggedIn')}
         className="header-icons"
         src="./assets/img/cancel.png" alt="Cancel New Tournament"
       >
       </img>
+      &nbsp;
       <img
         onClick={props.submitNewTourn.bind(null, props.tournInfo)}
         className="header-icons"
         src="./assets/img/check-mark-32.png" alt="Submit New Tournament"
       >
       </img>
-    </span>);
+    </li>);
   }
 
-  return (<span>
+  return (<li className="flexLeft">
     <img
       onClick={props.changeMode.bind(null, 'Edit')}
       className="header-icons"
       src="./assets/img/plus.png" alt="Create New Tournament"
     ></img>
-  </span>);
+</li>);
 };
 
 CreateTournament.propTypes = {
