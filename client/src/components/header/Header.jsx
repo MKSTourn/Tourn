@@ -8,7 +8,6 @@ import StartTournament from './startTournament.jsx';
 //TODO: if tournBracket.tournStatus === 'Concluded',
 //render canvas and tournBracket.tournWinner
 const Header = ({
-  tournBracket,
   changeMode,
   showTournList,
   userTourns,
