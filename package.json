@@ -41,7 +41,7 @@
     "mongoose": "^4.5.0",
     "morgan": "^1.7.0",
     "passport": "^0.3.2",
-    "passport-facebook": "^2.1.1",
+    "passport-facebook": "^2.1.2",
     "passport.socketio": "^3.6.1",
     "path": "^0.12.7",
     "react": "^15.1.0",
