@@ -13,11 +13,11 @@ const generateUserData = (userObject) => ({
 const generateTournamentData = (tournObject) => ({
   info: {
     tournId: tournObject._id,
-    tournOrganizer: tournObject.organizerid,
+    tournOrganizer: tournObject.organizerId,
     tournName: tournObject.name,
     tournType: tournObject.type,
     rules: tournObject.rules,
-    // isOrganizer: tournObject.organizerid.toString() === userObject._id.toString(),
+    // isOrganizer: tournObject.organizerId.toString() === userObject._id.toString(),
     // Change based on requesting user
   },
 
