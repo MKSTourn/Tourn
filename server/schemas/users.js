@@ -1,3 +1,10 @@
+//
+// Users Schema
+//
+// Mongoose schema for the Users collection.
+//
+
+
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 

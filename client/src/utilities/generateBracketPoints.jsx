@@ -39,8 +39,14 @@ function generateBracketPoints(playerCount, width, height) {
       const verticalSpacing = getMatchVerticalSpacing(currentRound, currentMatch, matchCount);
 
       result.push([
-        { x: horizontalSpacing * width + horizontalSpacing * width * 0.05, y: verticalSpacing * height },
-        { x: horizontalSpacing * width + horizontalOffset * width, y: verticalSpacing * height },
+        {
+          x: horizontalSpacing * width + horizontalSpacing * width * 0.05,
+          y: verticalSpacing * height,
+        },
+        {
+          x: horizontalSpacing * width + horizontalOffset * width,
+          y: verticalSpacing * height,
+        },
         true,
       ]);
     }
